@@ -1,0 +1,16 @@
+# kuku content and run artifacts, never commit
+data/
+cache/
+raw_outputs/
+.env
+.streamlit/secrets.toml
+
+# eval files derived from kuku content
+eval/gold.json
+eval/results.md
+eval/hand_*.csv
+eval/human_rank.csv
+
+__pycache__/
+*.pyc
+.pytest_cache/
