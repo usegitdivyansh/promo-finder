@@ -11,7 +11,7 @@ import threading
 import yaml
 import streamlit as st
 
-from src import llm, parse
+from src import llm, parse, check_rules
 from src.common import load, load_dir
 from src.report import fmt_cut
 from src.estimate import estimate
@@ -37,66 +37,85 @@ STEP_NAMES = {"step1": "Parse screenplays", "step2": "Summarise episodes", "step
               "baseline": "Score the last-30 s baseline", "step9": "Write report"}
 
 AUTHOR = "Divyansh Gupta"
+TITLE = f"Promo Finder: Kuku AI Generalist Assignment, by {AUTHOR}"
 
-st.set_page_config(page_title="Promo Finder", page_icon="✂️", layout="centered",
+st.set_page_config(page_title=TITLE, page_icon="✂️", layout="centered",
                    menu_items={"Get help": None, "Report a bug": None, "About": f"Promo Finder · Built by {AUTHOR}"})
 
-# palette from kukufm.com (sources in .streamlit/config.toml); the slate and phone are dark in both themes,
-# everything else inherits the theme's text colour
+# palette from kukufm.com (sources in .streamlit/config.toml). colours only: no kuku logo, wordmark or icons.
+# one accent (#E25506) for the rank badge, the timeline segments and the hook caption; everything else is neutral
 st.markdown("""
 <style>
 #MainMenu, footer, [data-testid="stToolbar"], [data-testid="stDecoration"], [data-testid="stStatusWidget"],
 [data-testid="stAppDeployButton"], .stDeployButton, .viewerBadge_container__1QSob {display:none !important}
 header[data-testid="stHeader"] {background:transparent}
-:root{--k-brand:#E25506;--k-red:#EC1C24;--k-gold:#FFBB10;--k-green:#01860A;--k-ink:#0A0A14}
-.hero{border-radius:14px;padding:18px 18px 14px;margin:0 0 6px;color:#fff;
-  background:linear-gradient(135deg,#0A0A14 0%,#1A1420 55%,#3A1A0E 100%)}
-.hero .ttl{font-size:28px;font-weight:700;line-height:1.15;margin:0 0 6px;color:#fff}
-.hero .ttl .acc{color:var(--k-brand)}
-.hero p{margin:0;opacity:.85;font-size:15px}
-.hero .by{margin-top:10px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;opacity:.7}
-.cr{display:grid;grid-template-columns:minmax(0,1fr) 188px;gap:14px;align-items:start}
-@media (max-width:640px){.cr{grid-template-columns:minmax(0,1fr)}.phone{margin:4px auto 0}}
-.slate{border-radius:10px;overflow:hidden;background:var(--k-ink);color:#fff;border:1px solid rgba(128,128,128,.35)}
-.clap{height:12px;background:repeating-linear-gradient(-45deg,#fff 0 12px,var(--k-ink) 12px 24px)}
-.slate-row{display:flex;flex-wrap:wrap;gap:0;border-top:1px solid rgba(255,255,255,.14)}
-.slate-row div{flex:1 1 auto;padding:6px 10px;border-right:1px solid rgba(255,255,255,.14);min-width:72px}
-.slate-row div:last-child{border-right:none}
-.slate-row small{display:block;font-size:10px;letter-spacing:.08em;text-transform:uppercase;opacity:.6}
-.slate-row b{font-size:15px;font-variant-numeric:tabular-nums}
-.slate-row .cut b{color:var(--k-brand);font-size:18px}
-.conf{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;border-radius:999px;padding:2px 9px}
-.conf.high{background:var(--k-green);color:#fff}.conf.medium{background:var(--k-gold);color:var(--k-ink)}.conf.low{background:var(--k-red);color:#fff}
-.beats{margin:10px 2px 6px;font-size:15px;line-height:1.5}
-.beats b{color:var(--k-brand)}
-.strip{border-radius:8px;padding:7px 12px;margin:6px 0;background:#15151f;color:#e9e9ee;position:relative;outline:1px solid rgba(128,128,128,.35);
-  border-top:6px dotted rgba(255,255,255,.35);border-bottom:6px dotted rgba(255,255,255,.35)}
-.strip-top{display:flex;justify-content:space-between;gap:8px;font-size:12px;flex-wrap:wrap}
-.strip-top .tc{font-family:ui-monospace,Menlo,Consolas,monospace;font-variant-numeric:tabular-nums}
-.role{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border-radius:4px;padding:1px 6px;background:rgba(255,255,255,.12)}
-.role.hook,.role.scene{background:var(--k-brand);color:#fff}.role.cliffhanger{background:var(--k-red);color:#fff}
-.bar{position:relative;height:6px;border-radius:3px;background:rgba(255,255,255,.16);margin-top:6px}
-.bar span{position:absolute;top:0;height:6px;border-radius:3px;background:var(--k-brand);min-width:3px}
-.scores{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 2px}
-.scores span{font-size:12px;border:1px solid rgba(128,128,128,.35);border-radius:999px;padding:1px 9px;font-variant-numeric:tabular-nums}
-.phone{width:188px;border-radius:26px;padding:9px;background:#1b1b22;box-shadow:0 6px 18px rgba(0,0,0,.25)}
-.screen{position:relative;aspect-ratio:9/16;border-radius:18px;overflow:hidden;background:linear-gradient(180deg,#191925,#0A0A14)}
-.notch{position:absolute;top:6px;left:50%;transform:translateX(-50%);width:54px;height:6px;border-radius:3px;background:#000;z-index:2}
-.pv-top{position:absolute;top:18px;left:10px;right:10px;display:flex;justify-content:space-between;font-size:10px;color:#fff;opacity:.8;z-index:2}
-.pv-caps{position:absolute;top:36px;bottom:104px;-webkit-mask-image:linear-gradient(#000 82%,transparent);mask-image:linear-gradient(#000 82%,transparent);left:8px;right:8px;overflow-y:auto;display:flex;flex-direction:column;gap:5px;scrollbar-width:none}
-.cap{font-size:11px;line-height:1.3;color:#fff;background:rgba(0,0,0,.45);border-radius:6px;padding:4px 6px}
+:root{--acc:#E25506;--red:#EC1C24;--gold:#FFBB10;--green:#3FCB5A;--ink:#0A0A14;--surf:#14141F;--surf2:#1D1D2A;
+  --line:rgba(255,255,255,.10);--mute:rgba(236,235,230,.62);--txt:#ECEBE6}
+.block-container{padding-top:2.2rem;padding-bottom:3rem}
+.hero{border-radius:16px;padding:24px 22px 20px;margin:0 0 14px;background:var(--surf);border:1px solid var(--line)}
+.hero .ttl{font-size:30px;font-weight:700;line-height:1.1;margin:0;color:var(--txt);letter-spacing:-.01em}
+.hero .ttl::after{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--acc);margin-left:6px;vertical-align:baseline}
+.hero .sub{margin:6px 0 12px;font-size:14px;color:var(--mute)}
+.hero p{margin:0;font-size:15px;line-height:1.55;color:var(--txt);opacity:.9}
+.hero .by{margin-top:14px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
+.sum{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:14px 0 18px}
+.sum div{background:var(--surf);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.sum b{display:block;font-size:22px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--txt)}
+.sum small{display:block;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);margin-top:2px}
+.sum .ok b{color:var(--green)}.sum .bad b{color:var(--red)}
+@media (max-width:640px){.sum{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.cr{display:grid;grid-template-columns:minmax(0,1fr) 176px;gap:20px;align-items:start;padding:4px 2px}
+@media (max-width:640px){.cr{grid-template-columns:minmax(0,1fr)}.phone{margin:6px auto 0}}
+.head{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.rank{display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:34px;padding:0 8px;border-radius:10px;
+  background:var(--acc);color:#fff;font-weight:700;font-size:15px;font-variant-numeric:tabular-nums}
+.tag{font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;border:1px solid var(--line);background:var(--surf2);
+  color:var(--txt);border-radius:999px;padding:3px 10px}
+.conf{font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;border-radius:999px;padding:3px 9px;border:1px solid currentColor}
+.conf.high{color:var(--green)}.conf.medium{color:var(--gold)}.conf.low{color:var(--red)}
+.tot{margin-left:auto;font-size:22px;font-weight:700;font-variant-numeric:tabular-nums}
+.tot small{font-size:11px;font-weight:500;color:var(--mute);margin-left:3px}
+.dur{margin:14px 0 4px}
+.dbar{position:relative;height:6px;border-radius:3px;background:var(--surf2);overflow:hidden}
+.dbar .win{position:absolute;top:0;bottom:0;left:33.33%;right:0;background:rgba(255,255,255,.07)}
+.dbar .fill{position:absolute;top:0;bottom:0;left:0;border-radius:3px;background:var(--txt);opacity:.85}
+.dur small{display:flex;justify-content:space-between;font-size:12px;color:var(--mute);margin-top:4px;font-variant-numeric:tabular-nums}
+.beat{margin:14px 0 0}
+.beat small{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);margin-bottom:2px}
+.beat.hook div{font-weight:700;font-size:16px;line-height:1.45}
+.beat.cliff div{font-style:italic;font-size:15px;line-height:1.5}
+.beat.why div{font-size:14px;line-height:1.55;opacity:.88}
+.tl{margin:16px 0 0;border-top:1px solid var(--line);padding-top:12px}
+.tl-row{display:grid;grid-template-columns:44px minmax(0,1fr) 42px;gap:8px;align-items:center;margin:4px 0}
+.tl-row .ep{font-size:12px;font-weight:600;color:var(--mute)}
+.tl-row .len{font-size:11px;color:var(--mute);text-align:right;font-variant-numeric:tabular-nums}
+.track{position:relative;height:6px;border-radius:3px;background:var(--surf2)}
+.track span{position:absolute;top:-1px;height:8px;border-radius:3px;background:var(--acc);min-width:4px}
+.tcs{margin:6px 0 0;font-size:12px;color:var(--mute);font-family:ui-monospace,Menlo,Consolas,monospace;font-variant-numeric:tabular-nums;line-height:1.6;overflow-wrap:anywhere}
+.scores{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0 2px}
+.chip{font-size:12px;border-radius:999px;padding:2px 10px;font-variant-numeric:tabular-nums;border:1px solid currentColor}
+.chip.hi{color:var(--green)}.chip.mid{color:var(--gold)}.chip.lo{color:var(--red)}.chip.na{color:var(--mute)}
+.phone{width:176px;border-radius:26px;padding:8px;background:#000;border:1px solid var(--line)}
+.screen{position:relative;aspect-ratio:9/16;border-radius:19px;overflow:hidden;background:var(--surf)}
+.notch{position:absolute;top:6px;left:50%;transform:translateX(-50%);width:50px;height:6px;border-radius:3px;background:#000;z-index:2}
+.pv-top{position:absolute;top:18px;left:10px;right:10px;display:flex;justify-content:space-between;font-size:10px;color:var(--mute);z-index:2}
+.pv-caps{position:absolute;top:36px;bottom:100px;left:8px;right:8px;overflow-y:auto;display:flex;flex-direction:column;gap:5px;scrollbar-width:none;
+  -webkit-mask-image:linear-gradient(#000 82%,transparent);mask-image:linear-gradient(#000 82%,transparent)}
+.cap{font-size:11px;line-height:1.3;color:var(--txt);background:var(--surf2);border-radius:7px;padding:4px 7px}
 .cap i{opacity:.75}
-.cap.hk{background:var(--k-brand)}.cap.cf{background:var(--k-red)}
-.cap .t{opacity:.7;font-size:9px;margin-right:4px;font-variant-numeric:tabular-nums}
-.pv-cf{position:absolute;bottom:42px;left:8px;right:8px}
+.cap.hk{background:var(--acc);color:#fff}
+.cap.cf{background:var(--txt);color:var(--ink);font-style:italic}
+.cap .t{opacity:.6;font-size:9px;margin-right:4px;font-variant-numeric:tabular-nums;font-style:normal}
+.pv-cf{position:absolute;bottom:40px;left:8px;right:8px}
 .pv-cf .cap{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-.pv-end{position:absolute;bottom:10px;left:10px;right:10px;text-align:center;font-size:11px;font-weight:700;color:var(--k-ink);
-  background:var(--k-gold);border-radius:999px;padding:5px}
+.pv-end{position:absolute;bottom:10px;left:10px;right:10px;text-align:center;font-size:11px;font-weight:600;color:var(--txt);
+  border:1px solid var(--line);border-radius:999px;padding:4px}
 .ln{font-size:13px;line-height:1.45;margin:1px 0}
 .ln .ts{opacity:.6;font-variant-numeric:tabular-nums;margin-right:6px}
 .ln .who{font-weight:600}
-.ln.key{background:rgba(226,85,6,.16);border-radius:4px;padding:0 4px}
-.foot{margin:28px 0 8px;padding-top:12px;border-top:1px solid rgba(128,128,128,.3);font-size:13px;opacity:.75;text-align:center}
+.ln.key{background:rgba(226,85,6,.18);border-radius:4px;padding:0 4px}
+.foot{margin:32px 0 8px;padding-top:14px;border-top:1px solid var(--line);font-size:13px;color:var(--mute);text-align:center;line-height:1.6}
+[data-testid="stVerticalBlockBorderWrapper"]{border-radius:16px}
 </style>
 """, unsafe_allow_html=True)
 
@@ -253,21 +272,44 @@ def esc(x):
     return html.escape(str(x))
 
 
-def strip_html(s, eps_by):
-    # one film-strip row per cut: episode, timecodes in/out, role, where the cut sits in the episode
-    e = eps_by[s["episode"]]
-    lines = e["lines"]
-    dur = e.get("duration_sec") or lines[-1]["end"] or 1
-    a = lines[s["a"]]["start"]
-    b = lines[s["b"]]["end"]
-    left = max(0.0, min(100.0, a / dur * 100))
-    width = max(0.8, min(100.0 - left, (b - a) / dur * 100))
-    roles = ""
-    for r in s["roles"]:
-        roles += f'<span class="role {esc(r)}">{esc(r)}</span> '
-    return (f'<div class="strip"><div class="strip-top"><span>EP {s["episode"]} &nbsp;{roles}</span>'
-            f'<span class="tc">TC IN {fmt_cut(a)} → OUT {fmt_cut(b)} · {b - a:.1f} s</span></div>'
-            f'<div class="bar" title="position in the episode"><span style="left:{left:.2f}%;width:{width:.2f}%"></span></div></div>')
+def timeline_html(p, eps_by):
+    # one slim bar per episode, every cut from that episode highlighted on it, timecodes listed below
+    order = []
+    segs = {}
+    for s in p["segments"]:
+        if s["episode"] not in segs:
+            order.append(s["episode"])
+            segs[s["episode"]] = []
+        segs[s["episode"]].append(s)
+    rows = ""
+    for ep in order:
+        lines = eps_by[ep]["lines"]
+        dur = eps_by[ep].get("duration_sec") or lines[-1]["end"] or 1
+        spans = ""
+        for s in segs[ep]:
+            a = lines[s["a"]]["start"]
+            b = lines[s["b"]]["end"]
+            left = max(0.0, min(100.0, a / dur * 100))
+            width = max(0.8, min(100.0 - left, (b - a) / dur * 100))
+            spans += f'<span style="left:{left:.2f}%;width:{width:.2f}%" title="{fmt_cut(a)} → {fmt_cut(b)}"></span>'
+        rows += (f'<div class="tl-row"><span class="ep">EP {ep}</span><div class="track">{spans}</div>'
+                 f'<span class="len">{int(dur // 60)}:{int(dur % 60):02d}</span></div>')
+    tcs = ""
+    for i, s in enumerate(p["segments"]):
+        lines = eps_by[s["episode"]]["lines"]
+        a = lines[s["a"]]["start"]
+        b = lines[s["b"]]["end"]
+        tcs += f'Cut {i+1} · EP {s["episode"]} · {fmt_cut(a)} → {fmt_cut(b)} · {b - a:.1f} s · {esc(", ".join(s["roles"]))}<br>'
+    return f'<div class="tl">{rows}<div class="tcs">{tcs}</div></div>'
+
+
+def chip(label, v, hi, mid):
+    cls = "lo"
+    if v >= hi:
+        cls = "hi"
+    elif v >= mid:
+        cls = "mid"
+    return f'<span class="chip {cls}">{label} {v}</span>'
 
 
 def phone_html(p, eps_by):
@@ -306,21 +348,25 @@ def phone_html(p, eps_by):
 def card_html(f, p, eps_by):
     sc = f["scores"]
     conf = str(f["confidence"]).lower()
-    slate = (f'<div class="slate"><div class="clap"></div><div class="slate-row">'
-             f'<div class="cut"><small>Cut</small><b>{f["rank"]:02d}</b></div>'
-             f'<div><small>Template</small><b>{esc(f["template"].replace("_", " "))}</b></div>'
-             f'<div><small>Runtime</small><b>{f["total_duration_sec"]:.1f} s</b></div>'
-             f'<div><small>Score</small><b>{sc["total"]}</b></div>'
-             f'<div><small>Confidence</small><span class="conf {esc(conf)}">{esc(conf)}</span></div></div></div>')
-    beats = (f'<div class="beats"><b>Hook</b> {esc(f["hook"])}<br><b>Cliffhanger</b> {esc(f["cliffhanger"])}<br>'
-             f'<b>Why it works</b> {esc(f["why_it_works"])}</div>')
-    strips = ""
-    for s in p["segments"]:
-        strips += strip_html(s, eps_by)
-    scores = (f'<div class="scores"><span>hook {sc["hook"]}</span><span>cliffhanger {sc["cliffhanger"]}</span>'
-              f'<span>clarity {sc["clarity"]}</span><span>coherence {sc["coherence"]}</span>'
-              f'<span>duration {sc["duration"]}</span><span>spoiler −{sc["spoiler_penalty"]}</span></div>')
-    return f'<div class="cr"><div>{slate}{beats}{strips}{scores}</div>{phone_html(p, eps_by)}</div>'
+    d = f["total_duration_sec"]
+    head = (f'<div class="head"><span class="rank">#{f["rank"]}</span>'
+            f'<span class="tag">{esc(f["template"].replace("_", " "))}</span>'
+            f'<span class="conf {esc(conf)}">{esc(conf)} confidence</span>'
+            f'<span class="tot">{sc["total"]}<small>/ 100</small></span></div>')
+    # bar runs 0-60 s; the shaded part is the 20-60 s target window
+    fill = max(2.0, min(100.0, d / 60 * 100))
+    dur = (f'<div class="dur"><div class="dbar"><div class="win"></div><div class="fill" style="width:{fill:.1f}%"></div></div>'
+           f'<small><span>{d:.1f} s</span><span>target 20–60 s</span></small></div>')
+    beats = (f'<div class="beat hook"><small>Hook</small><div>{esc(f["hook"])}</div></div>'
+             f'<div class="beat cliff"><small>Cliffhanger</small><div>{esc(f["cliffhanger"])}</div></div>'
+             f'<div class="beat why"><small>Why it works</small><div>{esc(f["why_it_works"])}</div></div>')
+    pen = "na"
+    if sc["spoiler_penalty"]:
+        pen = "lo"
+    scores = ('<div class="scores">' + chip("hook", sc["hook"], 8, 6) + chip("cliffhanger", sc["cliffhanger"], 8, 6)
+              + chip("clarity", sc["clarity"], 8, 6) + chip("coherence", sc["coherence"], 8, 6)
+              + chip("duration", sc["duration"], 8, 6) + f'<span class="chip {pen}">spoiler −{sc["spoiler_penalty"]}</span></div>')
+    return f'<div class="cr"><div>{head}{dur}{beats}{timeline_html(p, eps_by)}{scores}</div>{phone_html(p, eps_by)}</div>'
 
 
 def lines_html(s, eps_by):
@@ -350,6 +396,37 @@ def card(f, p, eps_by):
                 st.markdown(lines_html(s, eps_by), unsafe_allow_html=True)
 
 
+def rules_passed(out):
+    # from rule_check.json (written by src.check_rules); informational checks with ok = None don't count
+    p = os.path.join(out, "rule_check.json")
+    if not os.path.exists(p):
+        return None
+    res = load(p)
+    n = 0
+    ok = 0
+    for k, v in res.items():
+        if k == "all_ok" or not isinstance(v, dict) or v.get("ok") is None:
+            continue
+        n += 1
+        if v["ok"]:
+            ok += 1
+    return ok, n
+
+
+def summary_html(eps, promos, rules, cost):
+    rv = "n/a"
+    rc = ""
+    if rules:
+        rv = f"{rules[0]}/{rules[1]}"
+        rc = "bad"
+        if rules[0] == rules[1]:
+            rc = "ok"
+    return (f'<div class="sum"><div><b>{eps}</b><small>Episodes processed</small></div>'
+            f'<div><b>{promos}</b><small>Promos found</small></div>'
+            f'<div class="{rc}"><b>{rv}</b><small>Rules passed</small></div>'
+            f'<div><b>{cost}</b><small>Cost of this run</small></div></div>')
+
+
 def results(out, demo):
     finals = load(os.path.join(out, "09_final", "promos.json"))
     sel = load(os.path.join(out, "08_selected.json"))
@@ -363,13 +440,12 @@ def results(out, demo):
     calls, cached, cost = usage_cost(out)
     if demo:
         st.success("Demo: a made-up 5-episode show, with saved results from a real run. No key, no cost.")
-    c1, c2, c3 = st.columns(3)
-    c1.metric("Episodes", summ["run"].get("episodes", 0))
-    c2.metric("Promos", len(finals))
+    cost_txt = f"${cost:.3f}"
     if demo:
-        c3.metric("Cost of this view", "$0")
-    else:
-        c3.metric("Cost", f"${cost:.3f}")
+        cost_txt = "$0"
+    st.markdown(summary_html(summ["run"].get("episodes", 0), len(finals), rules_passed(out), cost_txt), unsafe_allow_html=True)
+    if demo:
+        st.caption("Demo results were rebuilt from saved model responses, so this view made no LLM calls and cost nothing.")
     if sel["note"]:
         st.warning(sel["note"])
     b = summ.get("baseline")
@@ -409,7 +485,8 @@ with st.sidebar:
     st.caption("Your key stays in this browser session. It is passed straight to the provider and cleared after the run.")
     st.caption(f"Promo Finder · Built by {AUTHOR}")
 
-st.markdown(f'''<div class="hero"><div class="ttl" role="heading" aria-level="1">Promo <span class="acc">Finder</span></div>
+st.markdown(f'''<div class="hero"><div class="ttl" role="heading" aria-level="1">Promo Finder</div>
+<div class="sub">Kuku AI Generalist Assignment, by {AUTHOR}</div>
 <p>Ranked promo cuts from timestamped episode screenplays: exact cut times, the hook, the cliffhanger and why it works. An editor still approves and cuts.</p>
 <div class="by">Built by {AUTHOR}</div></div>''', unsafe_allow_html=True)
 st.info("Upload your own screenplays. No Kuku data is included.")
@@ -479,6 +556,10 @@ if go:
     try:
         llm.setup(cfg, run_dir=out, cache_dir=st.session_state["cache"], api_key=api_key, use_env=False)
         pipeline.run(up["inp"], out, cfg, progress=prog)
+        try:
+            check_rules.run(out, cfg, [])
+        except Exception as ex:
+            st.warning(f"Rule check could not run: {str(ex)[:200]}")
         bar.progress(1.0, text=f"Done · spent ${llm.state.get('run_spent', 0.0):.3f}")
         status.update(label="Done", state="complete", expanded=False)
         st.session_state["view"] = {"out": out, "demo": False}
@@ -502,4 +583,5 @@ view = st.session_state.get("view")
 if view and os.path.exists(os.path.join(view["out"], "09_final", "promos.json")):
     results(view["out"], view["demo"])
 
-st.markdown(f'<div class="foot">Promo Finder · Built by {AUTHOR}</div>', unsafe_allow_html=True)
+st.markdown(f'<div class="foot">Promo Finder · Built by {AUTHOR}<br>An independent assignment project, not a Kuku product. Colours only, no Kuku logos.</div>',
+            unsafe_allow_html=True)

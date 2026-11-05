@@ -1,5 +1,7 @@
 # AI mistakes log
 
+By Divyansh Gupta.
+
 Every mistake noticed while building or running, from Claude Code (writing this repo) or from the pipeline LLM.
 
 - step: assemble (build time, Claude Code)

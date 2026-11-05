@@ -1,5 +1,7 @@
 # Failure gallery
 
+By Divyansh Gupta.
+
 Promos that passed every hard rule but still had something wrong a human reviewer would catch, and promos the rules let through until a rule was added. Show names, character names and script text are left out on purpose; the run folders under raw_outputs/ hold the details.
 
 ## 1. Cliffhanger summary uses a word the viewer never sees (Kuku pack, montage, final ep of the pack)

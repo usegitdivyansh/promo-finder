@@ -1,5 +1,7 @@
 # Model choice and data handling
 
+By Divyansh Gupta.
+
 ## Decision (Rishabh, 2026-11-05)
 
 - The assignment brief allows AI tools. It asks only for free tiers, and for any paid API to be described in the doc.

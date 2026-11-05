@@ -10,28 +10,19 @@ gatherUsageStats = false
 toolbarMode = "minimal"
 showErrorDetails = false
 
-# colours from kukufm.com (checked 2026-11-05): theme-color meta #E25506, CSS --color-background #F9FAFA,
-# --color-text-primary #3E434C, dark surface #0A0A14, logo red #EC1C24, badge gold #FFBB10, green #01860A; font Figtree
+# colours from kukufm.com (checked 2026-11-05): theme-color meta #E25506 (the one accent), dark surface #0A0A14,
+# logo red #EC1C24, badge gold #FFBB10, green #01860A (lifted to #3FCB5A for contrast on dark); font Figtree.
+# colours only: no kuku logo, wordmark or icons are used anywhere. dark theme only.
 [theme]
+base = "dark"
 font = "Figtree:https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap"
-baseRadius = "medium"
-
-[theme.light]
+baseRadius = "large"
 primaryColor = "#E25506"
-backgroundColor = "#F9FAFA"
-secondaryBackgroundColor = "#F0EEEA"
-textColor = "#3E434C"
+backgroundColor = "#0A0A14"
+secondaryBackgroundColor = "#14141F"
+textColor = "#ECEBE6"
+borderColor = "#26263A"
 redColor = "#EC1C24"
 orangeColor = "#E25506"
-yellowColor = "#B68511"
-greenColor = "#01860A"
-
-[theme.dark]
-primaryColor = "#FC5237"
-backgroundColor = "#0A0A14"
-secondaryBackgroundColor = "#191B1F"
-textColor = "#ECEBE6"
-redColor = "#EC1C24"
-orangeColor = "#FF641C"
 yellowColor = "#FFBB10"
-greenColor = "#41FF6A"
+greenColor = "#3FCB5A"

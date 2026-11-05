@@ -1,5 +1,7 @@
 # Doc facts (raw material for the 2-page doc)
 
+By Divyansh Gupta.
+
 Facts only, for writing the doc in your own words. No show names, plot or script text. "Kuku pack" = the 50-episode input pack; "synthetic show" = the made-up 5-episode test show in `tests/fixtures/synthetic_show`. Numbers are from the run folders, `usage.jsonl` files and `cache/_spend.jsonl` as of 2026-11-05.
 
 ## 1. Problem framing and why Problem 1

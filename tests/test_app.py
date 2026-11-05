@@ -20,7 +20,14 @@ def test_demo_mode_loads_without_key(monkeypatch):
     assert not at.exception
     cards = [m.value for m in at.markdown if 'class="cr"' in m.value]
     assert len(cards) >= 1
-    assert all('class="slate"' in c and 'class="phone"' in c and 'class="strip"' in c for c in cards)
+    for c in cards:
+        # rank badge, template tag, duration bar, bold hook, italic cliffhanger, colour-coded chips, timeline, phone
+        for part in ['class="rank"', 'class="tag"', 'class="dbar"', 'class="beat hook"', 'class="beat cliff"', 'class="chip ', 'class="track"', 'class="phone"']:
+            assert part in c
     assert any("Built by Divyansh Gupta" in m.value for m in at.markdown)
     assert len(at.get("download_button")) == 4
-    assert [m.value for m in at.metric if m.label == "Cost of this view"] == ["$0"]
+    strip = [m.value for m in at.markdown if 'class="sum"' in m.value]
+    assert len(strip) == 1
+    for label in ["Episodes processed", "Promos found", "Rules passed", "Cost of this run"]:
+        assert label in strip[0]
+    assert "6/6" in strip[0] and "<b>$0</b>" in strip[0]
