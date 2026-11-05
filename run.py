@@ -209,7 +209,7 @@ def main():
     inside_data = os.path.abspath(a.input).lower().startswith(os.path.join(ROOT, "data").lower())
     if a.confidential or inside_data:
         cfg["llm"]["confidential"] = True
-        print(f"confidential mode: every step uses {cfg['llm']['confidential_model']}, no free tier, no fallback")
+        print(f"confidential mode: every step uses {llm.real_name(cfg['llm']['confidential_model'], cfg)}, no free tier, no fallback")
     if a.judge_model:
         cfg["llm"]["judge_model"] = a.judge_model
     if a.num_promos:

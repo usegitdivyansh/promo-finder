@@ -122,14 +122,22 @@ def run_summary(out_dir, cfg, sel):
     return res
 
 
+def fmt_cut(sec):
+    # exact cut points for editors (the script has centiseconds); whole-second rounding could clip a line
+    c = int(round(sec * 100))
+    m = c // 6000
+    s = (c % 6000) / 100
+    return f"{m:02d}:{s:05.2f}"
+
+
 def seg_str(s):
-    return f"ep{s['episode']} {fmt_ts(s['start'])}-{fmt_ts(s['end'])}"
+    return f"ep{s['episode']} {fmt_cut(s['start'])}-{fmt_cut(s['end'])}"
 
 
 def final_promo(p):
     segs = []
     for s in p["segments"]:
-        segs.append({"episode": s["episode"], "start": fmt_ts(s["start"]), "end": fmt_ts(s["end"]),
+        segs.append({"episode": s["episode"], "start": fmt_cut(s["start"]), "end": fmt_cut(s["end"]),
                      "start_sec": s["start"], "end_sec": s["end"], "start_line_id": s["start_line_id"], "end_line_id": s["end_line_id"]})
     sc = p["scores"]
     return {"rank": p["rank"], "promo_id": p["final_id"], "template": p["template"], "source": p["source"], "segments": segs,

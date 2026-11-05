@@ -41,15 +41,24 @@ def setup(cfg, run_dir=None, cache_dir=None, mock_dir=None):
     load_env()
 
 
+def real_name(name, cfg=None):
+    # config can name a model once under llm.models (e.g. strong) and refer to that name everywhere
+    if cfg is None:
+        cfg = state["cfg"]
+    if not name:
+        return name
+    return cfg["llm"].get("models", {}).get(name, name)
+
+
 def model_for(kind="main", prompt_name=None):
     lc = state["cfg"]["llm"]
     if lc.get("confidential"):
-        return lc["confidential_model"]
+        return real_name(lc["confidential_model"])
     if prompt_name and lc.get("step_models", {}).get(prompt_name):
-        return lc["step_models"][prompt_name]
+        return real_name(lc["step_models"][prompt_name])
     if kind == "judge" and lc.get("judge_model"):
-        return lc["judge_model"]
-    return lc.get("provider_model") or ""
+        return real_name(lc["judge_model"])
+    return real_name(lc.get("provider_model") or "")
 
 
 def fill(prompt_name, variables):
@@ -103,6 +112,11 @@ def throttle(model):
     state["last_by_model"][model] = time.time()
 
 
+# the provider kept failing with server errors (503, overloaded, timeouts) after all retries
+class OutageError(LLMError):
+    pass
+
+
 class QuotaError(LLMError):
     pass
 
@@ -113,9 +127,24 @@ class BudgetError(SystemExit):
 
 
 def price(model):
-    p = state["cfg"]["llm"].get("prices", {}).get(model)
-    if not p:
-        return 0.0, 0.0
+    # $ per 1M tokens. config first; then litellm's price table; else a cautious default so a swapped-in
+    # paid model can never skip the budget check
+    lc = state["cfg"]["llm"]
+    p = lc.get("prices", {}).get(model)
+    if p:
+        return float(p[0]), float(p[1])
+    try:
+        import litellm
+        for k in [model, model.split("/", 1)[-1]]:
+            m = litellm.model_cost.get(k)
+            if m and m.get("input_cost_per_token") is not None:
+                return m["input_cost_per_token"] * 1e6, (m.get("output_cost_per_token") or 0) * 1e6
+    except Exception:
+        pass
+    p = lc.get("unknown_price", [5.0, 15.0])
+    if model not in state.setdefault("warned_price", set()):
+        state["warned_price"].add(model)
+        print(f"    no price for {model}; budgeting it at ${p[0]}/${p[1]} per 1M tokens (add it to llm.prices)")
     return float(p[0]), float(p[1])
 
 
@@ -203,7 +232,9 @@ def one_call(model, prompt):
             if "503" in msg or "500" in msg or "overloaded" in msg.lower():
                 retryable = True
             tries += 1
-            if not retryable or tries > 4:
+            if retryable and tries > 4:
+                raise OutageError(f"{name}: {msg[:300]}")
+            if not retryable:
                 raise LLMError(f"{name}: {msg[:300]}")
             wait = 5 * (2 ** (tries-1))
             print(f"    {name}, backing off {wait}s")
@@ -262,7 +293,7 @@ def call_fallback(fb, prompt, why):
 
 
 def raw_call(model, prompt):
-    fb = state["cfg"]["llm"].get("fallback_model")
+    fb = real_name(state["cfg"]["llm"].get("fallback_model"))
     if state["cfg"]["llm"].get("confidential"):
         fb = None
     if fb and model != fb and state.get("primary_down"):
@@ -277,6 +308,12 @@ def raw_call(model, prompt):
             print(f"    {model} daily quota used up, switching to {fb} for the rest of the run")
         else:
             print(f"    {model} still rate limited, using {fb} for this call")
+        return call_fallback(fb, prompt, str(ex))
+    except OutageError as ex:
+        # a busy free model should not cost an episode; confidential runs have no fallback and stop here
+        if not fb or model == fb:
+            raise
+        print(f"    {model} unavailable after retries, using {fb} for this call")
         return call_fallback(fb, prompt, str(ex))
 
 

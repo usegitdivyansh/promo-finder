@@ -11,7 +11,7 @@ pip install -r requirements.txt
 cp .env.example .env        # put one API key in .env
 ```
 
-Set the model in `config.yaml` → `llm.provider_model`, as a [LiteLLM](https://docs.litellm.ai/docs/providers) model string (`gemini/...`, `groq/...`, `openai/...`, `anthropic/...`). **Swapping models is that one line** (or `--model` on the command line). `llm.judge_model` can name a different model for the judges.
+Models are named once in `config.yaml` → `llm.models`, as [LiteLLM](https://docs.litellm.ai/docs/providers) model strings (`gemini/...`, `openrouter/...`, `openai/...`, `anthropic/...`): `fast` (free tier, Step 2 summaries on non-confidential input) and `strong` (paid: every other step, the fallback, and every step of a confidential run). Every other setting refers to these slot names. **Swapping a model is that one line**, e.g. `strong: "openai/gpt-4.1-mini"` (or `--model <name>` on the command line for every step). A model with no entry in `llm.prices` is priced from LiteLLM's table, or budgeted at `llm.unknown_price` if unknown, so a swap can never skip the `budget_usd` cap.
 
 ## Run
 

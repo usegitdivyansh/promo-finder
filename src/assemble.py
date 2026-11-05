@@ -196,9 +196,8 @@ def assemble_one(cand, shot_by, eps_by, cov, twists, cfg):
         if best is not None:
             hk = best["key_idx"]
             hook_shot = best["shot_id"]
-        elif lines[hk]["start"] - lines[first["a"]]["start"] > pc["hook_window_sec"]:
-            hk = first["a"]
-            flags.append("hook_unverified")
+        # with no hook shot inside, the scene shot's own key line is the hook; the move below
+        # brings it into the window like any other template (it used to keep the start unverified)
     if lines[hk]["start"] - lines[first["a"]]["start"] > pc["hook_window_sec"]:
         first["a"] = hk
         flags.append("hook_moved")

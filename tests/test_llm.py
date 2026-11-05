@@ -58,9 +58,9 @@ def test_daily_quota_switches_to_fallback_and_sticks(tmp_path, monkeypatch):
     vs = dict(VARS)
     vs["idea"] = "y"
     llm.call_llm("match", vs, MatchOut)
-    fb = cfg["llm"]["fallback_model"]
+    fb = llm.real_name(cfg["llm"]["fallback_model"], cfg)
     # second call goes straight to the fallback
-    assert calls == [cfg["llm"]["provider_model"], fb, fb]
+    assert calls == [llm.real_name(cfg["llm"]["provider_model"], cfg), fb, fb]
     assert llm.spent() > 0
 
 
@@ -72,7 +72,7 @@ def test_per_minute_limit_falls_back_for_one_call(tmp_path, monkeypatch):
     cfg, calls = setup(tmp_path, monkeypatch, beh)
     llm.call_llm("match", VARS, MatchOut)
     assert llm.state.get("primary_down") is False
-    assert calls[-1] == cfg["llm"]["fallback_model"]
+    assert calls[-1] == llm.real_name(cfg["llm"]["fallback_model"], cfg)
 
 
 def test_budget_stops_run(tmp_path, monkeypatch):
@@ -112,8 +112,8 @@ def test_step_models_and_confidential(tmp_path, monkeypatch):
     assert llm.model_for("main", "match") == "openrouter/x/y"
     assert llm.model_for("main", "episode") == "gemini/free"
     llm.state["cfg"]["llm"]["confidential"] = True
-    assert llm.model_for("main", "episode") == llm.state["cfg"]["llm"]["confidential_model"]
-    assert llm.model_for("judge", "judge_full") == llm.state["cfg"]["llm"]["confidential_model"]
+    assert llm.model_for("main", "episode") == llm.real_name(llm.state["cfg"]["llm"]["confidential_model"])
+    assert llm.model_for("judge", "judge_full") == llm.real_name(llm.state["cfg"]["llm"]["confidential_model"])
 
 
 def test_confidential_never_falls_back_to_free(tmp_path, monkeypatch):
@@ -126,3 +126,44 @@ def test_confidential_never_falls_back_to_free(tmp_path, monkeypatch):
         llm.call_llm("match", VARS, MatchOut)
     for c in calls:
         assert not c.startswith("gemini/")
+
+
+class ServiceUnavailableError(Exception):
+    pass
+
+
+def test_outage_falls_back_for_one_call(tmp_path, monkeypatch):
+    def beh(model):
+        if model.startswith("gemini/"):
+            raise ServiceUnavailableError("503 This model is currently experiencing high demand")
+        return fake_resp(GOOD)
+    cfg, calls = setup(tmp_path, monkeypatch, beh)
+    llm.call_llm("match", VARS, MatchOut)
+    assert calls[-1] == llm.real_name(cfg["llm"]["fallback_model"], cfg)
+    assert not llm.state.get("primary_down")
+
+
+def test_outage_in_confidential_mode_does_not_fall_back(tmp_path, monkeypatch):
+    def beh(model):
+        raise ServiceUnavailableError("503 overloaded")
+    cfg, calls = setup(tmp_path, monkeypatch, beh)
+    llm.state["cfg"]["llm"]["confidential"] = True
+    with pytest.raises(llm.OutageError):
+        llm.call_llm("match", VARS, MatchOut)
+    for m in calls:
+        assert m == llm.real_name(cfg["llm"]["confidential_model"], cfg)
+
+
+def test_model_slots_and_unknown_price(tmp_path, monkeypatch):
+    cfg, calls = setup(tmp_path, monkeypatch, lambda m: fake_resp(GOOD))
+    lc = llm.state["cfg"]["llm"]
+    lc["models"] = {"strong": "acme/brand-new-model"}
+    lc["step_models"] = {"match": "strong"}
+    lc["confidential"] = False
+    assert llm.model_for("main", "match") == "acme/brand-new-model"
+    lc["confidential"] = True
+    lc["confidential_model"] = "strong"
+    assert llm.model_for("main", "episode") == "acme/brand-new-model"
+    # a model with no configured or known price is still budgeted, never treated as free
+    pi, po = llm.price("acme/brand-new-model")
+    assert pi > 0 and po > 0

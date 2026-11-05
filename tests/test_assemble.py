@@ -190,7 +190,7 @@ def test_mock_pipeline_end_to_end(tmp_path):
     for s in top["segments"]:
         eps.append(s["episode"])
     assert eps == [1, 3, 3]
-    assert top["segments"][0]["start"] == "00:04"
+    assert top["segments"][0]["start"] == "00:04.00"
     assert 35 <= top["total_duration_sec"] <= 45
     drops = []
     for f in os.listdir(os.path.join(out, "logs")):
@@ -299,3 +299,25 @@ def test_ending_scene_starts_at_hook_inside_scene():
     assert ls[s["key_idx"]]["start"] - ls[s["start_idx"]]["start"] <= CFG["promo"]["hook_window_sec"]
     assert ls[s["start_idx"]]["scene_id"] == 2
     assert CFG["ending_scene"]["min_sec"] <= s["duration"] <= CFG["ending_scene"]["max_sec"]
+
+
+def test_cut_times_are_exact():
+    from src.report import fmt_cut
+    assert fmt_cut(72.8) == "01:12.80"
+    assert fmt_cut(59.999) == "01:00.00"
+    assert fmt_cut(13.5) == "00:13.50"
+
+
+def test_single_scene_without_hook_shot_moves_start_to_key_line():
+    e1, e2, eps_by = setup_world()
+    sc = shot(e1, "E1_S1", 0, 10, 15, "escalation", inten=9)
+    shot_by = {"E1_S1": sc}
+    cand = {"cand_id": "C1", "template": "single_scene", "source": "script", "script_id": "C1", "idea": "",
+            "beats": [{"beat": "scene", "shot_id": "E1_S1", "event_id": None, "need": ""}]}
+    p, why, det = assemble.assemble_one(cand, shot_by, eps_by, cov_of([sc]), [], CFG)
+    ls = e1["lines"]
+    if p is not None:
+        s0 = p["segments"][0]
+        assert ls[s0["hook_key"]]["start"] - s0["start"] <= CFG["promo"]["hook_window_sec"]
+        assert s0["hook_key"] == 10
+    assert "hook_unverified" not in (p or {"flags": []})["flags"]

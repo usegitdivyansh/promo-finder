@@ -1,26 +1,31 @@
 llm:
-  # swap models here only. litellm names: provider/model
-  provider_model: "gemini/gemini-3.5-flash-lite"       # default for any step not listed in step_models (free tier)
+  # swap models here only: each model is named once below; everything else refers to "fast" or "strong".
+  # litellm names: provider/model. A full litellm name also works anywhere a slot name is used.
+  models:
+    fast: "gemini/gemini-3.5-flash-lite"               # free tier; step 2 summaries on non-confidential input
+    strong: "openrouter/deepseek/deepseek-v4.1-flash"  # paid; everything else, the fallback, and all confidential runs
+  provider_model: "fast"                               # default for any step not listed in step_models
   step_models:                                         # per prompt; empty = provider_model
-    episode: "gemini/gemini-3.5-flash-lite"            # step 2 summaries: flash-lite quality was fine here
-    bible: "openrouter/deepseek/deepseek-v4.1-flash"
-    bible_merge: "openrouter/deepseek/deepseek-v4.1-flash"
-    shots: "openrouter/deepseek/deepseek-v4.1-flash"
-    scripts: "openrouter/deepseek/deepseek-v4.1-flash"
-    match: "openrouter/deepseek/deepseek-v4.1-flash"
-    judge_full: "openrouter/deepseek/deepseek-v4.1-flash"
-    judge_fresh: "openrouter/deepseek/deepseek-v4.1-flash"
+    episode: "fast"
+    bible: "strong"
+    bible_merge: "strong"
+    shots: "strong"
+    scripts: "strong"
+    match: "strong"
+    judge_full: "strong"
+    judge_fresh: "strong"
   judge_model: ""                                      # used for judges only when step_models has no entry
-  fallback_model: "openrouter/deepseek/deepseek-v4.1-flash"   # when a free model hits its daily quota or keeps returning 429
+  fallback_model: "strong"   # when a free model hits its daily quota or keeps returning 429
   # confidential mode: every step uses this paid model, no free-tier model and no fallback.
   # on automatically for any input under data/ (kuku's pack); also --confidential
-  confidential_model: "openrouter/deepseek/deepseek-v4.1-flash"
+  confidential_model: "strong"
   confidential: false
   prices:                                              # usd per 1m tokens [input, output], checked on openrouter.ai/api/v1/models 2026-11-05
     "gemini/gemini-3.5-flash-lite": [0, 0]             # free tier
     "gemini/gemini-3.6-flash": [0, 0]                  # free tier (20 requests/day)
     "openrouter/deepseek/deepseek-v4.1-flash": [0.045, 0.50]
   budget_usd: 2.0                                      # hard stop for paid spend, all runs (ledger: cache/_spend.jsonl)
+  unknown_price: [5.0, 15.0]                           # $ per 1M in/out for a model in neither llm.prices nor litellm's table
   temperature: 0
   reasoning_effort: "low"                              # keep thinking tokens small; dropped for models that don't support it
   max_retries: 3                                       # retries on invalid json / failed code checks

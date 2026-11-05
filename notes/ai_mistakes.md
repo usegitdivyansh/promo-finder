@@ -161,3 +161,12 @@ Every mistake noticed while building or running, from Claude Code (writing this 
   what: single-scene promos that end on each episode's cliffhanger and start where a strong line lands within 3 s (20 to 45 s, no cross-episode hook) fixed what v4 broke. Coherence 9.1 and clarity 6.3 for the new promos, against 4.4 to 5.6 clarity for v4's cross-episode pairs. v5 (v3 pool plus 23 ending scenes, judged together) beats v3 at every count (top 5 82.2 vs 79.2, top 15 74.4 vs 72.4) but still trails the last-30-s baseline (79.5). Only 23 of 50 episodes had a strong line inside the closing scene that fits 20 to 45 s
   caught by: the v3 / v5 / baseline comparison
   fix: v5 is the final output. Caveat: the judges score batches relatively, so v3's promos re-judged inside the v5 pool fell from their v3 scores; cross-run totals compare pools, not individual promos
+
+- step: independent review before submission (Claude Code)
+  what: four real failures found by recomputing everything from the parsed screenplay and running the checks fresh.
+  (1) single_scene promos with no hook shot inside kept the scene start and were flagged "hook_unverified": in the final output P01's hook line landed 20.6 s in, breaking the 3 s rule. check_rules missed it because assembly had set hook_key to the start line.
+  (2) final files showed whole-second times rounded to nearest (01:12.80 shown as 01:13), so a cut at the shown time would clip a line.
+  (3) a 503 from the free model after all retries dropped an episode (ep 3 of the synthetic show) instead of using the paid fallback.
+  (4) a swapped-in model with no price entry was treated as free, so the budget check never fired; and the DeepSeek name was repeated in 9 config lines, so a swap was not one line
+  caught by: an independent verifier script, the no-cache synthetic run, and reading config.yaml for the swap line
+  fix: (1) the scene shot's key line is the hook and the start moves to it, like other templates; (2) outputs show exact MM:SS.ss cut times; (3) OutageError falls back for that call only, never in confidential mode; (4) llm.models names each model once (fast, strong), unknown models are priced from litellm's table or a cautious default. Tests added for each. The final output was rebuilt from Step 6

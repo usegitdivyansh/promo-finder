@@ -69,9 +69,9 @@ with open(os.path.join(ROOT, "config.yaml"), encoding="utf-8") as f:
     base_cfg = yaml.safe_load(f)
 
 st.sidebar.header("Model")
-model = st.sidebar.text_input("Model (litellm name)", value=secret("MODEL") or base_cfg["llm"]["provider_model"],
+model = st.sidebar.text_input("Model (litellm name)", value=secret("MODEL") or llm.real_name(base_cfg["llm"]["provider_model"], base_cfg),
                               help="e.g. gemini/<model> or groq/<model>. Any litellm model string works.")
-judge_model = st.sidebar.text_input("Judge model (optional)", value=secret("JUDGE_MODEL") or base_cfg["llm"]["judge_model"])
+judge_model = st.sidebar.text_input("Judge model (optional)", value=secret("JUDGE_MODEL") or llm.real_name(base_cfg["llm"]["judge_model"], base_cfg))
 api_key = st.sidebar.text_input("API key", value="", type="password", help="Left empty, the key from Streamlit secrets is used.")
 rpm = st.sidebar.number_input("Requests per minute", min_value=1, max_value=1000, value=int(base_cfg["llm"]["rpm_limit"]))
 num = st.sidebar.slider("Number of promos", 3, 30, int(base_cfg["promo"]["num_promos_max"]))
