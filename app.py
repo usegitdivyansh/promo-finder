@@ -95,7 +95,9 @@ if go:
         st.error("Set a model name in the sidebar.")
         st.stop()
     cfg = copy.deepcopy(base_cfg)
+    # the sidebar model is used for every step
     cfg["llm"]["provider_model"] = model
+    cfg["llm"]["step_models"] = {}
     cfg["llm"]["judge_model"] = judge_model
     cfg["llm"]["rpm_limit"] = rpm
     cfg["promo"]["num_promos_max"] = num

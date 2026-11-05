@@ -35,7 +35,7 @@ def judge(kind, promos, eps_by, bible, cfg, mock_key, failed):
     arr = list(promos)
     random.Random(cfg["judge"]["seed"]).shuffle(arr)
     n = cfg["judge"]["batch_size"]
-    model = llm.model_for("judge")
+    model = llm.model_for("judge", kind)
     if not model:
         model = None
     schema = FullOut

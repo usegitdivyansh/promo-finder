@@ -184,7 +184,8 @@ def main():
     ap.add_argument("--only", choices=STEPS, help="run just this step")
     ap.add_argument("--to", choices=STEPS, help="stop after this step")
     ap.add_argument("--episodes", help="only these episodes, e.g. 1-3 or 1,4,7")
-    ap.add_argument("--model", help="override llm.provider_model")
+    ap.add_argument("--model", help="use this model for every step (clears step_models and judge_model)")
+    ap.add_argument("--confidential", action="store_true", help="paid confidential_model for every step, no free tier, no fallback (automatic for inputs under data/)")
     ap.add_argument("--judge-model", help="override llm.judge_model")
     ap.add_argument("--num-promos", type=int, help="override promo.num_promos_max")
     ap.add_argument("--mock", action="store_true", help="offline: read llm responses from mock files")
@@ -198,6 +199,12 @@ def main():
     cfg = load_cfg(a.config)
     if a.model:
         cfg["llm"]["provider_model"] = a.model
+        cfg["llm"]["step_models"] = {}
+        cfg["llm"]["judge_model"] = ""
+    inside_data = os.path.abspath(a.input).lower().startswith(os.path.join(ROOT, "data").lower())
+    if a.confidential or inside_data:
+        cfg["llm"]["confidential"] = True
+        print(f"confidential mode: every step uses {cfg['llm']['confidential_model']}, no free tier, no fallback")
     if a.judge_model:
         cfg["llm"]["judge_model"] = a.judge_model
     if a.num_promos:

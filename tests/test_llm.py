@@ -31,6 +31,7 @@ def setup(tmp_path, monkeypatch, behaviour):
     cfg = copy.deepcopy(CFG)
     cfg["llm"]["rpm_limit"] = 0
     cfg["llm"]["rate_retries"] = 1
+    cfg["llm"]["step_models"] = {}
     llm.setup(cfg, run_dir=str(tmp_path / "run"), cache_dir=str(tmp_path / "cache"))
     llm.state["primary_down"] = False
     calls = []
@@ -103,3 +104,25 @@ def test_run_stops_when_both_providers_down(tmp_path, monkeypatch):
     cfg, calls = setup(tmp_path, monkeypatch, beh)
     with pytest.raises(llm.ProvidersDown):
         llm.call_llm("match", VARS, MatchOut)
+
+
+def test_step_models_and_confidential(tmp_path, monkeypatch):
+    cfg, calls = setup(tmp_path, monkeypatch, lambda m: fake_resp(GOOD))
+    llm.state["cfg"]["llm"]["step_models"] = {"match": "openrouter/x/y", "episode": "gemini/free"}
+    assert llm.model_for("main", "match") == "openrouter/x/y"
+    assert llm.model_for("main", "episode") == "gemini/free"
+    llm.state["cfg"]["llm"]["confidential"] = True
+    assert llm.model_for("main", "episode") == llm.state["cfg"]["llm"]["confidential_model"]
+    assert llm.model_for("judge", "judge_full") == llm.state["cfg"]["llm"]["confidential_model"]
+
+
+def test_confidential_never_falls_back_to_free(tmp_path, monkeypatch):
+    def beh(model):
+        raise RateLimitError("429 RESOURCE_EXHAUSTED per day")
+    cfg, calls = setup(tmp_path, monkeypatch, beh)
+    llm.state["cfg"]["llm"]["confidential"] = True
+    llm.state["cfg"]["llm"]["fallback_model"] = "gemini/free"
+    with pytest.raises(llm.ProvidersDown):
+        llm.call_llm("match", VARS, MatchOut)
+    for c in calls:
+        assert not c.startswith("gemini/")

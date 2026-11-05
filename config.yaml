@@ -1,8 +1,21 @@
 llm:
   # swap models here only. litellm names: provider/model
-  provider_model: "gemini/gemini-3.5-flash-lite"       # free tier, own daily quota. gemini-3.6-flash free tier is only 20 requests/day
-  judge_model: ""                                      # empty = same as provider_model
-  fallback_model: "openrouter/deepseek/deepseek-v4.1-flash"   # used when gemini hits a daily quota or keeps returning 429
+  provider_model: "gemini/gemini-3.5-flash-lite"       # default for any step not listed in step_models (free tier)
+  step_models:                                         # per prompt; empty = provider_model
+    episode: "gemini/gemini-3.5-flash-lite"            # step 2 summaries: flash-lite quality was fine here
+    bible: "openrouter/deepseek/deepseek-v4.1-flash"
+    bible_merge: "openrouter/deepseek/deepseek-v4.1-flash"
+    shots: "openrouter/deepseek/deepseek-v4.1-flash"
+    scripts: "openrouter/deepseek/deepseek-v4.1-flash"
+    match: "openrouter/deepseek/deepseek-v4.1-flash"
+    judge_full: "openrouter/deepseek/deepseek-v4.1-flash"
+    judge_fresh: "openrouter/deepseek/deepseek-v4.1-flash"
+  judge_model: ""                                      # used for judges only when step_models has no entry
+  fallback_model: "openrouter/deepseek/deepseek-v4.1-flash"   # when a free model hits its daily quota or keeps returning 429
+  # confidential mode: every step uses this paid model, no free-tier model and no fallback.
+  # on automatically for any input under data/ (kuku's pack); also --confidential
+  confidential_model: "openrouter/deepseek/deepseek-v4.1-flash"
+  confidential: false
   prices:                                              # usd per 1m tokens [input, output], checked on openrouter.ai/api/v1/models 2026-11-05
     "gemini/gemini-3.5-flash-lite": [0, 0]             # free tier
     "gemini/gemini-3.6-flash": [0, 0]                  # free tier (20 requests/day)
@@ -12,7 +25,10 @@ llm:
   reasoning_effort: "low"                              # keep thinking tokens small; dropped for models that don't support it
   max_retries: 3                                       # retries on invalid json / failed code checks
   rate_retries: 3                                      # 429 backoffs before falling back for that call
-  rpm_limit: 8                                         # throttle; free-tier rpm is per project, check ai studio
+  rpm_limit: 8                                         # default throttle per model
+  rpm_limits:
+    "gemini/gemini-3.5-flash-lite": 8                  # free tier
+    "openrouter/deepseek/deepseek-v4.1-flash": 40      # paid, no free-tier cap
   max_tokens: 16384
   timeout_sec: 240
   mock: false                                          # true = read responses from tests/fixtures/mock_responses, no api calls

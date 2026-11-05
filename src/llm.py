@@ -41,8 +41,12 @@ def setup(cfg, run_dir=None, cache_dir=None, mock_dir=None):
     load_env()
 
 
-def model_for(kind="main"):
+def model_for(kind="main", prompt_name=None):
     lc = state["cfg"]["llm"]
+    if lc.get("confidential"):
+        return lc["confidential_model"]
+    if prompt_name and lc.get("step_models", {}).get(prompt_name):
+        return lc["step_models"][prompt_name]
     if kind == "judge" and lc.get("judge_model"):
         return lc["judge_model"]
     return lc.get("provider_model") or ""
@@ -86,15 +90,17 @@ def log_usage(row):
         f.write(json.dumps(row) + "\n")
 
 
-def throttle():
-    rpm = state["cfg"]["llm"].get("rpm_limit") or 0
+def throttle(model):
+    lc = state["cfg"]["llm"]
+    rpm = lc.get("rpm_limits", {}).get(model, lc.get("rpm_limit")) or 0
     if rpm <= 0:
         return
     gap = 60.0 / rpm
-    wait = state["last_call"] + gap - time.time()
+    last = state.setdefault("last_by_model", {}).get(model, 0.0)
+    wait = last + gap - time.time()
     if wait > 0:
         time.sleep(wait)
-    state["last_call"] = time.time()
+    state["last_by_model"][model] = time.time()
 
 
 class QuotaError(LLMError):
@@ -160,7 +166,7 @@ def one_call(model, prompt):
     tries = 0
     rate_tries = 0
     while True:
-        throttle()
+        throttle(model)
         t0 = time.time()
         kw = {}
         if lc.get("reasoning_effort"):
@@ -248,6 +254,8 @@ def call_fallback(fb, prompt, why):
 
 def raw_call(model, prompt):
     fb = state["cfg"]["llm"].get("fallback_model")
+    if state["cfg"]["llm"].get("confidential"):
+        fb = None
     if fb and model != fb and state.get("primary_down"):
         return call_fallback(fb, prompt, state["primary_down"])
     try:
@@ -313,7 +321,7 @@ def call_llm(prompt_name, variables, schema, model=None, check=None, mock_key="d
                    "completion_tokens": len(text)//4, "latency": 0, "cached": False, "attempts": 1, "check_errors": errs})
         return obj
     if model is None:
-        model = model_for("main")
+        model = model_for("main", prompt_name)
     if not model:
         raise LLMError("no model set: fill llm.provider_model in config.yaml or pass --model")
     key = hashlib.sha256((model + "\n" + prompt + "\n" + schema.__name__).encode("utf-8")).hexdigest()
