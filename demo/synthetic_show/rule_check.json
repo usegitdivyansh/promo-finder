@@ -1,0 +1,84 @@
+{
+ "recaps_skipped": {
+  "ok": true,
+  "recap_lines": 5,
+  "problems": []
+ },
+ "aliases": {
+  "ok": true,
+  "unresolved_recurring": [],
+  "extras_excluded": [],
+  "groups": {
+   "C4": [
+    "LEELA",
+    "LEELA MEHTA",
+    "MRS. MEHTA"
+   ],
+   "C1": [
+    "MIRA",
+    "MIRA RAO"
+   ],
+   "C2": [
+    "ARJUN",
+    "ARJUN MEHTA"
+   ],
+   "C3": [
+    "TANYA"
+   ],
+   "C5": [
+    "DESAI",
+    "HARISH DESAI"
+   ],
+   "C7": [
+    "VOICE"
+   ]
+  },
+  "characters": [
+   "C1 Mira Rao ['Mira', 'MIRA', 'Mira Rao', 'MIRA RAO']",
+   "C2 Arjun Mehta ['Arjun', 'ARJUN', 'Arjun Mehta', 'ARJUN MEHTA']",
+   "C3 Tanya ['Tanya', 'TANYA']",
+   "C4 Leela Mehta ['Leela', 'LEELA', 'Leela Mehta', 'LEELA MEHTA', 'Mrs. Mehta', 'MRS. MEHTA']",
+   "C5 Harish Desai ['Harish Desai', 'HARISH DESAI', 'Desai', 'DESAI']",
+   "C6 Vikram Rao ['Vikram Rao', 'late Vikram Rao']",
+   "C7 Unknown Caller ['VOICE']"
+  ]
+ },
+ "quotes": {
+  "ok": true,
+  "kept_bad": [],
+  "dropped_bad_quotes": []
+ },
+ "promo_rules": {
+  "ok": true,
+  "problems": [],
+  "durations": [
+   32.0,
+   41.0,
+   29.0,
+   25.0
+  ]
+ },
+ "major_twist": {
+  "ok": true,
+  "checked": [
+   "bible W1: (4, 'E4_L23')"
+  ],
+  "problems": [],
+  "twists": [
+   "W1 [major] Mira is Vikram Rao's hidden heir and true chair of Rao Shipping. setup=E1_ev4 payoff=E4_ev4",
+   "W2 [minor] Tanya betrayed Mira with Arjun; their affair is exposed. setup=E1_ev2 payoff=E5_ev3",
+   "W3 [major] Vikram Rao was murdered; the killer attended the gala. setup=E5_ev5 payoff=None"
+  ]
+ },
+ "diversity": {
+  "ok": true,
+  "per_thread": {
+   "T2": 2,
+   "T1": 1
+  },
+  "over": [],
+  "reused_hooks": [],
+  "shared_footage": []
+ },
+ "all_ok": true
+}

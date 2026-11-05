@@ -1,0 +1,72 @@
+{
+ "episode": 2,
+ "summary": "Mira learns from Harish Desai that her father did not abandon her, receiving a mysterious envelope before heading to work. At the office, she is falsely accused of theft by Mrs. Mehta and betrayed by Tanya, who takes her position. Left stranded with her belongings, Mira opens the cream envelope to discover a photograph of her mother and a shocking legal document regarding her true heritage.",
+ "characters": [
+  "Mira",
+  "Desai",
+  "Leela Mehta",
+  "Tanya",
+  "Arjun"
+ ],
+ "key_events": [
+  {
+   "event_id": "E2_ev1",
+   "line_id": "E2_L5",
+   "description": "Desai reveals to Mira that her father never knew she existed.",
+   "episode": 2,
+   "start": 17.0,
+   "speaker": "DESAI"
+  },
+  {
+   "event_id": "E2_ev2",
+   "line_id": "E2_L18",
+   "description": "Mrs. Mehta fires Mira based on false theft accusations.",
+   "episode": 2,
+   "start": 65.0,
+   "speaker": "MRS. MEHTA"
+  },
+  {
+   "event_id": "E2_ev3",
+   "line_id": "E2_L21",
+   "description": "Tanya betrays Mira by backing up the false accusation to secure a promotion.",
+   "episode": 2,
+   "start": 76.0,
+   "speaker": "TANYA"
+  },
+  {
+   "event_id": "E2_ev4",
+   "line_id": "E2_L29",
+   "description": "Mira opens the sealed envelope and finds an old photograph and legal document.",
+   "episode": 2,
+   "start": 109.0,
+   "speaker": null
+  }
+ ],
+ "ending_cliffhanger": {
+  "line_id": "E2_L32",
+  "description": "Mira reads the shocking contents of the document and whispers that it cannot be true."
+ },
+ "primary_label": "reveal",
+ "secondary_labels": [
+  "betrayal",
+  "humiliation"
+ ],
+ "peak_line_id": "E2_L32",
+ "label_reasons": {
+  "reveal": "Mira discovers the truth about her mother and father in the letter at E2_L29.",
+  "betrayal": "Tanya betrays Mira's trust by lying to Mrs. Mehta at E2_L21.",
+  "humiliation": "Mira's belongings are dumped into a box in front of the whole office at E2_L22."
+ },
+ "speaker_tags": {
+  "MIRA": 7,
+  "DESAI": 2,
+  "TANYA": 2,
+  "MRS. MEHTA": 3
+ },
+ "promo_priority": "very_high",
+ "label_priority": {
+  "reveal": "very_high",
+  "betrayal": "very_high",
+  "humiliation": "high"
+ }
+}

@@ -30,15 +30,33 @@ def load_env(path=None):
                 os.environ[k] = v
 
 
-def setup(cfg, run_dir=None, cache_dir=None, mock_dir=None):
+def setup(cfg, run_dir=None, cache_dir=None, mock_dir=None, api_key=None, use_env=True):
     state["cfg"] = cfg
     state["run_dir"] = run_dir
     state["run_id"] = time.strftime("%Y%m%d-%H%M%S")
+    # a key passed here is used for this run's calls only: held in memory, never written to config, logs or env
+    state["api_key"] = api_key
+    state["run_spent"] = 0.0
     if cache_dir:
         state["cache_dir"] = cache_dir
     if mock_dir:
         state["mock_dir"] = mock_dir
-    load_env()
+    if use_env:
+        load_env()
+
+
+def forget_key():
+    state["api_key"] = None
+
+
+def redact(msg):
+    # provider errors can echo part of the key; strip it before anything is printed or logged
+    k = state.get("api_key")
+    if k:
+        for frag in [k, k[:12], k[-8:]]:
+            if len(frag) >= 8:
+                msg = msg.replace(frag, "[key]")
+    return msg
 
 
 def real_name(name, cfg=None):
@@ -126,10 +144,12 @@ class BudgetError(SystemExit):
     pass
 
 
-def price(model):
+def price(model, cfg=None):
     # $ per 1M tokens. config first; then litellm's price table; else a cautious default so a swapped-in
     # paid model can never skip the budget check
-    lc = state["cfg"]["llm"]
+    if cfg is None:
+        cfg = state["cfg"]
+    lc = cfg["llm"]
     p = lc.get("prices", {}).get(model)
     if p:
         return float(p[0]), float(p[1])
@@ -178,6 +198,9 @@ def check_budget(model, prompt):
         return
     lc = state["cfg"]["llm"]
     est = len(prompt) / 4 / 1e6 * pi + cur_max() / 1e6 * po
+    run_cap = lc.get("run_cap_usd")
+    if run_cap is not None and state.get("run_spent", 0.0) + est > run_cap:
+        raise BudgetError(f"this run would go over its spend cap: spent ${state['run_spent']:.4f}, next call up to ${est:.4f}, cap ${run_cap}")
     cur = spent()
     if cur + est > lc.get("budget_usd", 2.0):
         raise BudgetError(f"paid spend would go over budget: spent ${cur:.4f}, next call up to ${est:.4f}, budget ${lc.get('budget_usd', 2.0)}")
@@ -205,6 +228,8 @@ def one_call(model, prompt):
         throttle(model)
         t0 = time.time()
         kw = {}
+        if state.get("api_key"):
+            kw["api_key"] = state["api_key"]
         if lc.get("reasoning_effort"):
             kw["reasoning_effort"] = lc["reasoning_effort"]
         try:
@@ -213,7 +238,7 @@ def one_call(model, prompt):
                                       response_format={"type": "json_object"}, timeout=lc.get("timeout_sec", 180), **kw)
         except Exception as ex:
             name = type(ex).__name__
-            msg = str(ex)
+            msg = redact(str(ex))
             rate = "RateLimit" in name or "429" in msg or "RESOURCE_EXHAUSTED" in msg
             if rate:
                 if is_daily(msg):
@@ -260,6 +285,7 @@ def one_call(model, prompt):
         if (pi > 0 or po > 0) and rep and rep > cost:
             cost = rep
         usage["cost_usd"] = round(cost, 6)
+        state["run_spent"] = state.get("run_spent", 0.0) + cost
         if cost > 0:
             os.makedirs(state["cache_dir"], exist_ok=True)
             with open(spend_path(), "a", encoding="utf-8") as f:
@@ -315,6 +341,11 @@ def raw_call(model, prompt):
             raise
         print(f"    {model} unavailable after retries, using {fb} for this call")
         return call_fallback(fb, prompt, str(ex))
+    except LLMError as ex:
+        # a rejected key or unknown model won't fix itself: stop on the first call, not after every episode fails
+        if dead(ex):
+            raise ProvidersDown(f"{model}: the provider rejected the request (check the API key and model name). {str(ex)[:300]}")
+        raise
 
 
 def load_mock(prompt_name, mock_key):

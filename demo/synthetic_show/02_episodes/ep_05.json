@@ -1,0 +1,82 @@
+{
+ "episode": 5,
+ "summary": "Mira Rao assumes control of Rao Shipping and immediately withdraws all investment from the Mehta Group, cutting off Leela, Arjun, and Tanya. During the confrontation, Arjun begs Mira for another chance, but she exposes his affair by returning Tanya's earring, which prompts Tanya to reveal her pregnancy. Later, while reviewing her late father's letters in her office, Mira receives an anonymous phone call claiming her father was murdered.",
+ "characters": [
+  "Mira",
+  "Desai",
+  "Leela",
+  "Arjun",
+  "Tanya",
+  "Voice"
+ ],
+ "key_events": [
+  {
+   "event_id": "E5_ev1",
+   "line_id": "E5_L4",
+   "description": "Mira announces the withdrawal of all investment from the Mehta Group.",
+   "episode": 5,
+   "start": 17.0,
+   "speaker": "MIRA"
+  },
+  {
+   "event_id": "E5_ev2",
+   "line_id": "E5_L8",
+   "description": "Mira catches Leela's hand mid-air when Leela attempts to slap her.",
+   "episode": 5,
+   "start": 33.0,
+   "speaker": null
+  },
+  {
+   "event_id": "E5_ev3",
+   "line_id": "E5_L14",
+   "description": "Mira drops Tanya's pearl earring on the table to reject Arjun's pleas.",
+   "episode": 5,
+   "start": 58.0,
+   "speaker": "MIRA"
+  },
+  {
+   "event_id": "E5_ev4",
+   "line_id": "E5_L16",
+   "description": "Tanya publicly reveals that she is carrying Arjun's child.",
+   "episode": 5,
+   "start": 66.0,
+   "speaker": "TANYA"
+  },
+  {
+   "event_id": "E5_ev5",
+   "line_id": "E5_L25",
+   "description": "An unknown caller informs Mira that her father was murdered.",
+   "episode": 5,
+   "start": 102.0,
+   "speaker": "VOICE"
+  }
+ ],
+ "ending_cliffhanger": {
+  "line_id": "E5_L26",
+  "description": "A mysterious caller tells Mira that her father's killer was at her gala the previous night."
+ },
+ "primary_label": "power_shift",
+ "secondary_labels": [
+  "confrontation",
+  "reveal"
+ ],
+ "peak_line_id": "E5_L26",
+ "label_reasons": {
+  "power_shift": "Mira takes complete control of the boardroom and cuts off the Mehta Group as seen in E5_L4.",
+  "confrontation": "Mira faces Leela and Arjun directly in the boardroom during E5_L4 and E5_L8.",
+  "reveal": "The truth about Tanya's pregnancy and the anonymous call regarding the murder come to light in E5_L16 and E5_L25."
+ },
+ "speaker_tags": {
+  "MIRA": 7,
+  "ARJUN": 2,
+  "LEELA": 1,
+  "TANYA": 1,
+  "VOICE": 2
+ },
+ "promo_priority": "very_high",
+ "label_priority": {
+  "power_shift": "very_high",
+  "confrontation": "high",
+  "reveal": "very_high"
+ }
+}

@@ -1,0 +1,124 @@
+{
+ "episode": 1,
+ "raw_count": 4,
+ "shots": [
+  {
+   "shot_id": "E1_S1",
+   "size": "small",
+   "start_line_id": "E1_L10",
+   "end_line_id": "E1_L11",
+   "key_line_id": "E1_L10",
+   "role": "hook",
+   "hook_type": "public_humiliation",
+   "intensity": 8,
+   "needs_context": "low",
+   "characters": [
+    "Leela Mehta",
+    "Mira Rao"
+   ],
+   "thread_id": null,
+   "quote_or_action": "Leela drops the frame. It cracks on the marble floor. Guests laugh.",
+   "char_ids": [
+    "C4",
+    "C1"
+   ],
+   "episode": 1,
+   "start_idx": 10,
+   "key_idx": 10,
+   "end_idx": 11,
+   "start": 35.0,
+   "end": 42.0,
+   "duration": 7.0,
+   "quote_ratio": 1.0
+  },
+  {
+   "shot_id": "E1_S2",
+   "size": "medium",
+   "start_line_id": "E1_L18",
+   "end_line_id": "E1_L20",
+   "key_line_id": "E1_L18",
+   "role": "escalation",
+   "hook_type": null,
+   "intensity": 7,
+   "needs_context": "medium",
+   "characters": [
+    "Mira Rao",
+    "Arjun Mehta",
+    "Tanya"
+   ],
+   "thread_id": "T3",
+   "quote_or_action": "Mira notices a smear of red lipstick on Arjun's white collar. The same deep red Tanya is wearing.",
+   "char_ids": [
+    "C1",
+    "C2",
+    "C3"
+   ],
+   "episode": 1,
+   "start_idx": 18,
+   "key_idx": 18,
+   "end_idx": 20,
+   "start": 64.0,
+   "end": 75.0,
+   "duration": 11.0,
+   "quote_ratio": 1.0
+  },
+  {
+   "shot_id": "E1_S3",
+   "size": "small",
+   "start_line_id": "E1_L23",
+   "end_line_id": "E1_L24",
+   "key_line_id": "E1_L23",
+   "role": "hook",
+   "hook_type": "slap_violence",
+   "intensity": 9,
+   "needs_context": "low",
+   "characters": [
+    "Leela Mehta",
+    "Mira Rao"
+   ],
+   "thread_id": null,
+   "quote_or_action": "Leela slaps Mira hard across the face. The music stops.",
+   "char_ids": [
+    "C4",
+    "C1"
+   ],
+   "episode": 1,
+   "start_idx": 23,
+   "key_idx": 23,
+   "end_idx": 24,
+   "start": 83.0,
+   "end": 90.0,
+   "duration": 7.0,
+   "quote_ratio": 1.0
+  },
+  {
+   "shot_id": "E1_S4",
+   "size": "small",
+   "start_line_id": "E1_L32",
+   "end_line_id": "E1_L33",
+   "key_line_id": "E1_L33",
+   "role": "cliffhanger",
+   "hook_type": "shocking_line",
+   "intensity": 7,
+   "needs_context": "medium",
+   "characters": [
+    "Harish Desai",
+    "Mira Rao"
+   ],
+   "thread_id": "T1",
+   "quote_or_action": "It's about your father.",
+   "char_ids": [
+    "C5",
+    "C1"
+   ],
+   "episode": 1,
+   "start_idx": 32,
+   "key_idx": 33,
+   "end_idx": 33,
+   "start": 118.0,
+   "end": 124.0,
+   "duration": 6.0,
+   "quote_ratio": 1.0
+  }
+ ]
+}

@@ -1,0 +1,78 @@
+{
+ "episode": 3,
+ "summary": "Desai visits Mira to present her father's will and a bundle of unread letters, revealing that her true identity will remain secret until the upcoming investors' gala. Tanya visits and offers a weak excuse for her past betrayal while wearing only one earring. Mira later finds the matching pearl earring in Arjun's car, realizing Tanya's deceit. Consequently, Mira calls Desai to accept her inheritance and demands that her identity be withheld until the gala.",
+ "characters": [
+  "Mira",
+  "Desai",
+  "Tanya",
+  "Arjun"
+ ],
+ "key_events": [
+  {
+   "event_id": "E3_ev1",
+   "line_id": "E3_L4",
+   "description": "Desai tells Mira that her father's will leaves everything to his only child.",
+   "episode": 3,
+   "start": 15.0,
+   "speaker": "DESAI"
+  },
+  {
+   "event_id": "E3_ev2",
+   "line_id": "E3_L6",
+   "description": "Desai gives Mira a bundle of letters her father wrote to her mother.",
+   "episode": 3,
+   "start": 26.0,
+   "speaker": "DESAI"
+  },
+  {
+   "event_id": "E3_ev3",
+   "line_id": "E3_L16",
+   "description": "Tanya visits Mira and excuses her past actions by claiming she had no choice.",
+   "episode": 3,
+   "start": 68.0,
+   "speaker": "TANYA"
+  },
+  {
+   "event_id": "E3_ev4",
+   "line_id": "E3_L22",
+   "description": "Mira discovers the matching pearl earring wedged in Arjun's car seat.",
+   "episode": 3,
+   "start": 89.0,
+   "speaker": null
+  },
+  {
+   "event_id": "E3_ev5",
+   "line_id": "E3_L26",
+   "description": "Mira calls Desai to accept her position as heir under the condition of anonymity.",
+   "episode": 3,
+   "start": 103.0,
+   "speaker": "MIRA"
+  }
+ ],
+ "ending_cliffhanger": {
+  "line_id": "E3_L27",
+  "description": "Mira demands that nobody learns her name until the gala."
+ },
+ "primary_label": "setup",
+ "secondary_labels": [
+  "betrayal",
+  "reveal"
+ ],
+ "peak_line_id": "E3_L22",
+ "label_reasons": {
+  "setup": "The episode primarily establishes the inheritance plot and Mira's preparation for the gala as seen in E3_L4.",
+  "betrayal": "Mira discovers Tanya's earring in Arjun's car in E3_L22, exposing a hidden betrayal.",
+  "reveal": "Desai reveals the existence of the father's letters and the gala announcement in E3_L6."
+ },
+ "speaker_tags": {
+  "DESAI": 3,
+  "MIRA": 5,
+  "TANYA": 3
+ },
+ "promo_priority": "low",
+ "label_priority": {
+  "setup": "low",
+  "betrayal": "very_high",
+  "reveal": "very_high"
+ }
+}

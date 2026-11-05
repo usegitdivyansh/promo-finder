@@ -1,0 +1,10 @@
+[server]
+# screenplay uploads are small; keep the limit low
+maxUploadSize = 30
+
+[browser]
+gatherUsageStats = false
+
+[client]
+toolbarMode = "viewer"
+showErrorDetails = false

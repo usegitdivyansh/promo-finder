@@ -1,0 +1,481 @@
+{
+ "selected": [
+  {
+   "promo_id": "X005",
+   "cand_id": "C12",
+   "source": "script",
+   "template": "mini_story",
+   "script_id": "C12",
+   "idea": "Wine-soaked and humiliated, Mira withdraws millions—then hears her father was murdered.",
+   "beats": [
+    {
+     "beat": "hook",
+     "need": "Leela publicly pours red wine down Mira’s gown.",
+     "event_id": "E4_ev1",
+     "thread_id": "T2",
+     "shot_id": "E4_S1"
+    },
+    {
+     "beat": "escalation",
+     "need": "Mira announces the withdrawal of all investment from the Mehta Group.",
+     "event_id": "E5_ev1",
+     "thread_id": "T2",
+     "shot_id": "E5_S1"
+    },
+    {
+     "beat": "cliffhanger",
+     "need": "An unknown caller tells Mira her father was murdered.",
+     "event_id": "E5_ev5",
+     "thread_id": "T4",
+     "shot_id": "E5_S5"
+    }
+   ],
+   "segments": [
+    {
+     "episode": 4,
+     "start": 29.0,
+     "end": 35.0,
+     "start_line_id": "E4_L7",
+     "end_line_id": "E4_L7",
+     "a": 7,
+     "b": 7,
+     "roles": [
+      "hook"
+     ],
+     "shot_ids": [
+      "E4_S1"
+     ],
+     "threads": [
+      "T2"
+     ],
+     "char_ids": [
+      "C4",
+      "C1"
+     ],
+     "hook_key": 7,
+     "duration": 6.0
+    },
+    {
+     "episode": 5,
+     "start": 17.0,
+     "end": 31.0,
+     "start_line_id": "E5_L4",
+     "end_line_id": "E5_L6",
+     "a": 4,
+     "b": 6,
+     "roles": [
+      "escalation"
+     ],
+     "shot_ids": [
+      "E5_S1"
+     ],
+     "threads": [
+      "T2"
+     ],
+     "char_ids": [
+      "C1",
+      "C2",
+      "C4",
+      "C3"
+     ],
+     "hook_key": null,
+     "duration": 14.0
+    },
+    {
+     "episode": 5,
+     "start": 102.0,
+     "end": 114.0,
+     "start_line_id": "E5_L25",
+     "end_line_id": "E5_L26",
+     "a": 25,
+     "b": 26,
+     "roles": [
+      "cliffhanger"
+     ],
+     "shot_ids": [
+      "E5_S5"
+     ],
+     "threads": [
+      "T4"
+     ],
+     "char_ids": [
+      "C1",
+      "C7"
+     ],
+     "hook_key": null,
+     "duration": 12.0
+    }
+   ],
+   "total_duration_sec": 32.0,
+   "hook_shot_id": "E4_S1",
+   "hook_intensity": 9,
+   "hook_needs_context": "low",
+   "main_thread": "T2",
+   "spoiler_penalty": 0,
+   "flags": [
+    "safety:abuse"
+   ],
+   "scores": {
+    "hook": 9.0,
+    "hook_judge": 9,
+    "cliffhanger": 9,
+    "clarity": 7,
+    "clarity_source": "judge_fresh",
+    "clarity_full": 8,
+    "coherence": 9.0,
+    "coherence_judge": 8,
+    "coherence_code": 10.0,
+    "duration": 10.0,
+    "spoiler_penalty": 0,
+    "total": 86.1,
+    "would_watch_next": 8
+   },
+   "hook": "Wine poured down Mira's gown",
+   "cliffhanger": "Father murdered; killer at gala",
+   "why_it_works": "Wine-pour humiliation hooks instantly, then revenge and murder cliffhanger land cleanly.",
+   "safety_flags": [
+    "abuse"
+   ],
+   "confusion": "Who Leela is and why she pours wine on Mira.",
+   "confidence": "medium",
+   "picked_for": "best_of_template",
+   "rank": 1,
+   "final_id": "P01"
+  },
+  {
+   "promo_id": "X001",
+   "cand_id": "C1",
+   "source": "script",
+   "template": "single_scene",
+   "script_id": "C1",
+   "idea": "Mira stops Leela’s slap mid-air and flips the power dynamic.",
+   "beats": [
+    {
+     "beat": "scene",
+     "need": "Long continuous scene: Mira catches Leela’s hand mid-air as guests gasp.",
+     "event_id": "E5_ev2",
+     "thread_id": "T2",
+     "shot_id": "E5_S3"
+    }
+   ],
+   "segments": [
+    {
+     "episode": 5,
+     "start": 33.0,
+     "end": 74.0,
+     "start_line_id": "E5_L8",
+     "end_line_id": "E5_L17",
+     "a": 8,
+     "b": 17,
+     "roles": [
+      "scene"
+     ],
+     "shot_ids": [
+      "E5_S3"
+     ],
+     "threads": [
+      "T3"
+     ],
+     "char_ids": [
+      "C1",
+      "C4",
+      "C2",
+      "C3"
+     ],
+     "hook_key": 8,
+     "duration": 41.0
+    }
+   ],
+   "total_duration_sec": 41.0,
+   "hook_shot_id": "E5_S2",
+   "hook_intensity": 9,
+   "hook_needs_context": "low",
+   "main_thread": "T2",
+   "spoiler_penalty": 5,
+   "flags": [
+    "minor_spoiler",
+    "safety:abuse"
+   ],
+   "scores": {
+    "hook": 8.3,
+    "hook_judge": 8,
+    "cliffhanger": 8,
+    "clarity": 7,
+    "clarity_source": "judge_fresh",
+    "clarity_full": 7,
+    "coherence": 9.5,
+    "coherence_judge": 9,
+    "coherence_code": 10.0,
+    "duration": 10.0,
+    "spoiler_penalty": 5,
+    "total": 77.19,
+    "would_watch_next": 7
+   },
+   "hook": "Caught slap, power flip",
+   "cliffhanger": "I'm carrying your child",
+   "why_it_works": "A caught slap flips the power dynamic, then the discarded earring detonates the affair and pregnancy in one clean beat.",
+   "safety_flags": [
+    "abuse"
+   ],
+   "confusion": "Exact relationships between Mira, Arjun, Leela, and Tanya are not fully established.",
+   "confidence": "medium",
+   "picked_for": "best_of_template",
+   "rank": 2,
+   "final_id": "P02"
+  },
+  {
+   "promo_id": "X003",
+   "cand_id": "C6",
+   "source": "script",
+   "template": "reveal_tease",
+   "script_id": "C6",
+   "idea": "Slapped and betrayed, Mira finds the earring that proves the affair.",
+   "beats": [
+    {
+     "beat": "hook",
+     "need": "Leela slaps Mira and orders security to throw her out.",
+     "event_id": "E1_ev3",
+     "thread_id": "T2",
+     "shot_id": "E1_S3"
+    },
+    {
+     "beat": "escalation",
+     "need": "Tanya backs the false accusation to steal Mira’s promotion.",
+     "event_id": "E2_ev3",
+     "thread_id": "T3",
+     "shot_id": "E2_S2"
+    },
+    {
+     "beat": "cliffhanger",
+     "need": "Mira finds the matching pearl earring wedged in Arjun’s car seat.",
+     "event_id": "E3_ev4",
+     "thread_id": "T3",
+     "shot_id": "E3_S3"
+    }
+   ],
+   "segments": [
+    {
+     "episode": 1,
+     "start": 83.0,
+     "end": 90.0,
+     "start_line_id": "E1_L23",
+     "end_line_id": "E1_L24",
+     "a": 23,
+     "b": 24,
+     "roles": [
+      "hook"
+     ],
+     "shot_ids": [
+      "E1_S3"
+     ],
+     "threads": [
+      null
+     ],
+     "char_ids": [
+      "C4",
+      "C1"
+     ],
+     "hook_key": 23,
+     "duration": 7.0
+    },
+    {
+     "episode": 2,
+     "start": 73.0,
+     "end": 80.0,
+     "start_line_id": "E2_L20",
+     "end_line_id": "E2_L21",
+     "a": 20,
+     "b": 21,
+     "roles": [
+      "escalation"
+     ],
+     "shot_ids": [
+      "E2_S2"
+     ],
+     "threads": [
+      "T3"
+     ],
+     "char_ids": [
+      "C1",
+      "C3"
+     ],
+     "hook_key": null,
+     "duration": 7.0
+    },
+    {
+     "episode": 3,
+     "start": 83.0,
+     "end": 98.0,
+     "start_line_id": "E3_L21",
+     "end_line_id": "E3_L23",
+     "a": 21,
+     "b": 23,
+     "roles": [
+      "cliffhanger"
+     ],
+     "shot_ids": [
+      "E3_S3"
+     ],
+     "threads": [
+      "T3"
+     ],
+     "char_ids": [
+      "C1"
+     ],
+     "hook_key": null,
+     "duration": 15.0
+    }
+   ],
+   "total_duration_sec": 29.0,
+   "hook_shot_id": "E1_S3",
+   "hook_intensity": 9,
+   "hook_needs_context": "low",
+   "main_thread": null,
+   "spoiler_penalty": 0,
+   "flags": [
+    "safety:abuse"
+   ],
+   "scores": {
+    "hook": 9.0,
+    "hook_judge": 9,
+    "cliffhanger": 5,
+    "clarity": 5,
+    "clarity_source": "judge_fresh",
+    "clarity_full": 6,
+    "coherence": 8.5,
+    "coherence_judge": 7,
+    "coherence_code": 10.0,
+    "duration": 9.5,
+    "spoiler_penalty": 0,
+    "total": 69.4,
+    "would_watch_next": 6
+   },
+   "hook": "Hard slap, music stops",
+   "cliffhanger": "Earring found, no question",
+   "why_it_works": "The slap grabs instantly and the earring discovery is a neat clue, but it ends on a quiet resolved beat.",
+   "safety_flags": [
+    "abuse"
+   ],
+   "confusion": "What lie or truth Tanya is referring to and who Arjun is to Mira.",
+   "confidence": "medium",
+   "picked_for": "best_of_template",
+   "rank": 3,
+   "final_id": "P03"
+  },
+  {
+   "promo_id": "X015",
+   "cand_id": "ES_E2_ESC",
+   "source": "ending_scene",
+   "template": "ending_scene",
+   "script_id": null,
+   "idea": "ep 2 closing scene, hook to cliffhanger",
+   "beats": [
+    {
+     "beat": "scene",
+     "need": "",
+     "event_id": null,
+     "shot_id": "E2_ESC"
+    }
+   ],
+   "segments": [
+    {
+     "episode": 2,
+     "start": 106.0,
+     "end": 131.0,
+     "start_line_id": "E2_L28",
+     "end_line_id": "E2_L33",
+     "a": 28,
+     "b": 33,
+     "roles": [
+      "scene"
+     ],
+     "shot_ids": [
+      "E2_ESC"
+     ],
+     "threads": [
+      "T1"
+     ],
+     "char_ids": [
+      "C1"
+     ],
+     "hook_key": 29,
+     "duration": 25.0
+    }
+   ],
+   "total_duration_sec": 25.0,
+   "hook_shot_id": "E2_S4",
+   "hook_intensity": 8,
+   "hook_needs_context": "medium",
+   "main_thread": "T1",
+   "spoiler_penalty": 0,
+   "flags": [],
+   "scores": {
+    "hook": 5.2,
+    "hook_judge": 4,
+    "cliffhanger": 7,
+    "clarity": 4,
+    "clarity_source": "judge_fresh",
+    "clarity_full": 5,
+    "coherence": 9.0,
+    "coherence_judge": 8,
+    "coherence_code": 10.0,
+    "duration": 7.5,
+    "spoiler_penalty": 0,
+    "total": 62.01,
+    "would_watch_next": 5
+   },
+   "hook": "Breaking a red wax seal",
+   "cliffhanger": "What truth can't she believe?",
+   "why_it_works": "A sealed letter reveal builds intrigue, but the slow wax-breaking open and unnamed stakes lose scrolling viewers.",
+   "safety_flags": [],
+   "confusion": "What the legal document reveals and who V is.",
+   "confidence": "low",
+   "picked_for": "best_of_template",
+   "rank": 4,
+   "final_id": "P04"
+  }
+ ],
+ "best_per_template": {
+  "single_scene": {
+   "promo_id": "X001",
+   "total": 77.19,
+   "selected": true,
+   "final_id": "P02"
+  },
+  "reveal_tease": {
+   "promo_id": "X003",
+   "total": 69.4,
+   "selected": true,
+   "final_id": "P03"
+  },
+  "mini_story": {
+   "promo_id": "X005",
+   "total": 86.1,
+   "selected": true,
+   "final_id": "P01"
+  },
+  "underdog_revenge": {
+   "promo_id": "X007",
+   "total": 76.99,
+   "selected": false
+  },
+  "romance_tension": {
+   "promo_id": "X009",
+   "total": 73.44,
+   "selected": false
+  },
+  "montage": {
+   "promo_id": "X011",
+   "total": 76.33,
+   "selected": false
+  },
+  "ending_scene": {
+   "promo_id": "X015",
+   "total": 62.01,
+   "selected": true,
+   "final_id": "P04"
+  }
+ },
+ "note": "only 4 promos passed the rules and diversity limits (min is 12); the quality bar was not lowered",
+ "eligible": 15
+}

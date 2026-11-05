@@ -167,3 +167,61 @@ def test_model_slots_and_unknown_price(tmp_path, monkeypatch):
     # a model with no configured or known price is still budgeted, never treated as free
     pi, po = llm.price("acme/brand-new-model")
     assert pi > 0 and po > 0
+
+
+class AuthenticationError(Exception):
+    pass
+
+
+def test_auth_error_stops_on_first_call(tmp_path, monkeypatch):
+    def beh(model):
+        raise AuthenticationError('{"error":{"message":"User not found.","code":401}}')
+    cfg, calls = setup(tmp_path, monkeypatch, beh)
+    llm.state["cfg"]["llm"]["fallback_model"] = None
+    with pytest.raises(llm.ProvidersDown):
+        llm.call_llm("match", VARS, MatchOut)
+    assert len(calls) == 1
+
+
+def test_session_key_passed_per_call_and_redacted(tmp_path, monkeypatch):
+    import litellm
+    key = "sk-test-" + "a1b2c3d4" * 6
+    cfg = copy.deepcopy(CFG)
+    cfg["llm"]["rpm_limit"] = 0
+    cfg["llm"]["step_models"] = {}
+    cfg["llm"]["fallback_model"] = None
+    llm.setup(cfg, run_dir=str(tmp_path / "run"), cache_dir=str(tmp_path / "cache"), api_key=key, use_env=False)
+    seen = []
+
+    def fake(model, **kw):
+        seen.append(kw.get("api_key"))
+        raise AuthenticationError("Incorrect API key provided: " + key[:12] + "****" + key[-8:])
+    monkeypatch.setattr(litellm, "completion", fake)
+    with pytest.raises(llm.ProvidersDown) as ex:
+        llm.call_llm("match", VARS, MatchOut)
+    assert seen == [key]
+    assert key[:12] not in str(ex.value) and key[-8:] not in str(ex.value)
+    llm.forget_key()
+    assert llm.state["api_key"] is None
+    log = tmp_path / "run" / "usage.jsonl"
+    if log.exists():
+        assert key[-8:] not in log.read_text(encoding="utf-8")
+
+
+def test_run_cap_stops_before_going_over(tmp_path, monkeypatch):
+    # the check bounds the next call by its prompt and max_tokens: $0.6 of output per call, cap $1
+    cfg, calls = setup(tmp_path, monkeypatch, lambda m: fake_resp(GOOD, pt=0, ct=600000))
+    lc = llm.state["cfg"]["llm"]
+    lc["provider_model"] = "acme/paid"
+    lc["fallback_model"] = None
+    lc["prices"] = {"acme/paid": [0.0, 1.0]}
+    lc["max_tokens"] = 600000
+    lc["max_tokens_by_prompt"] = {}
+    lc["run_cap_usd"] = 1.0
+    llm.call_llm("match", VARS, MatchOut)
+    assert round(llm.state["run_spent"], 3) == 0.6
+    v2 = dict(VARS)
+    v2["idea"] = "y"
+    with pytest.raises(llm.BudgetError):
+        llm.call_llm("match", v2, MatchOut)
+    assert len(calls) == 1

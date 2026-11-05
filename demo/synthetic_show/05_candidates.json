@@ -1,0 +1,2124 @@
+{
+ "scripts": [
+  {
+   "script_id": "C1",
+   "template": "single_scene",
+   "idea": "Mira stops Leela’s slap mid-air and flips the power dynamic.",
+   "beats": [
+    {
+     "beat": "scene",
+     "need": "Long continuous scene: Mira catches Leela’s hand mid-air as guests gasp.",
+     "event_id": "E5_ev2",
+     "thread_id": "T2"
+    }
+   ],
+   "candidates": [
+    [
+     "E5_S3",
+     "E4_S4"
+    ]
+   ],
+   "status": "filled",
+   "filled_beats": [
+    {
+     "beat": "scene",
+     "need": "Long continuous scene: Mira catches Leela’s hand mid-air as guests gasp.",
+     "event_id": "E5_ev2",
+     "thread_id": "T2",
+     "shot_id": "E5_S3"
+    }
+   ]
+  },
+  {
+   "script_id": "C2",
+   "template": "single_scene",
+   "idea": "Mira drops Tanya’s pearl earring to reject Arjun’s pleas.",
+   "beats": [
+    {
+     "beat": "scene",
+     "need": "Long continuous scene: Mira lets the pearl earring fall on the table in front of Arjun.",
+     "event_id": "E5_ev3",
+     "thread_id": "T3"
+    }
+   ],
+   "candidates": [
+    [
+     "E5_S3",
+     "E4_S4"
+    ]
+   ],
+   "status": "filled",
+   "filled_beats": [
+    {
+     "beat": "scene",
+     "need": "Long continuous scene: Mira lets the pearl earring fall on the table in front of Arjun.",
+     "event_id": "E5_ev3",
+     "thread_id": "T3",
+     "shot_id": "E5_S3"
+    }
+   ]
+  },
+  {
+   "script_id": "C3",
+   "template": "single_scene",
+   "idea": "Tanya publicly reveals she is carrying Arjun’s child.",
+   "beats": [
+    {
+     "beat": "scene",
+     "need": "Long continuous scene: Tanya stands in public and says she is pregnant with Arjun’s child.",
+     "event_id": "E5_ev4",
+     "thread_id": "T3"
+    }
+   ],
+   "candidates": [
+    [
+     "E5_S3",
+     "E4_S4"
+    ]
+   ],
+   "status": "filled",
+   "filled_beats": [
+    {
+     "beat": "scene",
+     "need": "Long continuous scene: Tanya stands in public and says she is pregnant with Arjun’s child.",
+     "event_id": "E5_ev4",
+     "thread_id": "T3",
+     "shot_id": "E5_S3"
+    }
+   ]
+  },
+  {
+   "script_id": "C4",
+   "template": "single_scene",
+   "idea": "Leela tries to slap Mira again, but Mira is no longer prey.",
+   "beats": [
+    {
+     "beat": "scene",
+     "need": "Long continuous scene: Leela swings, Mira catches her wrist, and the room freezes.",
+     "event_id": "E5_ev2",
+     "thread_id": "T2"
+    }
+   ],
+   "candidates": [
+    [
+     "E5_S3",
+     "E4_S4"
+    ]
+   ],
+   "status": "filled",
+   "filled_beats": [
+    {
+     "beat": "scene",
+     "need": "Long continuous scene: Leela swings, Mira catches her wrist, and the room freezes.",
+     "event_id": "E5_ev2",
+     "thread_id": "T2",
+     "shot_id": "E5_S3"
+    }
+   ]
+  },
+  {
+   "script_id": "C5",
+   "template": "reveal_tease",
+   "idea": "A broken gift and a sealed envelope point to Mira’s secret father.",
+   "beats": [
+    {
+     "beat": "hook",
+     "need": "Leela deliberately drops and breaks Mira’s hand-painted frame.",
+     "event_id": "E1_ev1",
+     "thread_id": "T2"
+    },
+    {
+     "beat": "escalation",
+     "need": "Desai tells Mira her father never knew she existed.",
+     "event_id": "E2_ev1",
+     "thread_id": "T1"
+    },
+    {
+     "beat": "cliffhanger",
+     "need": "Mira opens the sealed envelope and sees an old photograph and legal paper.",
+     "event_id": "E2_ev4",
+     "thread_id": "T1"
+    }
+   ],
+   "candidates": [
+    [
+     "E1_S1",
+     "E1_S3"
+    ],
+    [
+     "E2_S3",
+     "E2_S1",
+     "E2_S2",
+     "E2_S4",
+     "E1_S1"
+    ],
+    [
+     "E2_S4",
+     "E2_S5",
+     "E3_S3",
+     "E3_S4"
+    ]
+   ],
+   "status": "filled",
+   "filled_beats": [
+    {
+     "beat": "hook",
+     "need": "Leela deliberately drops and breaks Mira’s hand-painted frame.",
+     "event_id": "E1_ev1",
+     "thread_id": "T2",
+     "shot_id": "E1_S1"
+    },
+    {
+     "beat": "escalation",
+     "need": "Desai tells Mira her father never knew she existed.",
+     "event_id": "E2_ev1",
+     "thread_id": "T1",
+     "shot_id": "E2_S3"
+    },
+    {
+     "beat": "cliffhanger",
+     "need": "Mira opens the sealed envelope and sees an old photograph and legal paper.",
+     "event_id": "E2_ev4",
+     "thread_id": "T1",
+     "shot_id": "E2_S4"
+    }
+   ]
+  },
+  {
+   "script_id": "C6",
+   "template": "reveal_tease",
+   "idea": "Slapped and betrayed, Mira finds the earring that proves the affair.",
+   "beats": [
+    {
+     "beat": "hook",
+     "need": "Leela slaps Mira and orders security to throw her out.",
+     "event_id": "E1_ev3",
+     "thread_id": "T2"
+    },
+    {
+     "beat": "escalation",
+     "need": "Tanya backs the false accusation to steal Mira’s promotion.",
+     "event_id": "E2_ev3",
+     "thread_id": "T3"
+    },
+    {
+     "beat": "cliffhanger",
+     "need": "Mira finds the matching pearl earring wedged in Arjun’s car seat.",
+     "event_id": "E3_ev4",
+     "thread_id": "T3"
+    }
+   ],
+   "candidates": [
+    [
+     "E1_S3",
+     "E1_S1",
+     "E2_S1"
+    ],
+    [
+     "E2_S2",
+     "E2_S1",
+     "E2_S4",
+     "E2_S3",
+     "E3_S1"
+    ],
+    [
+     "E3_S3",
+     "E3_S4",
+     "E4_S3",
+     "E4_S4",
+     "E2_S4"
+    ]
+   ],
+   "status": "filled",
+   "filled_beats": [
+    {
+     "beat": "hook",
+     "need": "Leela slaps Mira and orders security to throw her out.",
+     "event_id": "E1_ev3",
+     "thread_id": "T2",
+     "shot_id": "E1_S3"
+    },
+    {
+     "beat": "escalation",
+     "need": "Tanya backs the false accusation to steal Mira’s promotion.",
+     "event_id": "E2_ev3",
+     "thread_id": "T3",
+     "shot_id": "E2_S2"
+    },
+    {
+     "beat": "cliffhanger",
+     "need": "Mira finds the matching pearl earring wedged in Arjun’s car seat.",
+     "event_id": "E3_ev4",
+     "thread_id": "T3",
+     "shot_id": "E3_S3"
+    }
+   ]
+  },
+  {
+   "script_id": "C7",
+   "template": "reveal_tease",
+   "idea": "Fired for theft, Mira returns with a decision that threatens the Mehtas.",
+   "beats": [
+    {
+     "beat": "hook",
+     "need": "Mrs. Mehta fires Mira on false theft accusations.",
+     "event_id": "E2_ev2",
+     "thread_id": "T2"
+    },
+    {
+     "beat": "escalation",
+     "need": "Tanya betrays Mira by confirming the false accusation.",
+     "event_id": "E2_ev3",
+     "thread_id": "T3"
+    },
+    {
+     "beat": "cliffhanger",
+     "need": "Mira says her first decision as chair concerns the Mehta Group.",
+     "event_id": "E4_ev5",
+     "thread_id": "T2"
+    }
+   ],
+   "candidates": [
+    [
+     "E2_S1",
+     "E1_S1",
+     "E1_S3"
+    ],
+    [
+     "E2_S2",
+     "E2_S1",
+     "E2_S4",
+     "E3_S1",
+     "E3_S2"
+    ],
+    [
+     "E4_S5",
+     "E4_S4",
+     "E4_S3",
+     "E5_S3",
+     "E3_S3"
+    ]
+   ],
+   "status": "filled",
+   "filled_beats": [
+    {
+     "beat": "hook",
+     "need": "Mrs. Mehta fires Mira on false theft accusations.",
+     "event_id": "E2_ev2",
+     "thread_id": "T2",
+     "shot_id": "E2_S1"
+    },
+    {
+     "beat": "escalation",
+     "need": "Tanya betrays Mira by confirming the false accusation.",
+     "event_id": "E2_ev3",
+     "thread_id": "T3",
+     "shot_id": "E2_S2"
+    },
+    {
+     "beat": "cliffhanger",
+     "need": "Mira says her first decision as chair concerns the Mehta Group.",
+     "event_id": "E4_ev5",
+     "thread_id": "T2",
+     "shot_id": "E4_S5"
+    }
+   ]
+  },
+  {
+   "script_id": "C8",
+   "template": "reveal_tease",
+   "idea": "Mira recognizes her ring on Tanya, then drops the earring that changes everything.",
+   "beats": [
+    {
+     "beat": "hook",
+     "need": "Mira identifies the engagement ring Tanya is wearing as hers.",
+     "event_id": "E4_ev3",
+     "thread_id": "T3"
+    },
+    {
+     "beat": "escalation",
+     "need": "Mira drops Tanya’s pearl earring on the table to reject Arjun.",
+     "event_id": "E5_ev3",
+     "thread_id": "T3"
+    },
+    {
+     "beat": "cliffhanger",
+     "need": "Tanya publicly reveals she is carrying Arjun’s child.",
+     "event_id": "E5_ev4",
+     "thread_id": "T3"
+    }
+   ],
+   "candidates": [
+    [
+     "E4_S2",
+     "E4_S1",
+     "E5_S2",
+     "E5_S4",
+     "E3_S2"
+    ],
+    [
+     "E5_S4",
+     "E5_S3",
+     "E5_S2",
+     "E5_S1",
+     "E4_S3"
+    ],
+    [
+     "E5_S3"
+    ]
+   ],
+   "status": "failed",
+   "fail_reason": "hook beat is none"
+  },
+  {
+   "script_id": "C9",
+   "template": "mini_story",
+   "idea": "A broken frame, red lipstick, and a lawyer’s words start Mira’s secret inheritance.",
+   "beats": [
+    {
+     "beat": "hook",
+     "need": "Leela publicly drops and breaks Mira’s gift.",
+     "event_id": "E1_ev1",
+     "thread_id": "T2"
+    },
+    {
+     "beat": "escalation",
+     "need": "Mira notices matching red lipstick on Arjun’s collar and Tanya’s lips.",
+     "event_id": "E1_ev2",
+     "thread_id": "T3"
+    },
+    {
+     "beat": "cliffhanger",
+     "need": "Desai approaches Mira and says he has looked for her for twenty-two years.",
+     "event_id": "E1_ev4",
+     "thread_id": "T1"
+    }
+   ],
+   "candidates": [
+    [
+     "E1_S1"
+    ],
+    [
+     "E1_S2",
+     "E1_S3",
+     "E1_S1"
+    ],
+    [
+     "E1_S4",
+     "E2_S4",
+     "E2_S5"
+    ]
+   ],
+   "status": "failed",
+   "fail_reason": "cliffhanger beat is none"
+  },
+  {
+   "script_id": "C10",
+   "template": "mini_story",
+   "idea": "After being fired, Mira reads her father’s letters and accepts an anonymous throne.",
+   "beats": [
+    {
+     "beat": "hook",
+     "need": "Mrs. Mehta fires Mira based on false theft accusations.",
+     "event_id": "E2_ev2",
+     "thread_id": "T2"
+    },
+    {
+     "beat": "escalation",
+     "need": "Desai gives Mira the bundle of letters her father wrote to her mother.",
+     "event_id": "E3_ev2",
+     "thread_id": "T1"
+    },
+    {
+     "beat": "cliffhanger",
+     "need": "Mira calls Desai to accept her position as heir under anonymity.",
+     "event_id": "E3_ev5",
+     "thread_id": "T1"
+    }
+   ],
+   "candidates": [
+    [
+     "E2_S1",
+     "E1_S1",
+     "E1_S3"
+    ],
+    [
+     "E3_S1",
+     "E3_S2",
+     "E3_S3",
+     "E2_S1",
+     "E2_S2"
+    ],
+    [
+     "E3_S4",
+     "E3_S3",
+     "E4_S3",
+     "E4_S4",
+     "E4_S5"
+    ]
+   ],
+   "status": "filled",
+   "filled_beats": [
+    {
+     "beat": "hook",
+     "need": "Mrs. Mehta fires Mira based on false theft accusations.",
+     "event_id": "E2_ev2",
+     "thread_id": "T2",
+     "shot_id": "E2_S1"
+    },
+    {
+     "beat": "escalation",
+     "need": "Desai gives Mira the bundle of letters her father wrote to her mother.",
+     "event_id": "E3_ev2",
+     "thread_id": "T1",
+     "shot_id": "E3_S1"
+    },
+    {
+     "beat": "cliffhanger",
+     "need": "Mira calls Desai to accept her position as heir under anonymity.",
+     "event_id": "E3_ev5",
+     "thread_id": "T1",
+     "shot_id": "E3_S4"
+    }
+   ]
+  },
+  {
+   "script_id": "C11",
+   "template": "mini_story",
+   "idea": "Tanya excuses betrayal, then Mira crashes the engagement with a pearl earring.",
+   "beats": [
+    {
+     "beat": "hook",
+     "need": "Tanya visits Mira and claims she had no choice.",
+     "event_id": "E3_ev3",
+     "thread_id": "T3"
+    },
+    {
+     "beat": "escalation",
+     "need": "Arjun announces his engagement to Tanya.",
+     "event_id": "E4_ev2",
+     "thread_id": "T3"
+    },
+    {
+     "beat": "cliffhanger",
+     "need": "Mira drops Tanya’s pearl earring on the table to reject Arjun’s pleas.",
+     "event_id": "E5_ev3",
+     "thread_id": "T3"
+    }
+   ],
+   "candidates": [
+    [
+     "E3_S2",
+     "E4_S1",
+     "E4_S2",
+     "E2_S1"
+    ],
+    [
+     "E4_S2",
+     "E4_S3",
+     "E4_S4",
+     "E5_S1",
+     "E5_S4"
+    ],
+    [
+     "E5_S3",
+     "E5_S5",
+     "E4_S3",
+     "E4_S4",
+     "E4_S5"
+    ]
+   ],
+   "status": "failed",
+   "fail_reason": "hook beat is none"
+  },
+  {
+   "script_id": "C12",
+   "template": "mini_story",
+   "idea": "Wine-soaked and humiliated, Mira withdraws millions—then hears her father was murdered.",
+   "beats": [
+    {
+     "beat": "hook",
+     "need": "Leela publicly pours red wine down Mira’s gown.",
+     "event_id": "E4_ev1",
+     "thread_id": "T2"
+    },
+    {
+     "beat": "escalation",
+     "need": "Mira announces the withdrawal of all investment from the Mehta Group.",
+     "event_id": "E5_ev1",
+     "thread_id": "T2"
+    },
+    {
+     "beat": "cliffhanger",
+     "need": "An unknown caller tells Mira her father was murdered.",
+     "event_id": "E5_ev5",
+     "thread_id": "T4"
+    }
+   ],
+   "candidates": [
+    [
+     "E4_S1",
+     "E4_S2",
+     "E3_S2"
+    ],
+    [
+     "E5_S1",
+     "E5_S2",
+     "E5_S4",
+     "E5_S3",
+     "E4_S1"
+    ],
+    [
+     "E5_S5",
+     "E5_S3"
+    ]
+   ],
+   "status": "filled",
+   "filled_beats": [
+    {
+     "beat": "hook",
+     "need": "Leela publicly pours red wine down Mira’s gown.",
+     "event_id": "E4_ev1",
+     "thread_id": "T2",
+     "shot_id": "E4_S1"
+    },
+    {
+     "beat": "escalation",
+     "need": "Mira announces the withdrawal of all investment from the Mehta Group.",
+     "event_id": "E5_ev1",
+     "thread_id": "T2",
+     "shot_id": "E5_S1"
+    },
+    {
+     "beat": "cliffhanger",
+     "need": "An unknown caller tells Mira her father was murdered.",
+     "event_id": "E5_ev5",
+     "thread_id": "T4",
+     "shot_id": "E5_S5"
+    }
+   ]
+  },
+  {
+   "script_id": "C13",
+   "template": "underdog_revenge",
+   "idea": "From a shattered gift to catching Leela’s slap, Mira becomes the threat.",
+   "beats": [
+    {
+     "beat": "hook",
+     "need": "Leela publicly drops and breaks Mira’s hand-painted gift.",
+     "event_id": "E1_ev1",
+     "thread_id": "T2"
+    },
+    {
+     "beat": "escalation",
+     "need": "Mira catches Leela’s hand mid-air when Leela tries to slap her.",
+     "event_id": "E5_ev2",
+     "thread_id": "T2"
+    },
+    {
+     "beat": "cliffhanger",
+     "need": "An unknown caller informs Mira that her father was murdered.",
+     "event_id": "E5_ev5",
+     "thread_id": "T4"
+    }
+   ],
+   "candidates": [
+    [
+     "E1_S1",
+     "E1_S3",
+     "E2_S1"
+    ],
+    [
+     "E5_S2",
+     "E5_S1",
+     "E5_S4",
+     "E5_S3",
+     "E4_S1"
+    ],
+    [
+     "E5_S5",
+     "E5_S3"
+    ]
+   ],
+   "status": "filled",
+   "filled_beats": [
+    {
+     "beat": "hook",
+     "need": "Leela publicly drops and breaks Mira’s hand-painted gift.",
+     "event_id": "E1_ev1",
+     "thread_id": "T2",
+     "shot_id": "E1_S1"
+    },
+    {
+     "beat": "escalation",
+     "need": "Mira catches Leela’s hand mid-air when Leela tries to slap her.",
+     "event_id": "E5_ev2",
+     "thread_id": "T2",
+     "shot_id": "E5_S2"
+    },
+    {
+     "beat": "cliffhanger",
+     "need": "An unknown caller informs Mira that her father was murdered.",
+     "event_id": "E5_ev5",
+     "thread_id": "T4",
+     "shot_id": "E5_S5"
+    }
+   ]
+  },
+  {
+   "script_id": "C14",
+   "template": "underdog_revenge",
+   "idea": "Thrown out at the gala, Mira returns to bankrupt the Mehtas and stop another slap.",
+   "beats": [
+    {
+     "beat": "hook",
+     "need": "Leela slaps Mira across the face and orders security to throw her out.",
+     "event_id": "E1_ev3",
+     "thread_id": "T2"
+    },
+    {
+     "beat": "escalation",
+     "need": "Mira announces the withdrawal of all investment from the Mehta Group.",
+     "event_id": "E5_ev1",
+     "thread_id": "T2"
+    },
+    {
+     "beat": "cliffhanger",
+     "need": "Mira catches Leela’s hand mid-air as she tries to slap her again.",
+     "event_id": "E5_ev2",
+     "thread_id": "T2"
+    }
+   ],
+   "candidates": [
+    [
+     "E1_S3",
+     "E1_S1",
+     "E2_S1"
+    ],
+    [
+     "E5_S1",
+     "E5_S2",
+     "E4_S1",
+     "E4_S2",
+     "E4_S3"
+    ],
+    [
+     "E5_S3",
+     "E5_S5"
+    ]
+   ],
+   "status": "filled",
+   "filled_beats": [
+    {
+     "beat": "hook",
+     "need": "Leela slaps Mira across the face and orders security to throw her out.",
+     "event_id": "E1_ev3",
+     "thread_id": "T2",
+     "shot_id": "E1_S3"
+    },
+    {
+     "beat": "escalation",
+     "need": "Mira announces the withdrawal of all investment from the Mehta Group.",
+     "event_id": "E5_ev1",
+     "thread_id": "T2",
+     "shot_id": "E5_S1"
+    },
+    {
+     "beat": "cliffhanger",
+     "need": "Mira catches Leela’s hand mid-air as she tries to slap her again.",
+     "event_id": "E5_ev2",
+     "thread_id": "T2",
+     "shot_id": "E5_S3"
+    }
+   ]
+  },
+  {
+   "script_id": "C15",
+   "template": "underdog_revenge",
+   "idea": "After Leela’s slap, Mira cuts the Mehtas off—then Tanya drops a pregnancy bombshell.",
+   "beats": [
+    {
+     "beat": "hook",
+     "need": "Leela slaps Mira and has her thrown out.",
+     "event_id": "E1_ev3",
+     "thread_id": "T2"
+    },
+    {
+     "beat": "escalation",
+     "need": "Mira announces the withdrawal of all investment from the Mehta Group.",
+     "event_id": "E5_ev1",
+     "thread_id": "T2"
+    },
+    {
+     "beat": "cliffhanger",
+     "need": "Tanya publicly reveals that she is carrying Arjun’s child.",
+     "event_id": "E5_ev4",
+     "thread_id": "T3"
+    }
+   ],
+   "candidates": [
+    [
+     "E1_S3",
+     "E1_S1",
+     "E2_S1"
+    ],
+    [
+     "E5_S1",
+     "E5_S2",
+     "E5_S4",
+     "E5_S3",
+     "E4_S1"
+    ],
+    [
+     "E5_S3"
+    ]
+   ],
+   "status": "filled",
+   "filled_beats": [
+    {
+     "beat": "hook",
+     "need": "Leela slaps Mira and has her thrown out.",
+     "event_id": "E1_ev3",
+     "thread_id": "T2",
+     "shot_id": "E1_S3"
+    },
+    {
+     "beat": "escalation",
+     "need": "Mira announces the withdrawal of all investment from the Mehta Group.",
+     "event_id": "E5_ev1",
+     "thread_id": "T2",
+     "shot_id": "E5_S1"
+    },
+    {
+     "beat": "cliffhanger",
+     "need": "Tanya publicly reveals that she is carrying Arjun’s child.",
+     "event_id": "E5_ev4",
+     "thread_id": "T3",
+     "shot_id": "E5_S3"
+    }
+   ]
+  },
+  {
+   "script_id": "C16",
+   "template": "underdog_revenge",
+   "idea": "Fired for theft, Mira rejects Arjun with Tanya’s earring—then Tanya reveals his child.",
+   "beats": [
+    {
+     "beat": "hook",
+     "need": "Mrs. Mehta fires Mira based on false theft accusations.",
+     "event_id": "E2_ev2",
+     "thread_id": "T2"
+    },
+    {
+     "beat": "escalation",
+     "need": "Mira drops Tanya’s pearl earring on the table to reject Arjun’s pleas.",
+     "event_id": "E5_ev3",
+     "thread_id": "T3"
+    },
+    {
+     "beat": "cliffhanger",
+     "need": "Tanya publicly reveals that she is carrying Arjun’s child.",
+     "event_id": "E5_ev4",
+     "thread_id": "T3"
+    }
+   ],
+   "candidates": [
+    [
+     "E2_S1",
+     "E1_S1",
+     "E3_S2",
+     "E1_S3"
+    ],
+    [
+     "E5_S4",
+     "E5_S3",
+     "E5_S2",
+     "E5_S1",
+     "E4_S1"
+    ],
+    [
+     "E5_S3"
+    ]
+   ],
+   "status": "filled",
+   "filled_beats": [
+    {
+     "beat": "hook",
+     "need": "Mrs. Mehta fires Mira based on false theft accusations.",
+     "event_id": "E2_ev2",
+     "thread_id": "T2",
+     "shot_id": "E2_S1"
+    },
+    {
+     "beat": "escalation",
+     "need": "Mira drops Tanya’s pearl earring on the table to reject Arjun’s pleas.",
+     "event_id": "E5_ev3",
+     "thread_id": "T3",
+     "shot_id": "E5_S4"
+    },
+    {
+     "beat": "cliffhanger",
+     "need": "Tanya publicly reveals that she is carrying Arjun’s child.",
+     "event_id": "E5_ev4",
+     "thread_id": "T3",
+     "shot_id": "E5_S3"
+    }
+   ]
+  },
+  {
+   "script_id": "C17",
+   "template": "romance_tension",
+   "idea": "Arjun announces his engagement, but Mira still has the earring that ends his pleas.",
+   "beats": [
+    {
+     "beat": "hook",
+     "need": "Arjun announces his engagement to Tanya.",
+     "event_id": "E4_ev2",
+     "thread_id": "T3"
+    },
+    {
+     "beat": "cliffhanger",
+     "need": "Mira drops Tanya’s pearl earring on the table in front of Arjun.",
+     "event_id": "E5_ev3",
+     "thread_id": "T3"
+    }
+   ],
+   "candidates": [
+    [
+     "E4_S2",
+     "E5_S4",
+     "E3_S2"
+    ],
+    [
+     "E5_S3",
+     "E5_S5",
+     "E4_S3",
+     "E4_S4",
+     "E4_S5"
+    ]
+   ],
+   "status": "filled",
+   "filled_beats": [
+    {
+     "beat": "hook",
+     "need": "Arjun announces his engagement to Tanya.",
+     "event_id": "E4_ev2",
+     "thread_id": "T3",
+     "shot_id": "E4_S2"
+    },
+    {
+     "beat": "cliffhanger",
+     "need": "Mira drops Tanya’s pearl earring on the table in front of Arjun.",
+     "event_id": "E5_ev3",
+     "thread_id": "T3",
+     "shot_id": "E5_S3"
+    }
+   ]
+  },
+  {
+   "script_id": "C18",
+   "template": "romance_tension",
+   "idea": "Mira sees her own ring on Tanya, then Tanya claims Arjun’s child.",
+   "beats": [
+    {
+     "beat": "hook",
+     "need": "Mira identifies the engagement ring Tanya is wearing as hers.",
+     "event_id": "E4_ev3",
+     "thread_id": "T3"
+    },
+    {
+     "beat": "cliffhanger",
+     "need": "Tanya publicly reveals she is carrying Arjun’s child.",
+     "event_id": "E5_ev4",
+     "thread_id": "T3"
+    }
+   ],
+   "candidates": [
+    [
+     "E4_S2",
+     "E4_S1",
+     "E5_S2",
+     "E5_S4",
+     "E3_S2"
+    ],
+    [
+     "E5_S3",
+     "E4_S3",
+     "E4_S4",
+     "E4_S5"
+    ]
+   ],
+   "status": "failed",
+   "fail_reason": "hook beat is none"
+  },
+  {
+   "script_id": "C19",
+   "template": "romance_tension",
+   "idea": "Mira drops Tanya’s earring at Arjun’s feet—then a call changes the crime.",
+   "beats": [
+    {
+     "beat": "hook",
+     "need": "Mira drops Tanya’s pearl earring to reject Arjun’s pleas.",
+     "event_id": "E5_ev3",
+     "thread_id": "T3"
+    },
+    {
+     "beat": "cliffhanger",
+     "need": "An unknown caller informs Mira that her father was murdered.",
+     "event_id": "E5_ev5",
+     "thread_id": "T4"
+    }
+   ],
+   "candidates": [
+    [
+     "E5_S4",
+     "E5_S2",
+     "E4_S1",
+     "E4_S2"
+    ],
+    [
+     "E5_S5",
+     "E5_S3"
+    ]
+   ],
+   "status": "filled",
+   "filled_beats": [
+    {
+     "beat": "hook",
+     "need": "Mira drops Tanya’s pearl earring to reject Arjun’s pleas.",
+     "event_id": "E5_ev3",
+     "thread_id": "T3",
+     "shot_id": "E5_S4"
+    },
+    {
+     "beat": "cliffhanger",
+     "need": "An unknown caller informs Mira that her father was murdered.",
+     "event_id": "E5_ev5",
+     "thread_id": "T4",
+     "shot_id": "E5_S5"
+    }
+   ]
+  },
+  {
+   "script_id": "C20",
+   "template": "romance_tension",
+   "idea": "Tanya’s pregnancy confession corners Arjun as the murder call comes in.",
+   "beats": [
+    {
+     "beat": "hook",
+     "need": "Tanya publicly reveals she is carrying Arjun’s child.",
+     "event_id": "E5_ev4",
+     "thread_id": "T3"
+    },
+    {
+     "beat": "cliffhanger",
+     "need": "An unknown caller informs Mira that her father was murdered.",
+     "event_id": "E5_ev5",
+     "thread_id": "T4"
+    }
+   ],
+   "candidates": [
+    [
+     "E5_S4",
+     "E4_S2"
+    ],
+    [
+     "E5_S5",
+     "E5_S3"
+    ]
+   ],
+   "status": "failed",
+   "fail_reason": "hook beat is none"
+  },
+  {
+   "script_id": "C21",
+   "template": "montage",
+   "idea": "Humiliation montage: broken gift, slap, wine, caught slap, murder call.",
+   "beats": [
+    {
+     "beat": "peak",
+     "need": "Leela drops and breaks Mira’s hand-painted frame.",
+     "event_id": "E1_ev1",
+     "thread_id": "T2"
+    },
+    {
+     "beat": "peak",
+     "need": "Leela slaps Mira and orders security to throw her out.",
+     "event_id": "E1_ev3",
+     "thread_id": "T2"
+    },
+    {
+     "beat": "peak",
+     "need": "Leela pours red wine down Mira’s gown.",
+     "event_id": "E4_ev1",
+     "thread_id": "T2"
+    },
+    {
+     "beat": "peak",
+     "need": "Mira catches Leela’s hand mid-air.",
+     "event_id": "E5_ev2",
+     "thread_id": "T2"
+    },
+    {
+     "beat": "cliffhanger",
+     "need": "An unknown caller tells Mira her father was murdered.",
+     "event_id": "E5_ev5",
+     "thread_id": "T4"
+    }
+   ],
+   "candidates": [
+    [
+     "E1_S1",
+     "E1_S2",
+     "E1_S3",
+     "E1_S4",
+     "E2_S3"
+    ],
+    [
+     "E1_S3",
+     "E1_S2",
+     "E1_S4",
+     "E1_S1",
+     "E2_S3"
+    ],
+    [
+     "E4_S1",
+     "E4_S2",
+     "E4_S3",
+     "E4_S4",
+     "E4_S5"
+    ],
+    [
+     "E5_S2",
+     "E5_S1",
+     "E5_S4",
+     "E5_S3",
+     "E5_S5"
+    ],
+    [
+     "E5_S5",
+     "E5_S3",
+     "E4_S3",
+     "E4_S4",
+     "E4_S5"
+    ]
+   ],
+   "status": "filled",
+   "filled_beats": [
+    {
+     "beat": "peak",
+     "need": "Leela drops and breaks Mira’s hand-painted frame.",
+     "event_id": "E1_ev1",
+     "thread_id": "T2",
+     "shot_id": "E1_S1"
+    },
+    {
+     "beat": "peak",
+     "need": "Leela pours red wine down Mira’s gown.",
+     "event_id": "E4_ev1",
+     "thread_id": "T2",
+     "shot_id": "E4_S1"
+    },
+    {
+     "beat": "peak",
+     "need": "Mira catches Leela’s hand mid-air.",
+     "event_id": "E5_ev2",
+     "thread_id": "T2",
+     "shot_id": "E5_S2"
+    },
+    {
+     "beat": "cliffhanger",
+     "need": "An unknown caller tells Mira her father was murdered.",
+     "event_id": "E5_ev5",
+     "thread_id": "T4",
+     "shot_id": "E5_S5"
+    }
+   ]
+  },
+  {
+   "script_id": "C22",
+   "template": "montage",
+   "idea": "Betrayal montage: lipstick, false witness, engagement, pregnancy, murder call.",
+   "beats": [
+    {
+     "beat": "peak",
+     "need": "Mira notices matching red lipstick on Arjun’s collar and Tanya’s lips.",
+     "event_id": "E1_ev2",
+     "thread_id": "T3"
+    },
+    {
+     "beat": "peak",
+     "need": "Tanya backs up the false theft accusation.",
+     "event_id": "E2_ev3",
+     "thread_id": "T3"
+    },
+    {
+     "beat": "peak",
+     "need": "Arjun announces his engagement to Tanya.",
+     "event_id": "E4_ev2",
+     "thread_id": "T3"
+    },
+    {
+     "beat": "peak",
+     "need": "Tanya publicly reveals she is carrying Arjun’s child.",
+     "event_id": "E5_ev4",
+     "thread_id": "T3"
+    },
+    {
+     "beat": "cliffhanger",
+     "need": "An unknown caller tells Mira her father was murdered.",
+     "event_id": "E5_ev5",
+     "thread_id": "T4"
+    }
+   ],
+   "candidates": [
+    [
+     "E1_S2",
+     "E1_S3",
+     "E1_S1",
+     "E1_S4",
+     "E2_S3"
+    ],
+    [
+     "E2_S2",
+     "E2_S1",
+     "E2_S4",
+     "E2_S5",
+     "E2_S3"
+    ],
+    [
+     "E4_S2",
+     "E4_S3",
+     "E4_S4",
+     "E4_S5",
+     "E5_S1"
+    ],
+    [
+     "E5_S3",
+     "E5_S4",
+     "E5_S1",
+     "E4_S2",
+     "E4_S3"
+    ],
+    [
+     "E5_S5",
+     "E5_S3",
+     "E4_S3",
+     "E4_S4",
+     "E4_S5"
+    ]
+   ],
+   "status": "filled",
+   "filled_beats": [
+    {
+     "beat": "peak",
+     "need": "Mira notices matching red lipstick on Arjun’s collar and Tanya’s lips.",
+     "event_id": "E1_ev2",
+     "thread_id": "T3",
+     "shot_id": "E1_S2"
+    },
+    {
+     "beat": "peak",
+     "need": "Tanya backs up the false theft accusation.",
+     "event_id": "E2_ev3",
+     "thread_id": "T3",
+     "shot_id": "E2_S2"
+    },
+    {
+     "beat": "peak",
+     "need": "Arjun announces his engagement to Tanya.",
+     "event_id": "E4_ev2",
+     "thread_id": "T3",
+     "shot_id": "E4_S2"
+    },
+    {
+     "beat": "peak",
+     "need": "Tanya publicly reveals she is carrying Arjun’s child.",
+     "event_id": "E5_ev4",
+     "thread_id": "T3",
+     "shot_id": "E5_S3"
+    },
+    {
+     "beat": "cliffhanger",
+     "need": "An unknown caller tells Mira her father was murdered.",
+     "event_id": "E5_ev5",
+     "thread_id": "T4",
+     "shot_id": "E5_S5"
+    }
+   ]
+  },
+  {
+   "script_id": "C23",
+   "template": "montage",
+   "idea": "Evidence montage: false theft, earring, ring, earring drop, murder call.",
+   "beats": [
+    {
+     "beat": "peak",
+     "need": "Mrs. Mehta fires Mira on false theft accusations.",
+     "event_id": "E2_ev2",
+     "thread_id": "T2"
+    },
+    {
+     "beat": "peak",
+     "need": "Mira finds the matching pearl earring in Arjun’s car seat.",
+     "event_id": "E3_ev4",
+     "thread_id": "T3"
+    },
+    {
+     "beat": "peak",
+     "need": "Mira identifies Tanya’s engagement ring as her own.",
+     "event_id": "E4_ev3",
+     "thread_id": "T3"
+    },
+    {
+     "beat": "peak",
+     "need": "Mira drops Tanya’s pearl earring on the table.",
+     "event_id": "E5_ev3",
+     "thread_id": "T3"
+    },
+    {
+     "beat": "cliffhanger",
+     "need": "An unknown caller tells Mira her father was murdered.",
+     "event_id": "E5_ev5",
+     "thread_id": "T4"
+    }
+   ],
+   "candidates": [
+    [
+     "E2_S1",
+     "E2_S2",
+     "E2_S4",
+     "E2_S3",
+     "E2_S5"
+    ],
+    [
+     "E3_S3",
+     "E2_S3",
+     "E4_S1",
+     "E4_S2",
+     "E4_S3"
+    ],
+    [
+     "E4_S3",
+     "E4_S2",
+     "E4_S4",
+     "E4_S1",
+     "E4_S5"
+    ],
+    [
+     "E5_S4",
+     "E5_S3",
+     "E5_S2",
+     "E5_S1",
+     "E5_S5"
+    ],
+    [
+     "E5_S5",
+     "E5_S3",
+     "E4_S3",
+     "E4_S4",
+     "E4_S5"
+    ]
+   ],
+   "status": "filled",
+   "filled_beats": [
+    {
+     "beat": "peak",
+     "need": "Mrs. Mehta fires Mira on false theft accusations.",
+     "event_id": "E2_ev2",
+     "thread_id": "T2",
+     "shot_id": "E2_S1"
+    },
+    {
+     "beat": "peak",
+     "need": "Mira finds the matching pearl earring in Arjun’s car seat.",
+     "event_id": "E3_ev4",
+     "thread_id": "T3",
+     "shot_id": "E3_S3"
+    },
+    {
+     "beat": "peak",
+     "need": "Mira identifies Tanya’s engagement ring as her own.",
+     "event_id": "E4_ev3",
+     "thread_id": "T3",
+     "shot_id": "E4_S3"
+    },
+    {
+     "beat": "peak",
+     "need": "Mira drops Tanya’s pearl earring on the table.",
+     "event_id": "E5_ev3",
+     "thread_id": "T3",
+     "shot_id": "E5_S3"
+    },
+    {
+     "beat": "cliffhanger",
+     "need": "An unknown caller tells Mira her father was murdered.",
+     "event_id": "E5_ev5",
+     "thread_id": "T4",
+     "shot_id": "E5_S5"
+    }
+   ]
+  },
+  {
+   "script_id": "C24",
+   "template": "montage",
+   "idea": "Power montage: broken frame, envelope, earring, wine, investment pull, murder call.",
+   "beats": [
+    {
+     "beat": "peak",
+     "need": "Leela breaks Mira’s hand-painted gift.",
+     "event_id": "E1_ev1",
+     "thread_id": "T2"
+    },
+    {
+     "beat": "peak",
+     "need": "Mira opens the sealed envelope with the old photograph and legal document.",
+     "event_id": "E2_ev4",
+     "thread_id": "T1"
+    },
+    {
+     "beat": "peak",
+     "need": "Mira finds the matching pearl earring in Arjun’s car seat.",
+     "event_id": "E3_ev4",
+     "thread_id": "T3"
+    },
+    {
+     "beat": "peak",
+     "need": "Leela pours red wine down Mira’s gown.",
+     "event_id": "E4_ev1",
+     "thread_id": "T2"
+    },
+    {
+     "beat": "peak",
+     "need": "Mira announces the withdrawal of all investment from the Mehta Group.",
+     "event_id": "E5_ev1",
+     "thread_id": "T2"
+    },
+    {
+     "beat": "cliffhanger",
+     "need": "An unknown caller tells Mira her father was murdered.",
+     "event_id": "E5_ev5",
+     "thread_id": "T4"
+    }
+   ],
+   "candidates": [
+    [
+     "E1_S1",
+     "E1_S2",
+     "E1_S3",
+     "E1_S4",
+     "E2_S3"
+    ],
+    [
+     "E2_S4",
+     "E2_S5",
+     "E2_S2",
+     "E2_S1",
+     "E2_S3"
+    ],
+    [
+     "E3_S3",
+     "E2_S3",
+     "E4_S1",
+     "E4_S2",
+     "E4_S3"
+    ],
+    [
+     "E4_S1",
+     "E4_S2",
+     "E4_S3",
+     "E4_S4",
+     "E4_S5"
+    ],
+    [
+     "E5_S1",
+     "E5_S2",
+     "E5_S4",
+     "E5_S3",
+     "E5_S5"
+    ],
+    [
+     "E5_S5",
+     "E5_S3",
+     "E4_S3",
+     "E4_S4",
+     "E4_S5"
+    ]
+   ],
+   "status": "filled",
+   "filled_beats": [
+    {
+     "beat": "peak",
+     "need": "Leela breaks Mira’s hand-painted gift.",
+     "event_id": "E1_ev1",
+     "thread_id": "T2",
+     "shot_id": "E1_S1"
+    },
+    {
+     "beat": "peak",
+     "need": "Mira opens the sealed envelope with the old photograph and legal document.",
+     "event_id": "E2_ev4",
+     "thread_id": "T1",
+     "shot_id": "E2_S4"
+    },
+    {
+     "beat": "peak",
+     "need": "Mira finds the matching pearl earring in Arjun’s car seat.",
+     "event_id": "E3_ev4",
+     "thread_id": "T3",
+     "shot_id": "E3_S3"
+    },
+    {
+     "beat": "peak",
+     "need": "Leela pours red wine down Mira’s gown.",
+     "event_id": "E4_ev1",
+     "thread_id": "T2",
+     "shot_id": "E4_S1"
+    },
+    {
+     "beat": "peak",
+     "need": "Mira announces the withdrawal of all investment from the Mehta Group.",
+     "event_id": "E5_ev1",
+     "thread_id": "T2",
+     "shot_id": "E5_S1"
+    },
+    {
+     "beat": "cliffhanger",
+     "need": "An unknown caller tells Mira her father was murdered.",
+     "event_id": "E5_ev5",
+     "thread_id": "T4",
+     "shot_id": "E5_S5"
+    }
+   ]
+  }
+ ],
+ "candidates": [
+  {
+   "cand_id": "C1",
+   "source": "script",
+   "template": "single_scene",
+   "script_id": "C1",
+   "idea": "Mira stops Leela’s slap mid-air and flips the power dynamic.",
+   "beats": [
+    {
+     "beat": "scene",
+     "need": "Long continuous scene: Mira catches Leela’s hand mid-air as guests gasp.",
+     "event_id": "E5_ev2",
+     "thread_id": "T2",
+     "shot_id": "E5_S3"
+    }
+   ]
+  },
+  {
+   "cand_id": "C2",
+   "source": "script",
+   "template": "single_scene",
+   "script_id": "C2",
+   "idea": "Mira drops Tanya’s pearl earring to reject Arjun’s pleas.",
+   "beats": [
+    {
+     "beat": "scene",
+     "need": "Long continuous scene: Mira lets the pearl earring fall on the table in front of Arjun.",
+     "event_id": "E5_ev3",
+     "thread_id": "T3",
+     "shot_id": "E5_S3"
+    }
+   ]
+  },
+  {
+   "cand_id": "C3",
+   "source": "script",
+   "template": "single_scene",
+   "script_id": "C3",
+   "idea": "Tanya publicly reveals she is carrying Arjun’s child.",
+   "beats": [
+    {
+     "beat": "scene",
+     "need": "Long continuous scene: Tanya stands in public and says she is pregnant with Arjun’s child.",
+     "event_id": "E5_ev4",
+     "thread_id": "T3",
+     "shot_id": "E5_S3"
+    }
+   ]
+  },
+  {
+   "cand_id": "C4",
+   "source": "script",
+   "template": "single_scene",
+   "script_id": "C4",
+   "idea": "Leela tries to slap Mira again, but Mira is no longer prey.",
+   "beats": [
+    {
+     "beat": "scene",
+     "need": "Long continuous scene: Leela swings, Mira catches her wrist, and the room freezes.",
+     "event_id": "E5_ev2",
+     "thread_id": "T2",
+     "shot_id": "E5_S3"
+    }
+   ]
+  },
+  {
+   "cand_id": "C5",
+   "source": "script",
+   "template": "reveal_tease",
+   "script_id": "C5",
+   "idea": "A broken gift and a sealed envelope point to Mira’s secret father.",
+   "beats": [
+    {
+     "beat": "hook",
+     "need": "Leela deliberately drops and breaks Mira’s hand-painted frame.",
+     "event_id": "E1_ev1",
+     "thread_id": "T2",
+     "shot_id": "E1_S1"
+    },
+    {
+     "beat": "escalation",
+     "need": "Desai tells Mira her father never knew she existed.",
+     "event_id": "E2_ev1",
+     "thread_id": "T1",
+     "shot_id": "E2_S3"
+    },
+    {
+     "beat": "cliffhanger",
+     "need": "Mira opens the sealed envelope and sees an old photograph and legal paper.",
+     "event_id": "E2_ev4",
+     "thread_id": "T1",
+     "shot_id": "E2_S4"
+    }
+   ]
+  },
+  {
+   "cand_id": "C6",
+   "source": "script",
+   "template": "reveal_tease",
+   "script_id": "C6",
+   "idea": "Slapped and betrayed, Mira finds the earring that proves the affair.",
+   "beats": [
+    {
+     "beat": "hook",
+     "need": "Leela slaps Mira and orders security to throw her out.",
+     "event_id": "E1_ev3",
+     "thread_id": "T2",
+     "shot_id": "E1_S3"
+    },
+    {
+     "beat": "escalation",
+     "need": "Tanya backs the false accusation to steal Mira’s promotion.",
+     "event_id": "E2_ev3",
+     "thread_id": "T3",
+     "shot_id": "E2_S2"
+    },
+    {
+     "beat": "cliffhanger",
+     "need": "Mira finds the matching pearl earring wedged in Arjun’s car seat.",
+     "event_id": "E3_ev4",
+     "thread_id": "T3",
+     "shot_id": "E3_S3"
+    }
+   ]
+  },
+  {
+   "cand_id": "C7",
+   "source": "script",
+   "template": "reveal_tease",
+   "script_id": "C7",
+   "idea": "Fired for theft, Mira returns with a decision that threatens the Mehtas.",
+   "beats": [
+    {
+     "beat": "hook",
+     "need": "Mrs. Mehta fires Mira on false theft accusations.",
+     "event_id": "E2_ev2",
+     "thread_id": "T2",
+     "shot_id": "E2_S1"
+    },
+    {
+     "beat": "escalation",
+     "need": "Tanya betrays Mira by confirming the false accusation.",
+     "event_id": "E2_ev3",
+     "thread_id": "T3",
+     "shot_id": "E2_S2"
+    },
+    {
+     "beat": "cliffhanger",
+     "need": "Mira says her first decision as chair concerns the Mehta Group.",
+     "event_id": "E4_ev5",
+     "thread_id": "T2",
+     "shot_id": "E4_S5"
+    }
+   ]
+  },
+  {
+   "cand_id": "C10",
+   "source": "script",
+   "template": "mini_story",
+   "script_id": "C10",
+   "idea": "After being fired, Mira reads her father’s letters and accepts an anonymous throne.",
+   "beats": [
+    {
+     "beat": "hook",
+     "need": "Mrs. Mehta fires Mira based on false theft accusations.",
+     "event_id": "E2_ev2",
+     "thread_id": "T2",
+     "shot_id": "E2_S1"
+    },
+    {
+     "beat": "escalation",
+     "need": "Desai gives Mira the bundle of letters her father wrote to her mother.",
+     "event_id": "E3_ev2",
+     "thread_id": "T1",
+     "shot_id": "E3_S1"
+    },
+    {
+     "beat": "cliffhanger",
+     "need": "Mira calls Desai to accept her position as heir under anonymity.",
+     "event_id": "E3_ev5",
+     "thread_id": "T1",
+     "shot_id": "E3_S4"
+    }
+   ]
+  },
+  {
+   "cand_id": "C12",
+   "source": "script",
+   "template": "mini_story",
+   "script_id": "C12",
+   "idea": "Wine-soaked and humiliated, Mira withdraws millions—then hears her father was murdered.",
+   "beats": [
+    {
+     "beat": "hook",
+     "need": "Leela publicly pours red wine down Mira’s gown.",
+     "event_id": "E4_ev1",
+     "thread_id": "T2",
+     "shot_id": "E4_S1"
+    },
+    {
+     "beat": "escalation",
+     "need": "Mira announces the withdrawal of all investment from the Mehta Group.",
+     "event_id": "E5_ev1",
+     "thread_id": "T2",
+     "shot_id": "E5_S1"
+    },
+    {
+     "beat": "cliffhanger",
+     "need": "An unknown caller tells Mira her father was murdered.",
+     "event_id": "E5_ev5",
+     "thread_id": "T4",
+     "shot_id": "E5_S5"
+    }
+   ]
+  },
+  {
+   "cand_id": "C13",
+   "source": "script",
+   "template": "underdog_revenge",
+   "script_id": "C13",
+   "idea": "From a shattered gift to catching Leela’s slap, Mira becomes the threat.",
+   "beats": [
+    {
+     "beat": "hook",
+     "need": "Leela publicly drops and breaks Mira’s hand-painted gift.",
+     "event_id": "E1_ev1",
+     "thread_id": "T2",
+     "shot_id": "E1_S1"
+    },
+    {
+     "beat": "escalation",
+     "need": "Mira catches Leela’s hand mid-air when Leela tries to slap her.",
+     "event_id": "E5_ev2",
+     "thread_id": "T2",
+     "shot_id": "E5_S2"
+    },
+    {
+     "beat": "cliffhanger",
+     "need": "An unknown caller informs Mira that her father was murdered.",
+     "event_id": "E5_ev5",
+     "thread_id": "T4",
+     "shot_id": "E5_S5"
+    }
+   ]
+  },
+  {
+   "cand_id": "C14",
+   "source": "script",
+   "template": "underdog_revenge",
+   "script_id": "C14",
+   "idea": "Thrown out at the gala, Mira returns to bankrupt the Mehtas and stop another slap.",
+   "beats": [
+    {
+     "beat": "hook",
+     "need": "Leela slaps Mira across the face and orders security to throw her out.",
+     "event_id": "E1_ev3",
+     "thread_id": "T2",
+     "shot_id": "E1_S3"
+    },
+    {
+     "beat": "escalation",
+     "need": "Mira announces the withdrawal of all investment from the Mehta Group.",
+     "event_id": "E5_ev1",
+     "thread_id": "T2",
+     "shot_id": "E5_S1"
+    },
+    {
+     "beat": "cliffhanger",
+     "need": "Mira catches Leela’s hand mid-air as she tries to slap her again.",
+     "event_id": "E5_ev2",
+     "thread_id": "T2",
+     "shot_id": "E5_S3"
+    }
+   ]
+  },
+  {
+   "cand_id": "C15",
+   "source": "script",
+   "template": "underdog_revenge",
+   "script_id": "C15",
+   "idea": "After Leela’s slap, Mira cuts the Mehtas off—then Tanya drops a pregnancy bombshell.",
+   "beats": [
+    {
+     "beat": "hook",
+     "need": "Leela slaps Mira and has her thrown out.",
+     "event_id": "E1_ev3",
+     "thread_id": "T2",
+     "shot_id": "E1_S3"
+    },
+    {
+     "beat": "escalation",
+     "need": "Mira announces the withdrawal of all investment from the Mehta Group.",
+     "event_id": "E5_ev1",
+     "thread_id": "T2",
+     "shot_id": "E5_S1"
+    },
+    {
+     "beat": "cliffhanger",
+     "need": "Tanya publicly reveals that she is carrying Arjun’s child.",
+     "event_id": "E5_ev4",
+     "thread_id": "T3",
+     "shot_id": "E5_S3"
+    }
+   ]
+  },
+  {
+   "cand_id": "C16",
+   "source": "script",
+   "template": "underdog_revenge",
+   "script_id": "C16",
+   "idea": "Fired for theft, Mira rejects Arjun with Tanya’s earring—then Tanya reveals his child.",
+   "beats": [
+    {
+     "beat": "hook",
+     "need": "Mrs. Mehta fires Mira based on false theft accusations.",
+     "event_id": "E2_ev2",
+     "thread_id": "T2",
+     "shot_id": "E2_S1"
+    },
+    {
+     "beat": "escalation",
+     "need": "Mira drops Tanya’s pearl earring on the table to reject Arjun’s pleas.",
+     "event_id": "E5_ev3",
+     "thread_id": "T3",
+     "shot_id": "E5_S4"
+    },
+    {
+     "beat": "cliffhanger",
+     "need": "Tanya publicly reveals that she is carrying Arjun’s child.",
+     "event_id": "E5_ev4",
+     "thread_id": "T3",
+     "shot_id": "E5_S3"
+    }
+   ]
+  },
+  {
+   "cand_id": "C17",
+   "source": "script",
+   "template": "romance_tension",
+   "script_id": "C17",
+   "idea": "Arjun announces his engagement, but Mira still has the earring that ends his pleas.",
+   "beats": [
+    {
+     "beat": "hook",
+     "need": "Arjun announces his engagement to Tanya.",
+     "event_id": "E4_ev2",
+     "thread_id": "T3",
+     "shot_id": "E4_S2"
+    },
+    {
+     "beat": "cliffhanger",
+     "need": "Mira drops Tanya’s pearl earring on the table in front of Arjun.",
+     "event_id": "E5_ev3",
+     "thread_id": "T3",
+     "shot_id": "E5_S3"
+    }
+   ]
+  },
+  {
+   "cand_id": "C19",
+   "source": "script",
+   "template": "romance_tension",
+   "script_id": "C19",
+   "idea": "Mira drops Tanya’s earring at Arjun’s feet—then a call changes the crime.",
+   "beats": [
+    {
+     "beat": "hook",
+     "need": "Mira drops Tanya’s pearl earring to reject Arjun’s pleas.",
+     "event_id": "E5_ev3",
+     "thread_id": "T3",
+     "shot_id": "E5_S4"
+    },
+    {
+     "beat": "cliffhanger",
+     "need": "An unknown caller informs Mira that her father was murdered.",
+     "event_id": "E5_ev5",
+     "thread_id": "T4",
+     "shot_id": "E5_S5"
+    }
+   ]
+  },
+  {
+   "cand_id": "C21",
+   "source": "script",
+   "template": "montage",
+   "script_id": "C21",
+   "idea": "Humiliation montage: broken gift, slap, wine, caught slap, murder call.",
+   "beats": [
+    {
+     "beat": "peak",
+     "need": "Leela drops and breaks Mira’s hand-painted frame.",
+     "event_id": "E1_ev1",
+     "thread_id": "T2",
+     "shot_id": "E1_S1"
+    },
+    {
+     "beat": "peak",
+     "need": "Leela pours red wine down Mira’s gown.",
+     "event_id": "E4_ev1",
+     "thread_id": "T2",
+     "shot_id": "E4_S1"
+    },
+    {
+     "beat": "peak",
+     "need": "Mira catches Leela’s hand mid-air.",
+     "event_id": "E5_ev2",
+     "thread_id": "T2",
+     "shot_id": "E5_S2"
+    },
+    {
+     "beat": "cliffhanger",
+     "need": "An unknown caller tells Mira her father was murdered.",
+     "event_id": "E5_ev5",
+     "thread_id": "T4",
+     "shot_id": "E5_S5"
+    }
+   ]
+  },
+  {
+   "cand_id": "C22",
+   "source": "script",
+   "template": "montage",
+   "script_id": "C22",
+   "idea": "Betrayal montage: lipstick, false witness, engagement, pregnancy, murder call.",
+   "beats": [
+    {
+     "beat": "peak",
+     "need": "Mira notices matching red lipstick on Arjun’s collar and Tanya’s lips.",
+     "event_id": "E1_ev2",
+     "thread_id": "T3",
+     "shot_id": "E1_S2"
+    },
+    {
+     "beat": "peak",
+     "need": "Tanya backs up the false theft accusation.",
+     "event_id": "E2_ev3",
+     "thread_id": "T3",
+     "shot_id": "E2_S2"
+    },
+    {
+     "beat": "peak",
+     "need": "Arjun announces his engagement to Tanya.",
+     "event_id": "E4_ev2",
+     "thread_id": "T3",
+     "shot_id": "E4_S2"
+    },
+    {
+     "beat": "peak",
+     "need": "Tanya publicly reveals she is carrying Arjun’s child.",
+     "event_id": "E5_ev4",
+     "thread_id": "T3",
+     "shot_id": "E5_S3"
+    },
+    {
+     "beat": "cliffhanger",
+     "need": "An unknown caller tells Mira her father was murdered.",
+     "event_id": "E5_ev5",
+     "thread_id": "T4",
+     "shot_id": "E5_S5"
+    }
+   ]
+  },
+  {
+   "cand_id": "C23",
+   "source": "script",
+   "template": "montage",
+   "script_id": "C23",
+   "idea": "Evidence montage: false theft, earring, ring, earring drop, murder call.",
+   "beats": [
+    {
+     "beat": "peak",
+     "need": "Mrs. Mehta fires Mira on false theft accusations.",
+     "event_id": "E2_ev2",
+     "thread_id": "T2",
+     "shot_id": "E2_S1"
+    },
+    {
+     "beat": "peak",
+     "need": "Mira finds the matching pearl earring in Arjun’s car seat.",
+     "event_id": "E3_ev4",
+     "thread_id": "T3",
+     "shot_id": "E3_S3"
+    },
+    {
+     "beat": "peak",
+     "need": "Mira identifies Tanya’s engagement ring as her own.",
+     "event_id": "E4_ev3",
+     "thread_id": "T3",
+     "shot_id": "E4_S3"
+    },
+    {
+     "beat": "peak",
+     "need": "Mira drops Tanya’s pearl earring on the table.",
+     "event_id": "E5_ev3",
+     "thread_id": "T3",
+     "shot_id": "E5_S3"
+    },
+    {
+     "beat": "cliffhanger",
+     "need": "An unknown caller tells Mira her father was murdered.",
+     "event_id": "E5_ev5",
+     "thread_id": "T4",
+     "shot_id": "E5_S5"
+    }
+   ]
+  },
+  {
+   "cand_id": "C24",
+   "source": "script",
+   "template": "montage",
+   "script_id": "C24",
+   "idea": "Power montage: broken frame, envelope, earring, wine, investment pull, murder call.",
+   "beats": [
+    {
+     "beat": "peak",
+     "need": "Leela breaks Mira’s hand-painted gift.",
+     "event_id": "E1_ev1",
+     "thread_id": "T2",
+     "shot_id": "E1_S1"
+    },
+    {
+     "beat": "peak",
+     "need": "Mira opens the sealed envelope with the old photograph and legal document.",
+     "event_id": "E2_ev4",
+     "thread_id": "T1",
+     "shot_id": "E2_S4"
+    },
+    {
+     "beat": "peak",
+     "need": "Mira finds the matching pearl earring in Arjun’s car seat.",
+     "event_id": "E3_ev4",
+     "thread_id": "T3",
+     "shot_id": "E3_S3"
+    },
+    {
+     "beat": "peak",
+     "need": "Leela pours red wine down Mira’s gown.",
+     "event_id": "E4_ev1",
+     "thread_id": "T2",
+     "shot_id": "E4_S1"
+    },
+    {
+     "beat": "peak",
+     "need": "Mira announces the withdrawal of all investment from the Mehta Group.",
+     "event_id": "E5_ev1",
+     "thread_id": "T2",
+     "shot_id": "E5_S1"
+    },
+    {
+     "beat": "cliffhanger",
+     "need": "An unknown caller tells Mira her father was murdered.",
+     "event_id": "E5_ev5",
+     "thread_id": "T4",
+     "shot_id": "E5_S5"
+    }
+   ]
+  },
+  {
+   "cand_id": "SN_E4_S4",
+   "source": "safety_net",
+   "template": "single_scene",
+   "script_id": null,
+   "idea": "strongest scene in ep 4: Ladies and gentlemen, Miss Mira Rao.",
+   "beats": [
+    {
+     "beat": "scene",
+     "need": "",
+     "event_id": null,
+     "shot_id": "E4_S4"
+    }
+   ]
+  },
+  {
+   "cand_id": "SN_E3_S2",
+   "source": "safety_net",
+   "template": "reveal_tease",
+   "script_id": null,
+   "idea": "hook from ep 3 to its cliffhanger",
+   "beats": [
+    {
+     "beat": "hook",
+     "need": "",
+     "event_id": null,
+     "shot_id": "E3_S2"
+    },
+    {
+     "beat": "cliffhanger",
+     "need": "",
+     "event_id": null,
+     "shot_id": "E3_S4"
+    }
+   ]
+  },
+  {
+   "cand_id": "ES_E2_ESC",
+   "source": "ending_scene",
+   "template": "ending_scene",
+   "script_id": null,
+   "idea": "ep 2 closing scene, hook to cliffhanger",
+   "beats": [
+    {
+     "beat": "scene",
+     "need": "",
+     "event_id": null,
+     "shot_id": "E2_ESC"
+    }
+   ]
+  },
+  {
+   "cand_id": "ES_E4_ESC",
+   "source": "ending_scene",
+   "template": "ending_scene",
+   "script_id": null,
+   "idea": "ep 4 closing scene, hook to cliffhanger",
+   "beats": [
+    {
+     "beat": "scene",
+     "need": "",
+     "event_id": null,
+     "shot_id": "E4_ESC"
+    }
+   ]
+  }
+ ],
+ "fill": {
+  "scripts_written": 24,
+  "scripts_filled": 19,
+  "fill_rate": 0.792
+ }
+}

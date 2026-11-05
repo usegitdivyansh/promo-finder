@@ -1,0 +1,118 @@
+{
+ "episode": 3,
+ "raw_count": 4,
+ "shots": [
+  {
+   "shot_id": "E3_S1",
+   "size": "medium",
+   "start_line_id": "E3_L4",
+   "end_line_id": "E3_L6",
+   "key_line_id": "E3_L4",
+   "role": "escalation",
+   "hook_type": null,
+   "intensity": 6,
+   "needs_context": "medium",
+   "characters": [
+    "Mira Rao",
+    "Harish Desai"
+   ],
+   "thread_id": "T1",
+   "quote_or_action": "Your father's will is clear. Everything goes to his only child.",
+   "char_ids": [
+    "C1",
+    "C5"
+   ],
+   "episode": 3,
+   "start_idx": 4,
+   "key_idx": 4,
+   "end_idx": 6,
+   "start": 15.0,
+   "end": 32.0,
+   "duration": 17.0,
+   "quote_ratio": 1.0
+  },
+  {
+   "shot_id": "E3_S2",
+   "size": "small",
+   "start_line_id": "E3_L17",
+   "end_line_id": "E3_L19",
+   "key_line_id": "E3_L17",
+   "role": "hook",
+   "hook_type": "shocking_line",
+   "intensity": 6,
+   "needs_context": "medium",
+   "characters": [
+    "Mira Rao",
+    "Tanya"
+   ],
+   "thread_id": "T3",
+   "quote_or_action": "You're wearing one earring.",
+   "char_ids": [
+    "C1",
+    "C3"
+   ],
+   "episode": 3,
+   "start_idx": 17,
+   "key_idx": 17,
+   "end_idx": 19,
+   "start": 73.0,
+   "end": 81.0,
+   "duration": 8.0,
+   "quote_ratio": 1.0
+  },
+  {
+   "shot_id": "E3_S3",
+   "size": "medium",
+   "start_line_id": "E3_L21",
+   "end_line_id": "E3_L23",
+   "key_line_id": "E3_L22",
+   "role": "payoff",
+   "hook_type": "betrayal_caught",
+   "intensity": 7,
+   "needs_context": "medium",
+   "characters": [
+    "Mira Rao"
+   ],
+   "thread_id": "T3",
+   "quote_or_action": "Wedged in the seat is a pearl earring. The pair of the one Tanya was wearing.",
+   "char_ids": [
+    "C1"
+   ],
+   "episode": 3,
+   "start_idx": 21,
+   "key_idx": 22,
+   "end_idx": 23,
+   "start": 83.0,
+   "end": 98.0,
+   "duration": 15.0,
+   "quote_ratio": 1.0
+  },
+  {
+   "shot_id": "E3_S4",
+   "size": "small",
+   "start_line_id": "E3_L26",
+   "end_line_id": "E3_L27",
+   "key_line_id": "E3_L27",
+   "role": "cliffhanger",
+   "hook_type": "contract_deal",
+   "intensity": 6,
+   "needs_context": "medium",
+   "characters": [
+    "Mira Rao"
+   ],
+   "thread_id": "T1",
+   "quote_or_action": "But nobody learns my name until the gala.",
+   "char_ids": [
+    "C1"
+   ],
+   "episode": 3,
+   "start_idx": 26,
+   "key_idx": 27,
+   "end_idx": 27,
+   "start": 103.0,
+   "end": 111.0,
+   "duration": 8.0,
+   "quote_ratio": 1.0
+  }
+ ]
+}

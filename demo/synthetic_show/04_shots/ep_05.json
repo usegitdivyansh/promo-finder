@@ -1,0 +1,161 @@
+{
+ "episode": 5,
+ "raw_count": 5,
+ "shots": [
+  {
+   "shot_id": "E5_S1",
+   "size": "medium",
+   "start_line_id": "E5_L4",
+   "end_line_id": "E5_L6",
+   "key_line_id": "E5_L4",
+   "role": "escalation",
+   "hook_type": "revenge_moment",
+   "intensity": 8,
+   "needs_context": "medium",
+   "characters": [
+    "Mira Rao",
+    "Arjun Mehta",
+    "Leela Mehta",
+    "Tanya"
+   ],
+   "thread_id": "T2",
+   "quote_or_action": "Rao Shipping is withdrawing all investment from the Mehta Group. Effective today.",
+   "char_ids": [
+    "C1",
+    "C2",
+    "C4",
+    "C3"
+   ],
+   "episode": 5,
+   "start_idx": 4,
+   "key_idx": 4,
+   "end_idx": 6,
+   "start": 17.0,
+   "end": 31.0,
+   "duration": 14.0,
+   "quote_ratio": 1.0
+  },
+  {
+   "shot_id": "E5_S2",
+   "size": "small",
+   "start_line_id": "E5_L8",
+   "end_line_id": "E5_L9",
+   "key_line_id": "E5_L8",
+   "role": "hook",
+   "hook_type": "slap_violence",
+   "intensity": 9,
+   "needs_context": "low",
+   "characters": [
+    "Mira Rao",
+    "Leela Mehta"
+   ],
+   "thread_id": "T2",
+   "quote_or_action": "Leela raises her hand to slap Mira. Mira catches her wrist mid-air.",
+   "char_ids": [
+    "C1",
+    "C4"
+   ],
+   "episode": 5,
+   "start_idx": 8,
+   "key_idx": 8,
+   "end_idx": 9,
+   "start": 33.0,
+   "end": 40.0,
+   "duration": 7.0,
+   "quote_ratio": 1.0
+  },
+  {
+   "shot_id": "E5_S3",
+   "size": "long",
+   "start_line_id": "E5_L8",
+   "end_line_id": "E5_L17",
+   "key_line_id": "E5_L16",
+   "role": "payoff",
+   "hook_type": "secret_exposed",
+   "intensity": 9,
+   "needs_context": "medium",
+   "characters": [
+    "Mira Rao",
+    "Leela Mehta",
+    "Arjun Mehta",
+    "Tanya"
+   ],
+   "thread_id": "T3",
+   "quote_or_action": "Means nothing? I'm carrying your child, Arjun.",
+   "char_ids": [
+    "C1",
+    "C4",
+    "C2",
+    "C3"
+   ],
+   "episode": 5,
+   "start_idx": 8,
+   "key_idx": 16,
+   "end_idx": 17,
+   "start": 33.0,
+   "end": 74.0,
+   "duration": 41.0,
+   "quote_ratio": 1.0
+  },
+  {
+   "shot_id": "E5_S4",
+   "size": "small",
+   "start_line_id": "E5_L14",
+   "end_line_id": "E5_L15",
+   "key_line_id": "E5_L14",
+   "role": "hook",
+   "hook_type": "betrayal_caught",
+   "intensity": 8,
+   "needs_context": "medium",
+   "characters": [
+    "Mira Rao",
+    "Arjun Mehta",
+    "Tanya"
+   ],
+   "thread_id": "T3",
+   "quote_or_action": "You left this in your car. Give it back to its owner.",
+   "char_ids": [
+    "C1",
+    "C2",
+    "C3"
+   ],
+   "episode": 5,
+   "start_idx": 14,
+   "key_idx": 14,
+   "end_idx": 15,
+   "start": 58.0,
+   "end": 66.0,
+   "duration": 8.0,
+   "quote_ratio": 1.0
+  },
+  {
+   "shot_id": "E5_S5",
+   "size": "medium",
+   "start_line_id": "E5_L25",
+   "end_line_id": "E5_L26",
+   "key_line_id": "E5_L26",
+   "role": "cliffhanger",
+   "hook_type": "shocking_line",
+   "intensity": 9,
+   "needs_context": "high",
+   "characters": [
+    "Mira Rao",
+    "Unknown Caller"
+   ],
+   "thread_id": "T4",
+   "quote_or_action": "He was murdered. And his killer was at your gala last night.",
+   "char_ids": [
+    "C1",
+    "C7"
+   ],
+   "episode": 5,
+   "start_idx": 25,
+   "key_idx": 26,
+   "end_idx": 26,
+   "start": 102.0,
+   "end": 114.0,
+   "duration": 12.0,
+   "quote_ratio": 1.0
+  }
+ ]
+}

@@ -1,0 +1,1760 @@
+[
+ {
+  "promo_id": "X001",
+  "cand_id": "C1",
+  "source": "script",
+  "template": "single_scene",
+  "script_id": "C1",
+  "idea": "Mira stops Leela’s slap mid-air and flips the power dynamic.",
+  "beats": [
+   {
+    "beat": "scene",
+    "need": "Long continuous scene: Mira catches Leela’s hand mid-air as guests gasp.",
+    "event_id": "E5_ev2",
+    "thread_id": "T2",
+    "shot_id": "E5_S3"
+   }
+  ],
+  "segments": [
+   {
+    "episode": 5,
+    "start": 33.0,
+    "end": 74.0,
+    "start_line_id": "E5_L8",
+    "end_line_id": "E5_L17",
+    "a": 8,
+    "b": 17,
+    "roles": [
+     "scene"
+    ],
+    "shot_ids": [
+     "E5_S3"
+    ],
+    "threads": [
+     "T3"
+    ],
+    "char_ids": [
+     "C1",
+     "C4",
+     "C2",
+     "C3"
+    ],
+    "hook_key": 8,
+    "duration": 41.0
+   }
+  ],
+  "total_duration_sec": 41.0,
+  "hook_shot_id": "E5_S2",
+  "hook_intensity": 9,
+  "hook_needs_context": "low",
+  "main_thread": "T2",
+  "spoiler_penalty": 5,
+  "flags": [
+   "minor_spoiler"
+  ]
+ },
+ {
+  "promo_id": "X002",
+  "cand_id": "C5",
+  "source": "script",
+  "template": "reveal_tease",
+  "script_id": "C5",
+  "idea": "A broken gift and a sealed envelope point to Mira’s secret father.",
+  "beats": [
+   {
+    "beat": "hook",
+    "need": "Leela deliberately drops and breaks Mira’s hand-painted frame.",
+    "event_id": "E1_ev1",
+    "thread_id": "T2",
+    "shot_id": "E1_S1"
+   },
+   {
+    "beat": "escalation",
+    "need": "Desai tells Mira her father never knew she existed.",
+    "event_id": "E2_ev1",
+    "thread_id": "T1",
+    "shot_id": "E2_S3"
+   },
+   {
+    "beat": "cliffhanger",
+    "need": "Mira opens the sealed envelope and sees an old photograph and legal paper.",
+    "event_id": "E2_ev4",
+    "thread_id": "T1",
+    "shot_id": "E2_S4"
+   }
+  ],
+  "segments": [
+   {
+    "episode": 1,
+    "start": 35.0,
+    "end": 42.0,
+    "start_line_id": "E1_L10",
+    "end_line_id": "E1_L11",
+    "a": 10,
+    "b": 11,
+    "roles": [
+     "hook"
+    ],
+    "shot_ids": [
+     "E1_S1"
+    ],
+    "threads": [
+     null
+    ],
+    "char_ids": [
+     "C4",
+     "C1"
+    ],
+    "hook_key": 10,
+    "duration": 7.0
+   },
+   {
+    "episode": 2,
+    "start": 17.0,
+    "end": 32.0,
+    "start_line_id": "E2_L5",
+    "end_line_id": "E2_L7",
+    "a": 5,
+    "b": 7,
+    "roles": [
+     "escalation"
+    ],
+    "shot_ids": [
+     "E2_S3"
+    ],
+    "threads": [
+     "T1"
+    ],
+    "char_ids": [
+     "C1",
+     "C5"
+    ],
+    "hook_key": null,
+    "duration": 15.0
+   },
+   {
+    "episode": 2,
+    "start": 106.0,
+    "end": 120.0,
+    "start_line_id": "E2_L28",
+    "end_line_id": "E2_L30",
+    "a": 28,
+    "b": 30,
+    "roles": [
+     "cliffhanger"
+    ],
+    "shot_ids": [
+     "E2_S4"
+    ],
+    "threads": [
+     "T1"
+    ],
+    "char_ids": [
+     "C1"
+    ],
+    "hook_key": null,
+    "duration": 14.0
+   }
+  ],
+  "total_duration_sec": 36.0,
+  "hook_shot_id": "E1_S1",
+  "hook_intensity": 8,
+  "hook_needs_context": "low",
+  "main_thread": null,
+  "spoiler_penalty": 0,
+  "flags": []
+ },
+ {
+  "promo_id": "X003",
+  "cand_id": "C6",
+  "source": "script",
+  "template": "reveal_tease",
+  "script_id": "C6",
+  "idea": "Slapped and betrayed, Mira finds the earring that proves the affair.",
+  "beats": [
+   {
+    "beat": "hook",
+    "need": "Leela slaps Mira and orders security to throw her out.",
+    "event_id": "E1_ev3",
+    "thread_id": "T2",
+    "shot_id": "E1_S3"
+   },
+   {
+    "beat": "escalation",
+    "need": "Tanya backs the false accusation to steal Mira’s promotion.",
+    "event_id": "E2_ev3",
+    "thread_id": "T3",
+    "shot_id": "E2_S2"
+   },
+   {
+    "beat": "cliffhanger",
+    "need": "Mira finds the matching pearl earring wedged in Arjun’s car seat.",
+    "event_id": "E3_ev4",
+    "thread_id": "T3",
+    "shot_id": "E3_S3"
+   }
+  ],
+  "segments": [
+   {
+    "episode": 1,
+    "start": 83.0,
+    "end": 90.0,
+    "start_line_id": "E1_L23",
+    "end_line_id": "E1_L24",
+    "a": 23,
+    "b": 24,
+    "roles": [
+     "hook"
+    ],
+    "shot_ids": [
+     "E1_S3"
+    ],
+    "threads": [
+     null
+    ],
+    "char_ids": [
+     "C4",
+     "C1"
+    ],
+    "hook_key": 23,
+    "duration": 7.0
+   },
+   {
+    "episode": 2,
+    "start": 73.0,
+    "end": 80.0,
+    "start_line_id": "E2_L20",
+    "end_line_id": "E2_L21",
+    "a": 20,
+    "b": 21,
+    "roles": [
+     "escalation"
+    ],
+    "shot_ids": [
+     "E2_S2"
+    ],
+    "threads": [
+     "T3"
+    ],
+    "char_ids": [
+     "C1",
+     "C3"
+    ],
+    "hook_key": null,
+    "duration": 7.0
+   },
+   {
+    "episode": 3,
+    "start": 83.0,
+    "end": 98.0,
+    "start_line_id": "E3_L21",
+    "end_line_id": "E3_L23",
+    "a": 21,
+    "b": 23,
+    "roles": [
+     "cliffhanger"
+    ],
+    "shot_ids": [
+     "E3_S3"
+    ],
+    "threads": [
+     "T3"
+    ],
+    "char_ids": [
+     "C1"
+    ],
+    "hook_key": null,
+    "duration": 15.0
+   }
+  ],
+  "total_duration_sec": 29.0,
+  "hook_shot_id": "E1_S3",
+  "hook_intensity": 9,
+  "hook_needs_context": "low",
+  "main_thread": null,
+  "spoiler_penalty": 0,
+  "flags": []
+ },
+ {
+  "promo_id": "X004",
+  "cand_id": "C10",
+  "source": "script",
+  "template": "mini_story",
+  "script_id": "C10",
+  "idea": "After being fired, Mira reads her father’s letters and accepts an anonymous throne.",
+  "beats": [
+   {
+    "beat": "hook",
+    "need": "Mrs. Mehta fires Mira based on false theft accusations.",
+    "event_id": "E2_ev2",
+    "thread_id": "T2",
+    "shot_id": "E2_S1"
+   },
+   {
+    "beat": "escalation",
+    "need": "Desai gives Mira the bundle of letters her father wrote to her mother.",
+    "event_id": "E3_ev2",
+    "thread_id": "T1",
+    "shot_id": "E3_S1"
+   },
+   {
+    "beat": "cliffhanger",
+    "need": "Mira calls Desai to accept her position as heir under anonymity.",
+    "event_id": "E3_ev5",
+    "thread_id": "T1",
+    "shot_id": "E3_S4"
+   }
+  ],
+  "segments": [
+   {
+    "episode": 2,
+    "start": 65.0,
+    "end": 70.0,
+    "start_line_id": "E2_L18",
+    "end_line_id": "E2_L18",
+    "a": 18,
+    "b": 18,
+    "roles": [
+     "hook"
+    ],
+    "shot_ids": [
+     "E2_S1"
+    ],
+    "threads": [
+     "T2"
+    ],
+    "char_ids": [
+     "C1",
+     "C4",
+     "C3"
+    ],
+    "hook_key": 18,
+    "duration": 5.0
+   },
+   {
+    "episode": 3,
+    "start": 15.0,
+    "end": 32.0,
+    "start_line_id": "E3_L4",
+    "end_line_id": "E3_L6",
+    "a": 4,
+    "b": 6,
+    "roles": [
+     "escalation"
+    ],
+    "shot_ids": [
+     "E3_S1"
+    ],
+    "threads": [
+     "T1"
+    ],
+    "char_ids": [
+     "C1",
+     "C5"
+    ],
+    "hook_key": null,
+    "duration": 17.0
+   },
+   {
+    "episode": 3,
+    "start": 103.0,
+    "end": 111.0,
+    "start_line_id": "E3_L26",
+    "end_line_id": "E3_L27",
+    "a": 26,
+    "b": 27,
+    "roles": [
+     "cliffhanger"
+    ],
+    "shot_ids": [
+     "E3_S4"
+    ],
+    "threads": [
+     "T1"
+    ],
+    "char_ids": [
+     "C1"
+    ],
+    "hook_key": null,
+    "duration": 8.0
+   }
+  ],
+  "total_duration_sec": 30.0,
+  "hook_shot_id": "E2_S1",
+  "hook_intensity": 7,
+  "hook_needs_context": "low",
+  "main_thread": "T2",
+  "spoiler_penalty": 0,
+  "flags": []
+ },
+ {
+  "promo_id": "X005",
+  "cand_id": "C12",
+  "source": "script",
+  "template": "mini_story",
+  "script_id": "C12",
+  "idea": "Wine-soaked and humiliated, Mira withdraws millions—then hears her father was murdered.",
+  "beats": [
+   {
+    "beat": "hook",
+    "need": "Leela publicly pours red wine down Mira’s gown.",
+    "event_id": "E4_ev1",
+    "thread_id": "T2",
+    "shot_id": "E4_S1"
+   },
+   {
+    "beat": "escalation",
+    "need": "Mira announces the withdrawal of all investment from the Mehta Group.",
+    "event_id": "E5_ev1",
+    "thread_id": "T2",
+    "shot_id": "E5_S1"
+   },
+   {
+    "beat": "cliffhanger",
+    "need": "An unknown caller tells Mira her father was murdered.",
+    "event_id": "E5_ev5",
+    "thread_id": "T4",
+    "shot_id": "E5_S5"
+   }
+  ],
+  "segments": [
+   {
+    "episode": 4,
+    "start": 29.0,
+    "end": 35.0,
+    "start_line_id": "E4_L7",
+    "end_line_id": "E4_L7",
+    "a": 7,
+    "b": 7,
+    "roles": [
+     "hook"
+    ],
+    "shot_ids": [
+     "E4_S1"
+    ],
+    "threads": [
+     "T2"
+    ],
+    "char_ids": [
+     "C4",
+     "C1"
+    ],
+    "hook_key": 7,
+    "duration": 6.0
+   },
+   {
+    "episode": 5,
+    "start": 17.0,
+    "end": 31.0,
+    "start_line_id": "E5_L4",
+    "end_line_id": "E5_L6",
+    "a": 4,
+    "b": 6,
+    "roles": [
+     "escalation"
+    ],
+    "shot_ids": [
+     "E5_S1"
+    ],
+    "threads": [
+     "T2"
+    ],
+    "char_ids": [
+     "C1",
+     "C2",
+     "C4",
+     "C3"
+    ],
+    "hook_key": null,
+    "duration": 14.0
+   },
+   {
+    "episode": 5,
+    "start": 102.0,
+    "end": 114.0,
+    "start_line_id": "E5_L25",
+    "end_line_id": "E5_L26",
+    "a": 25,
+    "b": 26,
+    "roles": [
+     "cliffhanger"
+    ],
+    "shot_ids": [
+     "E5_S5"
+    ],
+    "threads": [
+     "T4"
+    ],
+    "char_ids": [
+     "C1",
+     "C7"
+    ],
+    "hook_key": null,
+    "duration": 12.0
+   }
+  ],
+  "total_duration_sec": 32.0,
+  "hook_shot_id": "E4_S1",
+  "hook_intensity": 9,
+  "hook_needs_context": "low",
+  "main_thread": "T2",
+  "spoiler_penalty": 0,
+  "flags": []
+ },
+ {
+  "promo_id": "X006",
+  "cand_id": "C13",
+  "source": "script",
+  "template": "underdog_revenge",
+  "script_id": "C13",
+  "idea": "From a shattered gift to catching Leela’s slap, Mira becomes the threat.",
+  "beats": [
+   {
+    "beat": "hook",
+    "need": "Leela publicly drops and breaks Mira’s hand-painted gift.",
+    "event_id": "E1_ev1",
+    "thread_id": "T2",
+    "shot_id": "E1_S1"
+   },
+   {
+    "beat": "escalation",
+    "need": "Mira catches Leela’s hand mid-air when Leela tries to slap her.",
+    "event_id": "E5_ev2",
+    "thread_id": "T2",
+    "shot_id": "E5_S2"
+   },
+   {
+    "beat": "cliffhanger",
+    "need": "An unknown caller informs Mira that her father was murdered.",
+    "event_id": "E5_ev5",
+    "thread_id": "T4",
+    "shot_id": "E5_S5"
+   }
+  ],
+  "segments": [
+   {
+    "episode": 1,
+    "start": 35.0,
+    "end": 42.0,
+    "start_line_id": "E1_L10",
+    "end_line_id": "E1_L11",
+    "a": 10,
+    "b": 11,
+    "roles": [
+     "hook"
+    ],
+    "shot_ids": [
+     "E1_S1"
+    ],
+    "threads": [
+     null
+    ],
+    "char_ids": [
+     "C4",
+     "C1"
+    ],
+    "hook_key": 10,
+    "duration": 7.0
+   },
+   {
+    "episode": 5,
+    "start": 33.0,
+    "end": 40.0,
+    "start_line_id": "E5_L8",
+    "end_line_id": "E5_L9",
+    "a": 8,
+    "b": 9,
+    "roles": [
+     "escalation"
+    ],
+    "shot_ids": [
+     "E5_S2"
+    ],
+    "threads": [
+     "T2"
+    ],
+    "char_ids": [
+     "C1",
+     "C4"
+    ],
+    "hook_key": null,
+    "duration": 7.0
+   },
+   {
+    "episode": 5,
+    "start": 102.0,
+    "end": 114.0,
+    "start_line_id": "E5_L25",
+    "end_line_id": "E5_L26",
+    "a": 25,
+    "b": 26,
+    "roles": [
+     "cliffhanger"
+    ],
+    "shot_ids": [
+     "E5_S5"
+    ],
+    "threads": [
+     "T4"
+    ],
+    "char_ids": [
+     "C1",
+     "C7"
+    ],
+    "hook_key": null,
+    "duration": 12.0
+   }
+  ],
+  "total_duration_sec": 26.0,
+  "hook_shot_id": "E1_S1",
+  "hook_intensity": 8,
+  "hook_needs_context": "low",
+  "main_thread": null,
+  "spoiler_penalty": 0,
+  "flags": []
+ },
+ {
+  "promo_id": "X007",
+  "cand_id": "C14",
+  "source": "script",
+  "template": "underdog_revenge",
+  "script_id": "C14",
+  "idea": "Thrown out at the gala, Mira returns to bankrupt the Mehtas and stop another slap.",
+  "beats": [
+   {
+    "beat": "hook",
+    "need": "Leela slaps Mira across the face and orders security to throw her out.",
+    "event_id": "E1_ev3",
+    "thread_id": "T2",
+    "shot_id": "E1_S3"
+   },
+   {
+    "beat": "escalation",
+    "need": "Mira announces the withdrawal of all investment from the Mehta Group.",
+    "event_id": "E5_ev1",
+    "thread_id": "T2",
+    "shot_id": "E5_S1"
+   },
+   {
+    "beat": "cliffhanger",
+    "need": "Mira catches Leela’s hand mid-air as she tries to slap her again.",
+    "event_id": "E5_ev2",
+    "thread_id": "T2",
+    "shot_id": "E5_S3"
+   }
+  ],
+  "segments": [
+   {
+    "episode": 1,
+    "start": 83.0,
+    "end": 90.0,
+    "start_line_id": "E1_L23",
+    "end_line_id": "E1_L24",
+    "a": 23,
+    "b": 24,
+    "roles": [
+     "hook"
+    ],
+    "shot_ids": [
+     "E1_S3"
+    ],
+    "threads": [
+     null
+    ],
+    "char_ids": [
+     "C4",
+     "C1"
+    ],
+    "hook_key": 23,
+    "duration": 7.0
+   },
+   {
+    "episode": 5,
+    "start": 17.0,
+    "end": 27.0,
+    "start_line_id": "E5_L4",
+    "end_line_id": "E5_L5",
+    "a": 4,
+    "b": 5,
+    "roles": [
+     "escalation"
+    ],
+    "shot_ids": [
+     "E5_S1"
+    ],
+    "threads": [
+     "T2"
+    ],
+    "char_ids": [
+     "C1",
+     "C2",
+     "C4",
+     "C3"
+    ],
+    "hook_key": null,
+    "duration": 10.0
+   },
+   {
+    "episode": 5,
+    "start": 33.0,
+    "end": 74.0,
+    "start_line_id": "E5_L8",
+    "end_line_id": "E5_L17",
+    "a": 8,
+    "b": 17,
+    "roles": [
+     "cliffhanger"
+    ],
+    "shot_ids": [
+     "E5_S3"
+    ],
+    "threads": [
+     "T3"
+    ],
+    "char_ids": [
+     "C1",
+     "C4",
+     "C2",
+     "C3"
+    ],
+    "hook_key": null,
+    "duration": 41.0
+   }
+  ],
+  "total_duration_sec": 58.0,
+  "hook_shot_id": "E1_S3",
+  "hook_intensity": 9,
+  "hook_needs_context": "low",
+  "main_thread": null,
+  "spoiler_penalty": 5,
+  "flags": [
+   "trimmed",
+   "minor_spoiler"
+  ]
+ },
+ {
+  "promo_id": "X008",
+  "cand_id": "C16",
+  "source": "script",
+  "template": "underdog_revenge",
+  "script_id": "C16",
+  "idea": "Fired for theft, Mira rejects Arjun with Tanya’s earring—then Tanya reveals his child.",
+  "beats": [
+   {
+    "beat": "hook",
+    "need": "Mrs. Mehta fires Mira based on false theft accusations.",
+    "event_id": "E2_ev2",
+    "thread_id": "T2",
+    "shot_id": "E2_S1"
+   },
+   {
+    "beat": "escalation",
+    "need": "Mira drops Tanya’s pearl earring on the table to reject Arjun’s pleas.",
+    "event_id": "E5_ev3",
+    "thread_id": "T3",
+    "shot_id": "E5_S4"
+   },
+   {
+    "beat": "cliffhanger",
+    "need": "Tanya publicly reveals that she is carrying Arjun’s child.",
+    "event_id": "E5_ev4",
+    "thread_id": "T3",
+    "shot_id": "E5_S3"
+   }
+  ],
+  "segments": [
+   {
+    "episode": 2,
+    "start": 65.0,
+    "end": 70.0,
+    "start_line_id": "E2_L18",
+    "end_line_id": "E2_L18",
+    "a": 18,
+    "b": 18,
+    "roles": [
+     "hook"
+    ],
+    "shot_ids": [
+     "E2_S1"
+    ],
+    "threads": [
+     "T2"
+    ],
+    "char_ids": [
+     "C1",
+     "C4",
+     "C3"
+    ],
+    "hook_key": 18,
+    "duration": 5.0
+   },
+   {
+    "episode": 5,
+    "start": 33.0,
+    "end": 74.0,
+    "start_line_id": "E5_L8",
+    "end_line_id": "E5_L17",
+    "a": 8,
+    "b": 17,
+    "roles": [
+     "cliffhanger",
+     "escalation"
+    ],
+    "shot_ids": [
+     "E5_S3",
+     "E5_S4"
+    ],
+    "threads": [
+     "T3",
+     "T3"
+    ],
+    "char_ids": [
+     "C1",
+     "C4",
+     "C2",
+     "C3"
+    ],
+    "hook_key": null,
+    "duration": 41.0
+   }
+  ],
+  "total_duration_sec": 46.0,
+  "hook_shot_id": "E2_S1",
+  "hook_intensity": 7,
+  "hook_needs_context": "low",
+  "main_thread": "T2",
+  "spoiler_penalty": 5,
+  "flags": [
+   "minor_spoiler"
+  ]
+ },
+ {
+  "promo_id": "X009",
+  "cand_id": "C17",
+  "source": "script",
+  "template": "romance_tension",
+  "script_id": "C17",
+  "idea": "Arjun announces his engagement, but Mira still has the earring that ends his pleas.",
+  "beats": [
+   {
+    "beat": "hook",
+    "need": "Arjun announces his engagement to Tanya.",
+    "event_id": "E4_ev2",
+    "thread_id": "T3",
+    "shot_id": "E4_S2"
+   },
+   {
+    "beat": "cliffhanger",
+    "need": "Mira drops Tanya’s pearl earring on the table in front of Arjun.",
+    "event_id": "E5_ev3",
+    "thread_id": "T3",
+    "shot_id": "E5_S3"
+   }
+  ],
+  "segments": [
+   {
+    "episode": 4,
+    "start": 60.0,
+    "end": 66.0,
+    "start_line_id": "E4_L14",
+    "end_line_id": "E4_L14",
+    "a": 14,
+    "b": 14,
+    "roles": [
+     "hook"
+    ],
+    "shot_ids": [
+     "E4_S2"
+    ],
+    "threads": [
+     "T3"
+    ],
+    "char_ids": [
+     "C2",
+     "C3",
+     "C1"
+    ],
+    "hook_key": 14,
+    "duration": 6.0
+   },
+   {
+    "episode": 5,
+    "start": 33.0,
+    "end": 74.0,
+    "start_line_id": "E5_L8",
+    "end_line_id": "E5_L17",
+    "a": 8,
+    "b": 17,
+    "roles": [
+     "cliffhanger"
+    ],
+    "shot_ids": [
+     "E5_S3"
+    ],
+    "threads": [
+     "T3"
+    ],
+    "char_ids": [
+     "C1",
+     "C4",
+     "C2",
+     "C3"
+    ],
+    "hook_key": null,
+    "duration": 41.0
+   }
+  ],
+  "total_duration_sec": 47.0,
+  "hook_shot_id": "E4_S2",
+  "hook_intensity": 8,
+  "hook_needs_context": "low",
+  "main_thread": "T3",
+  "spoiler_penalty": 5,
+  "flags": [
+   "minor_spoiler"
+  ]
+ },
+ {
+  "promo_id": "X010",
+  "cand_id": "C19",
+  "source": "script",
+  "template": "romance_tension",
+  "script_id": "C19",
+  "idea": "Mira drops Tanya’s earring at Arjun’s feet—then a call changes the crime.",
+  "beats": [
+   {
+    "beat": "hook",
+    "need": "Mira drops Tanya’s pearl earring to reject Arjun’s pleas.",
+    "event_id": "E5_ev3",
+    "thread_id": "T3",
+    "shot_id": "E5_S4"
+   },
+   {
+    "beat": "cliffhanger",
+    "need": "An unknown caller informs Mira that her father was murdered.",
+    "event_id": "E5_ev5",
+    "thread_id": "T4",
+    "shot_id": "E5_S5"
+   }
+  ],
+  "segments": [
+   {
+    "episode": 5,
+    "start": 58.0,
+    "end": 66.0,
+    "start_line_id": "E5_L14",
+    "end_line_id": "E5_L15",
+    "a": 14,
+    "b": 15,
+    "roles": [
+     "hook"
+    ],
+    "shot_ids": [
+     "E5_S4"
+    ],
+    "threads": [
+     "T3"
+    ],
+    "char_ids": [
+     "C1",
+     "C2",
+     "C3"
+    ],
+    "hook_key": 14,
+    "duration": 8.0
+   },
+   {
+    "episode": 5,
+    "start": 102.0,
+    "end": 114.0,
+    "start_line_id": "E5_L25",
+    "end_line_id": "E5_L26",
+    "a": 25,
+    "b": 26,
+    "roles": [
+     "cliffhanger"
+    ],
+    "shot_ids": [
+     "E5_S5"
+    ],
+    "threads": [
+     "T4"
+    ],
+    "char_ids": [
+     "C1",
+     "C7"
+    ],
+    "hook_key": null,
+    "duration": 12.0
+   }
+  ],
+  "total_duration_sec": 20.0,
+  "hook_shot_id": "E5_S4",
+  "hook_intensity": 8,
+  "hook_needs_context": "medium",
+  "main_thread": "T3",
+  "spoiler_penalty": 5,
+  "flags": [
+   "minor_spoiler"
+  ]
+ },
+ {
+  "promo_id": "X011",
+  "cand_id": "C21",
+  "source": "script",
+  "template": "montage",
+  "script_id": "C21",
+  "idea": "Humiliation montage: broken gift, slap, wine, caught slap, murder call.",
+  "beats": [
+   {
+    "beat": "peak",
+    "need": "Leela drops and breaks Mira’s hand-painted frame.",
+    "event_id": "E1_ev1",
+    "thread_id": "T2",
+    "shot_id": "E1_S1"
+   },
+   {
+    "beat": "peak",
+    "need": "Leela pours red wine down Mira’s gown.",
+    "event_id": "E4_ev1",
+    "thread_id": "T2",
+    "shot_id": "E4_S1"
+   },
+   {
+    "beat": "peak",
+    "need": "Mira catches Leela’s hand mid-air.",
+    "event_id": "E5_ev2",
+    "thread_id": "T2",
+    "shot_id": "E5_S2"
+   },
+   {
+    "beat": "cliffhanger",
+    "need": "An unknown caller tells Mira her father was murdered.",
+    "event_id": "E5_ev5",
+    "thread_id": "T4",
+    "shot_id": "E5_S5"
+   }
+  ],
+  "segments": [
+   {
+    "episode": 1,
+    "start": 35.0,
+    "end": 42.0,
+    "start_line_id": "E1_L10",
+    "end_line_id": "E1_L11",
+    "a": 10,
+    "b": 11,
+    "roles": [
+     "hook"
+    ],
+    "shot_ids": [
+     "E1_S1"
+    ],
+    "threads": [
+     null
+    ],
+    "char_ids": [
+     "C4",
+     "C1"
+    ],
+    "hook_key": 10,
+    "duration": 7.0
+   },
+   {
+    "episode": 4,
+    "start": 29.0,
+    "end": 35.0,
+    "start_line_id": "E4_L7",
+    "end_line_id": "E4_L7",
+    "a": 7,
+    "b": 7,
+    "roles": [
+     "escalation"
+    ],
+    "shot_ids": [
+     "E4_S1"
+    ],
+    "threads": [
+     "T2"
+    ],
+    "char_ids": [
+     "C4",
+     "C1"
+    ],
+    "hook_key": null,
+    "duration": 6.0
+   },
+   {
+    "episode": 5,
+    "start": 33.0,
+    "end": 40.0,
+    "start_line_id": "E5_L8",
+    "end_line_id": "E5_L9",
+    "a": 8,
+    "b": 9,
+    "roles": [
+     "escalation"
+    ],
+    "shot_ids": [
+     "E5_S2"
+    ],
+    "threads": [
+     "T2"
+    ],
+    "char_ids": [
+     "C1",
+     "C4"
+    ],
+    "hook_key": null,
+    "duration": 7.0
+   },
+   {
+    "episode": 5,
+    "start": 102.0,
+    "end": 114.0,
+    "start_line_id": "E5_L25",
+    "end_line_id": "E5_L26",
+    "a": 25,
+    "b": 26,
+    "roles": [
+     "cliffhanger"
+    ],
+    "shot_ids": [
+     "E5_S5"
+    ],
+    "threads": [
+     "T4"
+    ],
+    "char_ids": [
+     "C1",
+     "C7"
+    ],
+    "hook_key": null,
+    "duration": 12.0
+   }
+  ],
+  "total_duration_sec": 32.0,
+  "hook_shot_id": "E1_S1",
+  "hook_intensity": 8,
+  "hook_needs_context": "low",
+  "main_thread": null,
+  "spoiler_penalty": 0,
+  "flags": []
+ },
+ {
+  "promo_id": "X012",
+  "cand_id": "C22",
+  "source": "script",
+  "template": "montage",
+  "script_id": "C22",
+  "idea": "Betrayal montage: lipstick, false witness, engagement, pregnancy, murder call.",
+  "beats": [
+   {
+    "beat": "peak",
+    "need": "Mira notices matching red lipstick on Arjun’s collar and Tanya’s lips.",
+    "event_id": "E1_ev2",
+    "thread_id": "T3",
+    "shot_id": "E1_S2"
+   },
+   {
+    "beat": "peak",
+    "need": "Tanya backs up the false theft accusation.",
+    "event_id": "E2_ev3",
+    "thread_id": "T3",
+    "shot_id": "E2_S2"
+   },
+   {
+    "beat": "peak",
+    "need": "Arjun announces his engagement to Tanya.",
+    "event_id": "E4_ev2",
+    "thread_id": "T3",
+    "shot_id": "E4_S2"
+   },
+   {
+    "beat": "peak",
+    "need": "Tanya publicly reveals she is carrying Arjun’s child.",
+    "event_id": "E5_ev4",
+    "thread_id": "T3",
+    "shot_id": "E5_S3"
+   },
+   {
+    "beat": "cliffhanger",
+    "need": "An unknown caller tells Mira her father was murdered.",
+    "event_id": "E5_ev5",
+    "thread_id": "T4",
+    "shot_id": "E5_S5"
+   }
+  ],
+  "segments": [
+   {
+    "episode": 1,
+    "start": 64.0,
+    "end": 75.0,
+    "start_line_id": "E1_L18",
+    "end_line_id": "E1_L20",
+    "a": 18,
+    "b": 20,
+    "roles": [
+     "hook"
+    ],
+    "shot_ids": [
+     "E1_S2"
+    ],
+    "threads": [
+     "T3"
+    ],
+    "char_ids": [
+     "C1",
+     "C2",
+     "C3"
+    ],
+    "hook_key": 18,
+    "duration": 11.0
+   },
+   {
+    "episode": 2,
+    "start": 76.0,
+    "end": 80.0,
+    "start_line_id": "E2_L21",
+    "end_line_id": "E2_L21",
+    "a": 21,
+    "b": 21,
+    "roles": [
+     "escalation"
+    ],
+    "shot_ids": [
+     "E2_S2"
+    ],
+    "threads": [
+     "T3"
+    ],
+    "char_ids": [
+     "C1",
+     "C3"
+    ],
+    "hook_key": null,
+    "duration": 4.0
+   },
+   {
+    "episode": 4,
+    "start": 60.0,
+    "end": 66.0,
+    "start_line_id": "E4_L14",
+    "end_line_id": "E4_L14",
+    "a": 14,
+    "b": 14,
+    "roles": [
+     "escalation"
+    ],
+    "shot_ids": [
+     "E4_S2"
+    ],
+    "threads": [
+     "T3"
+    ],
+    "char_ids": [
+     "C2",
+     "C3",
+     "C1"
+    ],
+    "hook_key": null,
+    "duration": 6.0
+   },
+   {
+    "episode": 5,
+    "start": 47.0,
+    "end": 74.0,
+    "start_line_id": "E5_L12",
+    "end_line_id": "E5_L17",
+    "a": 12,
+    "b": 17,
+    "roles": [
+     "escalation"
+    ],
+    "shot_ids": [
+     "E5_S3"
+    ],
+    "threads": [
+     "T3"
+    ],
+    "char_ids": [
+     "C1",
+     "C4",
+     "C2",
+     "C3"
+    ],
+    "hook_key": null,
+    "duration": 27.0
+   },
+   {
+    "episode": 5,
+    "start": 102.0,
+    "end": 114.0,
+    "start_line_id": "E5_L25",
+    "end_line_id": "E5_L26",
+    "a": 25,
+    "b": 26,
+    "roles": [
+     "cliffhanger"
+    ],
+    "shot_ids": [
+     "E5_S5"
+    ],
+    "threads": [
+     "T4"
+    ],
+    "char_ids": [
+     "C1",
+     "C7"
+    ],
+    "hook_key": null,
+    "duration": 12.0
+   }
+  ],
+  "total_duration_sec": 60.0,
+  "hook_shot_id": "E1_S2",
+  "hook_intensity": 7,
+  "hook_needs_context": "medium",
+  "main_thread": "T3",
+  "spoiler_penalty": 5,
+  "flags": [
+   "trimmed",
+   "minor_spoiler"
+  ]
+ },
+ {
+  "promo_id": "X013",
+  "cand_id": "C23",
+  "source": "script",
+  "template": "montage",
+  "script_id": "C23",
+  "idea": "Evidence montage: false theft, earring, ring, earring drop, murder call.",
+  "beats": [
+   {
+    "beat": "peak",
+    "need": "Mrs. Mehta fires Mira on false theft accusations.",
+    "event_id": "E2_ev2",
+    "thread_id": "T2",
+    "shot_id": "E2_S1"
+   },
+   {
+    "beat": "peak",
+    "need": "Mira finds the matching pearl earring in Arjun’s car seat.",
+    "event_id": "E3_ev4",
+    "thread_id": "T3",
+    "shot_id": "E3_S3"
+   },
+   {
+    "beat": "peak",
+    "need": "Mira identifies Tanya’s engagement ring as her own.",
+    "event_id": "E4_ev3",
+    "thread_id": "T3",
+    "shot_id": "E4_S3"
+   },
+   {
+    "beat": "peak",
+    "need": "Mira drops Tanya’s pearl earring on the table.",
+    "event_id": "E5_ev3",
+    "thread_id": "T3",
+    "shot_id": "E5_S3"
+   },
+   {
+    "beat": "cliffhanger",
+    "need": "An unknown caller tells Mira her father was murdered.",
+    "event_id": "E5_ev5",
+    "thread_id": "T4",
+    "shot_id": "E5_S5"
+   }
+  ],
+  "segments": [
+   {
+    "episode": 2,
+    "start": 65.0,
+    "end": 70.0,
+    "start_line_id": "E2_L18",
+    "end_line_id": "E2_L18",
+    "a": 18,
+    "b": 18,
+    "roles": [
+     "hook"
+    ],
+    "shot_ids": [
+     "E2_S1"
+    ],
+    "threads": [
+     "T2"
+    ],
+    "char_ids": [
+     "C1",
+     "C4",
+     "C3"
+    ],
+    "hook_key": 18,
+    "duration": 5.0
+   },
+   {
+    "episode": 3,
+    "start": 89.0,
+    "end": 94.0,
+    "start_line_id": "E3_L22",
+    "end_line_id": "E3_L22",
+    "a": 22,
+    "b": 22,
+    "roles": [
+     "escalation"
+    ],
+    "shot_ids": [
+     "E3_S3"
+    ],
+    "threads": [
+     "T3"
+    ],
+    "char_ids": [
+     "C1"
+    ],
+    "hook_key": null,
+    "duration": 5.0
+   },
+   {
+    "episode": 4,
+    "start": 71.0,
+    "end": 73.0,
+    "start_line_id": "E4_L16",
+    "end_line_id": "E4_L16",
+    "a": 16,
+    "b": 16,
+    "roles": [
+     "escalation"
+    ],
+    "shot_ids": [
+     "E4_S3"
+    ],
+    "threads": [
+     "T3"
+    ],
+    "char_ids": [
+     "C1",
+     "C2",
+     "C3"
+    ],
+    "hook_key": null,
+    "duration": 2.0
+   },
+   {
+    "episode": 5,
+    "start": 40.0,
+    "end": 74.0,
+    "start_line_id": "E5_L10",
+    "end_line_id": "E5_L17",
+    "a": 10,
+    "b": 17,
+    "roles": [
+     "escalation"
+    ],
+    "shot_ids": [
+     "E5_S3"
+    ],
+    "threads": [
+     "T3"
+    ],
+    "char_ids": [
+     "C1",
+     "C4",
+     "C2",
+     "C3"
+    ],
+    "hook_key": null,
+    "duration": 34.0
+   },
+   {
+    "episode": 5,
+    "start": 102.0,
+    "end": 114.0,
+    "start_line_id": "E5_L25",
+    "end_line_id": "E5_L26",
+    "a": 25,
+    "b": 26,
+    "roles": [
+     "cliffhanger"
+    ],
+    "shot_ids": [
+     "E5_S5"
+    ],
+    "threads": [
+     "T4"
+    ],
+    "char_ids": [
+     "C1",
+     "C7"
+    ],
+    "hook_key": null,
+    "duration": 12.0
+   }
+  ],
+  "total_duration_sec": 58.0,
+  "hook_shot_id": "E2_S1",
+  "hook_intensity": 7,
+  "hook_needs_context": "low",
+  "main_thread": "T2",
+  "spoiler_penalty": 5,
+  "flags": [
+   "trimmed",
+   "minor_spoiler"
+  ]
+ },
+ {
+  "promo_id": "X014",
+  "cand_id": "C24",
+  "source": "script",
+  "template": "montage",
+  "script_id": "C24",
+  "idea": "Power montage: broken frame, envelope, earring, wine, investment pull, murder call.",
+  "beats": [
+   {
+    "beat": "peak",
+    "need": "Leela breaks Mira’s hand-painted gift.",
+    "event_id": "E1_ev1",
+    "thread_id": "T2",
+    "shot_id": "E1_S1"
+   },
+   {
+    "beat": "peak",
+    "need": "Mira opens the sealed envelope with the old photograph and legal document.",
+    "event_id": "E2_ev4",
+    "thread_id": "T1",
+    "shot_id": "E2_S4"
+   },
+   {
+    "beat": "peak",
+    "need": "Mira finds the matching pearl earring in Arjun’s car seat.",
+    "event_id": "E3_ev4",
+    "thread_id": "T3",
+    "shot_id": "E3_S3"
+   },
+   {
+    "beat": "peak",
+    "need": "Leela pours red wine down Mira’s gown.",
+    "event_id": "E4_ev1",
+    "thread_id": "T2",
+    "shot_id": "E4_S1"
+   },
+   {
+    "beat": "peak",
+    "need": "Mira announces the withdrawal of all investment from the Mehta Group.",
+    "event_id": "E5_ev1",
+    "thread_id": "T2",
+    "shot_id": "E5_S1"
+   },
+   {
+    "beat": "cliffhanger",
+    "need": "An unknown caller tells Mira her father was murdered.",
+    "event_id": "E5_ev5",
+    "thread_id": "T4",
+    "shot_id": "E5_S5"
+   }
+  ],
+  "segments": [
+   {
+    "episode": 1,
+    "start": 35.0,
+    "end": 42.0,
+    "start_line_id": "E1_L10",
+    "end_line_id": "E1_L11",
+    "a": 10,
+    "b": 11,
+    "roles": [
+     "hook"
+    ],
+    "shot_ids": [
+     "E1_S1"
+    ],
+    "threads": [
+     null
+    ],
+    "char_ids": [
+     "C4",
+     "C1"
+    ],
+    "hook_key": 10,
+    "duration": 7.0
+   },
+   {
+    "episode": 2,
+    "start": 109.0,
+    "end": 117.0,
+    "start_line_id": "E2_L29",
+    "end_line_id": "E2_L29",
+    "a": 29,
+    "b": 29,
+    "roles": [
+     "escalation"
+    ],
+    "shot_ids": [
+     "E2_S4"
+    ],
+    "threads": [
+     "T1"
+    ],
+    "char_ids": [
+     "C1"
+    ],
+    "hook_key": null,
+    "duration": 8.0
+   },
+   {
+    "episode": 3,
+    "start": 89.0,
+    "end": 98.0,
+    "start_line_id": "E3_L22",
+    "end_line_id": "E3_L23",
+    "a": 22,
+    "b": 23,
+    "roles": [
+     "escalation"
+    ],
+    "shot_ids": [
+     "E3_S3"
+    ],
+    "threads": [
+     "T3"
+    ],
+    "char_ids": [
+     "C1"
+    ],
+    "hook_key": null,
+    "duration": 9.0
+   },
+   {
+    "episode": 4,
+    "start": 29.0,
+    "end": 35.0,
+    "start_line_id": "E4_L7",
+    "end_line_id": "E4_L7",
+    "a": 7,
+    "b": 7,
+    "roles": [
+     "escalation"
+    ],
+    "shot_ids": [
+     "E4_S1"
+    ],
+    "threads": [
+     "T2"
+    ],
+    "char_ids": [
+     "C4",
+     "C1"
+    ],
+    "hook_key": null,
+    "duration": 6.0
+   },
+   {
+    "episode": 5,
+    "start": 17.0,
+    "end": 31.0,
+    "start_line_id": "E5_L4",
+    "end_line_id": "E5_L6",
+    "a": 4,
+    "b": 6,
+    "roles": [
+     "escalation"
+    ],
+    "shot_ids": [
+     "E5_S1"
+    ],
+    "threads": [
+     "T2"
+    ],
+    "char_ids": [
+     "C1",
+     "C2",
+     "C4",
+     "C3"
+    ],
+    "hook_key": null,
+    "duration": 14.0
+   },
+   {
+    "episode": 5,
+    "start": 102.0,
+    "end": 114.0,
+    "start_line_id": "E5_L25",
+    "end_line_id": "E5_L26",
+    "a": 25,
+    "b": 26,
+    "roles": [
+     "cliffhanger"
+    ],
+    "shot_ids": [
+     "E5_S5"
+    ],
+    "threads": [
+     "T4"
+    ],
+    "char_ids": [
+     "C1",
+     "C7"
+    ],
+    "hook_key": null,
+    "duration": 12.0
+   }
+  ],
+  "total_duration_sec": 56.0,
+  "hook_shot_id": "E1_S1",
+  "hook_intensity": 8,
+  "hook_needs_context": "low",
+  "main_thread": null,
+  "spoiler_penalty": 0,
+  "flags": [
+   "trimmed"
+  ]
+ },
+ {
+  "promo_id": "X015",
+  "cand_id": "ES_E2_ESC",
+  "source": "ending_scene",
+  "template": "ending_scene",
+  "script_id": null,
+  "idea": "ep 2 closing scene, hook to cliffhanger",
+  "beats": [
+   {
+    "beat": "scene",
+    "need": "",
+    "event_id": null,
+    "shot_id": "E2_ESC"
+   }
+  ],
+  "segments": [
+   {
+    "episode": 2,
+    "start": 106.0,
+    "end": 131.0,
+    "start_line_id": "E2_L28",
+    "end_line_id": "E2_L33",
+    "a": 28,
+    "b": 33,
+    "roles": [
+     "scene"
+    ],
+    "shot_ids": [
+     "E2_ESC"
+    ],
+    "threads": [
+     "T1"
+    ],
+    "char_ids": [
+     "C1"
+    ],
+    "hook_key": 29,
+    "duration": 25.0
+   }
+  ],
+  "total_duration_sec": 25.0,
+  "hook_shot_id": "E2_S4",
+  "hook_intensity": 8,
+  "hook_needs_context": "medium",
+  "main_thread": "T1",
+  "spoiler_penalty": 0,
+  "flags": []
+ }
+]

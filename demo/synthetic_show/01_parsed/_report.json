@@ -1,0 +1,76 @@
+{
+ "episodes": 5,
+ "failed": [],
+ "per_episode": [
+  {
+   "episode": 1,
+   "lines": 36,
+   "duration_sec": 128.0,
+   "types": {
+    "scene": 2,
+    "action": 16,
+    "dialogue": 17,
+    "direction": 1
+   },
+   "estimated": 0,
+   "recap": 0,
+   "oddities": []
+  },
+  {
+   "episode": 2,
+   "lines": 34,
+   "duration_sec": 131.0,
+   "types": {
+    "scene": 3,
+    "action": 15,
+    "dialogue": 15,
+    "direction": 1
+   },
+   "estimated": 0,
+   "recap": 2,
+   "oddities": []
+  },
+  {
+   "episode": 3,
+   "lines": 29,
+   "duration_sec": 113.0,
+   "types": {
+    "scene": 4,
+    "action": 12,
+    "dialogue": 12,
+    "direction": 1
+   },
+   "estimated": 0,
+   "recap": 1,
+   "oddities": []
+  },
+  {
+   "episode": 4,
+   "lines": 32,
+   "duration_sec": 142.0,
+   "types": {
+    "scene": 1,
+    "action": 15,
+    "dialogue": 15,
+    "direction": 1
+   },
+   "estimated": 0,
+   "recap": 1,
+   "oddities": []
+  },
+  {
+   "episode": 5,
+   "lines": 29,
+   "duration_sec": 121.0,
+   "types": {
+    "scene": 2,
+    "action": 12,
+    "dialogue": 14,
+    "direction": 1
+   },
+   "estimated": 0,
+   "recap": 1,
+   "oddities": []
+  }
+ ]
+}

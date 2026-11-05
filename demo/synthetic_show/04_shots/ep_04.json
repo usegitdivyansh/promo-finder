@@ -1,0 +1,192 @@
+{
+ "episode": 4,
+ "raw_count": 5,
+ "shots": [
+  {
+   "shot_id": "E4_S1",
+   "size": "small",
+   "start_line_id": "E4_L7",
+   "end_line_id": "E4_L7",
+   "key_line_id": "E4_L7",
+   "role": "hook",
+   "hook_type": "public_humiliation",
+   "intensity": 9,
+   "needs_context": "low",
+   "characters": [
+    "Leela Mehta",
+    "Mira Rao"
+   ],
+   "thread_id": "T2",
+   "quote_or_action": "Leela takes a glass of red wine from the tray and pours it slowly down the front of Mira's gown.",
+   "char_ids": [
+    "C4",
+    "C1"
+   ],
+   "episode": 4,
+   "start_idx": 7,
+   "key_idx": 7,
+   "end_idx": 7,
+   "start": 29.0,
+   "end": 35.0,
+   "duration": 6.0,
+   "quote_ratio": 1.0
+  },
+  {
+   "shot_id": "E4_S2",
+   "size": "small",
+   "start_line_id": "E4_L14",
+   "end_line_id": "E4_L14",
+   "key_line_id": "E4_L14",
+   "role": "hook",
+   "hook_type": "shocking_line",
+   "intensity": 8,
+   "needs_context": "low",
+   "characters": [
+    "Arjun Mehta",
+    "Tanya",
+    "Mira Rao"
+   ],
+   "thread_id": "T3",
+   "quote_or_action": "Before the investors arrive, I have an announcement. Tanya and I are engaged.",
+   "char_ids": [
+    "C2",
+    "C3",
+    "C1"
+   ],
+   "episode": 4,
+   "start_idx": 14,
+   "key_idx": 14,
+   "end_idx": 14,
+   "start": 60.0,
+   "end": 66.0,
+   "duration": 6.0,
+   "quote_ratio": 1.0
+  },
+  {
+   "shot_id": "E4_S3",
+   "size": "medium",
+   "start_line_id": "E4_L15",
+   "end_line_id": "E4_L18",
+   "key_line_id": "E4_L16",
+   "role": "payoff",
+   "hook_type": null,
+   "intensity": 8,
+   "needs_context": "medium",
+   "characters": [
+    "Mira Rao",
+    "Arjun Mehta",
+    "Tanya"
+   ],
+   "thread_id": "T3",
+   "quote_or_action": "That's my ring.",
+   "char_ids": [
+    "C1",
+    "C2",
+    "C3"
+   ],
+   "episode": 4,
+   "start_idx": 15,
+   "key_idx": 16,
+   "end_idx": 18,
+   "start": 66.0,
+   "end": 81.0,
+   "duration": 15.0,
+   "quote_ratio": 1.0
+  },
+  {
+   "shot_id": "E4_S4",
+   "size": "long",
+   "start_line_id": "E4_L20",
+   "end_line_id": "E4_L25",
+   "key_line_id": "E4_L23",
+   "role": "payoff",
+   "hook_type": "identity_reveal",
+   "intensity": 10,
+   "needs_context": "medium",
+   "characters": [
+    "Harish Desai",
+    "Mira Rao",
+    "Leela Mehta",
+    "Arjun Mehta"
+   ],
+   "thread_id": "T1",
+   "quote_or_action": "Ladies and gentlemen, Miss Mira Rao.",
+   "char_ids": [
+    "C5",
+    "C1",
+    "C4",
+    "C2"
+   ],
+   "episode": 4,
+   "start_idx": 20,
+   "key_idx": 23,
+   "end_idx": 25,
+   "start": 87.0,
+   "end": 117.0,
+   "duration": 30.0,
+   "quote_ratio": 1.0
+  },
+  {
+   "shot_id": "E4_S5",
+   "size": "small",
+   "start_line_id": "E4_L29",
+   "end_line_id": "E4_L29",
+   "key_line_id": "E4_L29",
+   "role": "cliffhanger",
+   "hook_type": "revenge_moment",
+   "intensity": 8,
+   "needs_context": "medium",
+   "characters": [
+    "Mira Rao",
+    "Leela Mehta",
+    "Arjun Mehta",
+    "Tanya"
+   ],
+   "thread_id": "T2",
+   "quote_or_action": "And my first decision as chair... is about the Mehta Group.",
+   "char_ids": [
+    "C1",
+    "C4",
+    "C2",
+    "C3"
+   ],
+   "episode": 4,
+   "start_idx": 29,
+   "key_idx": 29,
+   "end_idx": 29,
+   "start": 130.0,
+   "end": 136.0,
+   "duration": 6.0,
+   "quote_ratio": 1.0
+  },
+  {
+   "shot_id": "E4_ESC",
+   "source": "ending_scene",
+   "size": "long",
+   "role": "scene",
+   "hook_type": "identity_reveal",
+   "intensity": 10,
+   "needs_context": "medium",
+   "characters": [],
+   "char_ids": [
+    "C5",
+    "C2",
+    "C1"
+   ],
+   "thread_id": "T1",
+   "hook_shot_id": "E4_S4",
+   "start_line_id": "E4_L23",
+   "key_line_id": "E4_L23",
+   "end_line_id": "E4_L29",
+   "quote_or_action": "Ladies and gentlemen, Miss Mira Rao.",
+   "quote_ratio": 1.0,
+   "episode": 4,
+   "start_idx": 23,
+   "key_idx": 23,
+   "end_idx": 29,
+   "start": 107.0,
+   "end": 136.0,
+   "duration": 29.0
+  }
+ ]
+}

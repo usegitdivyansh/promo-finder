@@ -1,0 +1,189 @@
+[
+ {
+  "rank": 1,
+  "promo_id": "P01",
+  "template": "mini_story",
+  "source": "script",
+  "segments": [
+   {
+    "episode": 4,
+    "start": "00:29.00",
+    "end": "00:35.00",
+    "start_sec": 29.0,
+    "end_sec": 35.0,
+    "start_line_id": "E4_L7",
+    "end_line_id": "E4_L7"
+   },
+   {
+    "episode": 5,
+    "start": "00:17.00",
+    "end": "00:31.00",
+    "start_sec": 17.0,
+    "end_sec": 31.0,
+    "start_line_id": "E5_L4",
+    "end_line_id": "E5_L6"
+   },
+   {
+    "episode": 5,
+    "start": "01:42.00",
+    "end": "01:54.00",
+    "start_sec": 102.0,
+    "end_sec": 114.0,
+    "start_line_id": "E5_L25",
+    "end_line_id": "E5_L26"
+   }
+  ],
+  "total_duration_sec": 32,
+  "hook": "Wine poured down Mira's gown",
+  "cliffhanger": "Father murdered; killer at gala",
+  "why_it_works": "Wine-pour humiliation hooks instantly, then revenge and murder cliffhanger land cleanly.",
+  "scores": {
+   "hook": 9.0,
+   "cliffhanger": 9,
+   "clarity": 7,
+   "coherence": 9.0,
+   "duration": 10.0,
+   "spoiler_penalty": 0,
+   "total": 86.1
+  },
+  "confidence": "medium",
+  "flags": [
+   "safety:abuse"
+  ],
+  "confusion": "Who Leela is and why she pours wine on Mira.",
+  "idea": "Wine-soaked and humiliated, Mira withdraws millions—then hears her father was murdered.",
+  "internal_id": "X005",
+  "editor_decision": ""
+ },
+ {
+  "rank": 2,
+  "promo_id": "P02",
+  "template": "single_scene",
+  "source": "script",
+  "segments": [
+   {
+    "episode": 5,
+    "start": "00:33.00",
+    "end": "01:14.00",
+    "start_sec": 33.0,
+    "end_sec": 74.0,
+    "start_line_id": "E5_L8",
+    "end_line_id": "E5_L17"
+   }
+  ],
+  "total_duration_sec": 41,
+  "hook": "Caught slap, power flip",
+  "cliffhanger": "I'm carrying your child",
+  "why_it_works": "A caught slap flips the power dynamic, then the discarded earring detonates the affair and pregnancy in one clean beat.",
+  "scores": {
+   "hook": 8.3,
+   "cliffhanger": 8,
+   "clarity": 7,
+   "coherence": 9.5,
+   "duration": 10.0,
+   "spoiler_penalty": 5,
+   "total": 77.19
+  },
+  "confidence": "medium",
+  "flags": [
+   "minor_spoiler",
+   "safety:abuse"
+  ],
+  "confusion": "Exact relationships between Mira, Arjun, Leela, and Tanya are not fully established.",
+  "idea": "Mira stops Leela’s slap mid-air and flips the power dynamic.",
+  "internal_id": "X001",
+  "editor_decision": ""
+ },
+ {
+  "rank": 3,
+  "promo_id": "P03",
+  "template": "reveal_tease",
+  "source": "script",
+  "segments": [
+   {
+    "episode": 1,
+    "start": "01:23.00",
+    "end": "01:30.00",
+    "start_sec": 83.0,
+    "end_sec": 90.0,
+    "start_line_id": "E1_L23",
+    "end_line_id": "E1_L24"
+   },
+   {
+    "episode": 2,
+    "start": "01:13.00",
+    "end": "01:20.00",
+    "start_sec": 73.0,
+    "end_sec": 80.0,
+    "start_line_id": "E2_L20",
+    "end_line_id": "E2_L21"
+   },
+   {
+    "episode": 3,
+    "start": "01:23.00",
+    "end": "01:38.00",
+    "start_sec": 83.0,
+    "end_sec": 98.0,
+    "start_line_id": "E3_L21",
+    "end_line_id": "E3_L23"
+   }
+  ],
+  "total_duration_sec": 29,
+  "hook": "Hard slap, music stops",
+  "cliffhanger": "Earring found, no question",
+  "why_it_works": "The slap grabs instantly and the earring discovery is a neat clue, but it ends on a quiet resolved beat.",
+  "scores": {
+   "hook": 9.0,
+   "cliffhanger": 5,
+   "clarity": 5,
+   "coherence": 8.5,
+   "duration": 9.5,
+   "spoiler_penalty": 0,
+   "total": 69.4
+  },
+  "confidence": "medium",
+  "flags": [
+   "safety:abuse"
+  ],
+  "confusion": "What lie or truth Tanya is referring to and who Arjun is to Mira.",
+  "idea": "Slapped and betrayed, Mira finds the earring that proves the affair.",
+  "internal_id": "X003",
+  "editor_decision": ""
+ },
+ {
+  "rank": 4,
+  "promo_id": "P04",
+  "template": "ending_scene",
+  "source": "ending_scene",
+  "segments": [
+   {
+    "episode": 2,
+    "start": "01:46.00",
+    "end": "02:11.00",
+    "start_sec": 106.0,
+    "end_sec": 131.0,
+    "start_line_id": "E2_L28",
+    "end_line_id": "E2_L33"
+   }
+  ],
+  "total_duration_sec": 25,
+  "hook": "Breaking a red wax seal",
+  "cliffhanger": "What truth can't she believe?",
+  "why_it_works": "A sealed letter reveal builds intrigue, but the slow wax-breaking open and unnamed stakes lose scrolling viewers.",
+  "scores": {
+   "hook": 5.2,
+   "cliffhanger": 7,
+   "clarity": 4,
+   "coherence": 9.0,
+   "duration": 7.5,
+   "spoiler_penalty": 0,
+   "total": 62.01
+  },
+  "confidence": "low",
+  "flags": [],
+  "confusion": "What the legal document reveals and who V is.",
+  "idea": "ep 2 closing scene, hook to cliffhanger",
+  "internal_id": "X015",
+  "editor_decision": ""
+ }
+]

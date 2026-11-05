@@ -1,0 +1,41 @@
+{
+ "single_scene": {
+  "promo_id": "X001",
+  "total": 77.19,
+  "selected": true,
+  "final_id": "P02"
+ },
+ "reveal_tease": {
+  "promo_id": "X003",
+  "total": 69.4,
+  "selected": true,
+  "final_id": "P03"
+ },
+ "mini_story": {
+  "promo_id": "X005",
+  "total": 86.1,
+  "selected": true,
+  "final_id": "P01"
+ },
+ "underdog_revenge": {
+  "promo_id": "X007",
+  "total": 76.99,
+  "selected": false
+ },
+ "romance_tension": {
+  "promo_id": "X009",
+  "total": 73.44,
+  "selected": false
+ },
+ "montage": {
+  "promo_id": "X011",
+  "total": 76.33,
+  "selected": false
+ },
+ "ending_scene": {
+  "promo_id": "X015",
+  "total": 62.01,
+  "selected": true,
+  "final_id": "P04"
+ }
+}

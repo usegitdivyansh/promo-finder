@@ -1,0 +1,56 @@
+[
+ {
+  "step": "scripts",
+  "item": "C25",
+  "reason": "over_template_cap",
+  "detail": "reveal_tease"
+ },
+ {
+  "step": "scripts",
+  "item": "C26",
+  "reason": "over_template_cap",
+  "detail": "mini_story"
+ },
+ {
+  "step": "scripts",
+  "item": "C27",
+  "reason": "over_template_cap",
+  "detail": "underdog_revenge"
+ },
+ {
+  "step": "scripts",
+  "item": "C28",
+  "reason": "over_template_cap",
+  "detail": "montage"
+ },
+ {
+  "step": "match",
+  "item": "C8",
+  "reason": "unfilled_beat",
+  "detail": "hook beat is none"
+ },
+ {
+  "step": "match",
+  "item": "C9",
+  "reason": "unfilled_beat",
+  "detail": "cliffhanger beat is none"
+ },
+ {
+  "step": "match",
+  "item": "C11",
+  "reason": "unfilled_beat",
+  "detail": "hook beat is none"
+ },
+ {
+  "step": "match",
+  "item": "C18",
+  "reason": "unfilled_beat",
+  "detail": "hook beat is none"
+ },
+ {
+  "step": "match",
+  "item": "C20",
+  "reason": "unfilled_beat",
+  "detail": "hook beat is none"
+ }
+]

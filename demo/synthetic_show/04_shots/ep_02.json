@@ -1,0 +1,176 @@
+{
+ "episode": 2,
+ "raw_count": 5,
+ "shots": [
+  {
+   "shot_id": "E2_S3",
+   "size": "medium",
+   "start_line_id": "E2_L5",
+   "end_line_id": "E2_L7",
+   "key_line_id": "E2_L5",
+   "role": "escalation",
+   "hook_type": "secret_exposed",
+   "intensity": 7,
+   "needs_context": "medium",
+   "characters": [
+    "Mira Rao",
+    "Harish Desai"
+   ],
+   "thread_id": "T1",
+   "quote_or_action": "He didn't walk out, Miss Kapoor. He was never told you existed.",
+   "char_ids": [
+    "C1",
+    "C5"
+   ],
+   "episode": 2,
+   "start_idx": 5,
+   "key_idx": 5,
+   "end_idx": 7,
+   "start": 17.0,
+   "end": 32.0,
+   "duration": 15.0,
+   "quote_ratio": 1.0
+  },
+  {
+   "shot_id": "E2_S1",
+   "size": "small",
+   "start_line_id": "E2_L18",
+   "end_line_id": "E2_L18",
+   "key_line_id": "E2_L18",
+   "role": "hook",
+   "hook_type": "public_humiliation",
+   "intensity": 7,
+   "needs_context": "low",
+   "characters": [
+    "Mira Rao",
+    "Leela Mehta",
+    "Tanya"
+   ],
+   "thread_id": "T2",
+   "quote_or_action": "Theft. Tanya found our client files on your laptop.",
+   "char_ids": [
+    "C1",
+    "C4",
+    "C3"
+   ],
+   "episode": 2,
+   "start_idx": 18,
+   "key_idx": 18,
+   "end_idx": 18,
+   "start": 65.0,
+   "end": 70.0,
+   "duration": 5.0,
+   "quote_ratio": 1.0
+  },
+  {
+   "shot_id": "E2_S2",
+   "size": "small",
+   "start_line_id": "E2_L20",
+   "end_line_id": "E2_L21",
+   "key_line_id": "E2_L21",
+   "role": "escalation",
+   "hook_type": "betrayal_caught",
+   "intensity": 8,
+   "needs_context": "medium",
+   "characters": [
+    "Mira Rao",
+    "Tanya"
+   ],
+   "thread_id": "T3",
+   "quote_or_action": "I'm sorry, Mira. I had to tell the truth.",
+   "char_ids": [
+    "C1",
+    "C3"
+   ],
+   "episode": 2,
+   "start_idx": 20,
+   "key_idx": 21,
+   "end_idx": 21,
+   "start": 73.0,
+   "end": 80.0,
+   "duration": 7.0,
+   "quote_ratio": 1.0
+  },
+  {
+   "shot_id": "E2_S4",
+   "size": "medium",
+   "start_line_id": "E2_L28",
+   "end_line_id": "E2_L30",
+   "key_line_id": "E2_L29",
+   "role": "payoff",
+   "hook_type": "identity_reveal",
+   "intensity": 8,
+   "needs_context": "medium",
+   "characters": [
+    "Mira Rao"
+   ],
+   "thread_id": "T1",
+   "quote_or_action": "Inside: a legal document and an old photograph of a young woman holding a baby. On the back: \"Asha and our daughter. V.\"",
+   "char_ids": [
+    "C1"
+   ],
+   "episode": 2,
+   "start_idx": 28,
+   "key_idx": 29,
+   "end_idx": 30,
+   "start": 106.0,
+   "end": 120.0,
+   "duration": 14.0,
+   "quote_ratio": 1.0
+  },
+  {
+   "shot_id": "E2_S5",
+   "size": "small",
+   "start_line_id": "E2_L32",
+   "end_line_id": "E2_L32",
+   "key_line_id": "E2_L32",
+   "role": "cliffhanger",
+   "hook_type": "identity_reveal",
+   "intensity": 7,
+   "needs_context": "medium",
+   "characters": [
+    "Mira Rao"
+   ],
+   "thread_id": "T1",
+   "quote_or_action": "(whispering) This can't be true.",
+   "char_ids": [
+    "C1"
+   ],
+   "episode": 2,
+   "start_idx": 32,
+   "key_idx": 32,
+   "end_idx": 32,
+   "start": 125.0,
+   "end": 129.0,
+   "duration": 4.0,
+   "quote_ratio": 1.0
+  },
+  {
+   "shot_id": "E2_ESC",
+   "source": "ending_scene",
+   "size": "long",
+   "role": "scene",
+   "hook_type": "identity_reveal",
+   "intensity": 8,
+   "needs_context": "medium",
+   "characters": [],
+   "char_ids": [
+    "C1"
+   ],
+   "thread_id": "T1",
+   "hook_shot_id": "E2_S4",
+   "start_line_id": "E2_L28",
+   "key_line_id": "E2_L29",
+   "end_line_id": "E2_L33",
+   "quote_or_action": "Inside: a legal document and an old photograph of a young woman holding a baby. On the back: \"Asha and our daughter. V.\"",
+   "quote_ratio": 1.0,
+   "episode": 2,
+   "start_idx": 28,
+   "key_idx": 29,
+   "end_idx": 33,
+   "start": 106.0,
+   "end": 131.0,
+   "duration": 25.0
+  }
+ ]
+}

@@ -1,48 +1,48 @@
 # Promo Finder
 
-Reads timestamped microdrama screenplays and outputs a **ranked list of promo clips** for Instagram, TikTok and YouTube Shorts. Each promo is one or more segments (episode + start/end time), with the hook, the cliffhanger and one line on why it works. It does not edit video. An editor approves the picks and cuts them.
+Reads timestamped microdrama screenplays and returns a **ranked list of promo clips** for Instagram, TikTok and YouTube Shorts. Each promo is one or more cuts (episode + start/end time, to the hundredth of a second), with the hook, the cliffhanger and why it works. It does not edit video: an editor approves the picks and cuts them.
 
 Built for Kuku's AI Generalist assignment (Problem 1: Find the Promos).
 
-## Setup
+## Quick start
 
 ```bash
-pip install -r requirements.txt
-cp .env.example .env        # put one API key in .env
+pip install -r requirements.txt          # python 3.11, versions pinned
+streamlit run app.py                     # press "Demo mode": saved results, no key, no cost
+python run.py --input tests/fixtures/sample_show --mock   # offline end-to-end run, no key
+python -m pytest -q                      # 48 tests
 ```
 
-Models are named once in `config.yaml` → `llm.models`, as [LiteLLM](https://docs.litellm.ai/docs/providers) model strings (`gemini/...`, `openrouter/...`, `openai/...`, `anthropic/...`): `fast` (free tier, Step 2 summaries on non-confidential input) and `strong` (paid: every other step, the fallback, and every step of a confidential run). Every other setting refers to these slot names. **Swapping a model is that one line**, e.g. `strong: "openai/gpt-4.1-mini"` (or `--model <name>` on the command line for every step). A model with no entry in `llm.prices` is priced from LiteLLM's table, or budgeted at `llm.unknown_price` if unknown, so a swap can never skip the `budget_usd` cap.
-
-## Run
+## Run on a show
 
 ```bash
-# full show: one folder of episode files (txt, md, pdf, docx, json)
+cp .env.example .env                     # one API key per provider you use
 python run.py --input data/show1 --out raw_outputs/show1
-
-# try 3 episodes first
-python run.py --input data/show1 --out raw_outputs/show1_try --episodes 1-3
-
-# resume from a step using saved outputs (step1..step9, baseline)
-python run.py --input data/show1 --out raw_outputs/show1 --from step5
-
-# swap the model without editing config
-python run.py --input data/show1 --model groq/<model>
-
-# offline, no API key: made-up 3-episode show with mock LLM answers
-python run.py --input tests/fixtures/sample_show --mock
 ```
 
-Every LLM call is cached in `cache/` (key = model + filled prompt + schema), so a rerun on the same show is fast and free, and only changed steps call the model again.
+`--input` is a folder with one file per episode (`.txt .md .pdf .docx .json .fountain .srt`). Episode numbers come from an `EPISODE N` header or the file name. Two timestamp styles are read: `(MM:SS)` / `[MM:SS]` per line, and Kuku-style blocks (`**TAG:**`, then `Start: (MM:SS.ss) | End: (MM:SS.ss)`, then the text).
 
-Outputs land in `raw_outputs/<run>/`:
+**A new show, step by step:**
 
-| Path | What |
-|---|---|
-| `09_final/promos.json`, `promos.csv` | ranked promos (CSV has an empty `editor_decision` column) |
-| `09_final/report.html`, `report.md` | every promo with its scores and the **actual screenplay lines** of each segment, plus best-per-template, run summary, drops and usage |
-| `01_parsed` … `08_selected.json`, `10_baseline*.json` | every intermediate step, unedited |
-| `logs/drops_*.json`, `logs/failed_*.json` | every dropped item with a reason, and every failure |
-| `usage.jsonl` | tokens, latency, model and step for every call |
+1. Put the episodes in `data/<show>/`. Anything under `data/` runs in confidential mode automatically: the paid `strong` model for every step, no free tier, no fallback. `data/` is git-ignored.
+2. Try three episodes and read the parse report: `python run.py --input data/<show> --out raw_outputs/<show>_try --episodes 1-3`, then open `raw_outputs/<show>_try/01_parsed/_report.json`.
+3. Run the whole show. Every call is cached in `cache/` (key = model + filled prompt + schema), so a rerun is free and `--from step5` (or any step) redoes only what changed.
+4. Check the rules: `python -m src.check_rules --run raw_outputs/<show>`.
+5. Optional: if the rule check lists speaker tags that are real characters or unnamed extras, put them in a git-ignored aliases file (`--aliases data/<show>_aliases.json`).
+
+Other flags: `--model <litellm name>` (one model for every step), `--no-baseline`, `--num-promos N`, `--to stepN`, `--only stepN`.
+
+## Swap the model: one line
+
+Models are named once in `config.yaml` under `llm.models`, as [LiteLLM](https://docs.litellm.ai/docs/providers) strings:
+
+```yaml
+# config.yaml
+    fast: "gemini/gemini-3.5-flash-lite"               # line 5: step 2 summaries on non-confidential input
+    strong: "openrouter/deepseek/deepseek-v4.1-flash"  # line 6: every other step, the fallback, confidential runs
+```
+
+Every other setting refers to `fast` or `strong`, so **changing line 6 swaps the model for the whole pipeline**, e.g. `strong: "openai/gpt-4.1-mini"`. A model missing from `llm.prices` is priced from LiteLLM's table, or budgeted at `llm.unknown_price` if unknown, so a swap can never skip the spend cap (`llm.budget_usd`, ledger in `cache/_spend.jsonl`).
 
 ## Streamlit app
 
@@ -50,61 +50,62 @@ Outputs land in `raw_outputs/<run>/`:
 streamlit run app.py
 ```
 
-Upload the episode files (or one zip), set the model and key in the sidebar, then press Run. The "Demo" checkbox runs the made-up sample show offline. Results show a ranked table, an expander per promo with its lines and scores, the best per template, and downloads (promos.json, promos.csv, report.html, a zip of all raw outputs).
+- **Demo mode** loads saved results from a real run on the made-up 5-episode show in `demo/synthetic_show/`. It works with no key and costs nothing.
+- **Your own run:** pick a provider and model and paste your API key in the sidebar. The key is sent straight to the provider for this run's calls only, is never written to disk, config or logs, and is cleared when the run ends. No key is bundled and none is read from the server's environment.
+- After an upload (files or one zip) the app parses it locally and shows an **estimate** (LLM calls, tokens, dollars). The **spend cap** (default $1) stops the run before any call that could go over it.
+- Results: ranked promo cards (template, duration, hook, cliffhanger, why it works, score breakdown, confidence badge), a timeline of where each cut sits in its episode, the screenplay lines of every cut, and downloads (`promos.json`, `promos.csv`, `report.html`, all raw outputs as a zip).
+- One real run at a time per server; a second user is asked to wait. Each session has its own cache in a temp folder.
 
-**Deploy on Streamlit Community Cloud:** point it at this repo and `app.py`, then add secrets such as:
+**Deploy (Streamlit Community Cloud):** point it at this repo, branch `main`, file `app.py`, Python 3.11. No secrets are needed: viewers bring their own key, or use demo mode.
 
-```toml
-MODEL = "gemini/<model>"
-GEMINI_API_KEY = "..."
-```
+## Outputs
 
-No screenplays are bundled. The cache is per session on Cloud (the disk is ephemeral), so a rerun after a restart calls the model again.
+`raw_outputs/<run>/`:
+
+| Path | What |
+|---|---|
+| `09_final/promos.json`, `promos.csv` | ranked promos with exact cut times (`MM:SS.ss`); the CSV has an empty `editor_decision` column |
+| `09_final/report.html`, `report.md` | every promo with its scores and the screenplay lines of each cut, plus the run summary, drops and usage |
+| `01_parsed` … `08_selected.json`, `10_baseline*.json` | every intermediate step, unedited |
+| `logs/drops_*.json`, `logs/failed_*.json` | every dropped item with its reason, and every failure |
+| `usage.jsonl` | model, step, tokens, latency and cost of every call |
+| `rule_check.json` | written by `src.check_rules` |
 
 ## How it works
 
 | Step | Who | Output |
 |---|---|---|
 | 1 Parse | code | lines with ids, start/end seconds, type, speaker, recap flag |
-| 2 Episode labels | LLM ×1 per episode | summary, key events (by line id), 10 fixed labels, peak, cliffhanger |
-| 3 Series bible | LLM ×1 (or chunks + merge) | characters + aliases, threads, twists (major/minor), setup→payoff links |
-| 4 Shot bank | LLM ×1 per episode | long / medium / small clip-able moments with role, hook type, intensity |
-| 5 Promo generation | LLM scripts + code filter + LLM match, then a code safety net | candidate promos from 6 templates |
-| 6 Assembly | code | hard rules: line-boundary cuts, hook in 3 s, trim, extend, spoiler guard |
-| 7 Scoring | 2 LLM judges + code | full judge (with bible), fresh-viewer judge (no bible), code metrics |
-| 8 Selection | code | category coverage, ≤2 per thread, no reused hook |
+| 2 Episode labels | LLM ×1 per episode | summary, key events (by line id), labels, peak, cliffhanger |
+| 3 Series bible | LLM (chunks of 10 episodes + merge) | characters + aliases, story threads, twists (major/minor) with setup→payoff |
+| 4 Shot bank | LLM ×1 per episode, plus code | clip-able moments with role, hook type and intensity; code adds a single-scene shot ending on each episode's cliffhanger |
+| 5 Promo candidates | LLM scripts + LLM match + code safety net | candidates from 7 templates |
+| 6 Assembly | code | cuts on line boundaries, hook within 3 s, trim/extend to 20–60 s, recap and spoiler guard |
+| 7 Scoring | 2 LLM judges + code | full judge (knows the story), fresh-viewer judge (doesn't), code coherence and duration |
+| 8 Selection | code | drop scores under 60, ≤2 per story thread, no reused hook, no shared footage, template coverage |
 | 9 Report | code | JSON, CSV, HTML, Markdown |
+| Baseline | code + same judges | the last 30 s of every episode, for comparison |
 
-The LLM only ever refers to **line ids and event ids**. Code computes every timestamp, so a timestamp can't be hallucinated. Every quoted shot is fuzzy-matched against the screenplay and dropped if it doesn't match.
+The LLM only ever names **line ids and event ids**. Code computes every timestamp, so a timestamp can't be made up, and every quoted line is fuzzy-matched against the screenplay and dropped if it doesn't match.
 
-Score: `total = 10 × (0.28 hook + 0.28 cliffhanger + 0.22 clarity + 0.17 coherence + 0.05 duration) − spoiler_penalty`, where hook = 0.7 judge + 0.3 shot intensity, and coherence = 0.5 judge + 0.5 code (shared thread/character between adjacent segments). Clarity comes from the fresh-viewer judge (or from the full judge when `judge.fresh: false`).
+Score: `total = 10 × (0.28 hook + 0.28 cliffhanger + 0.22 clarity + 0.17 coherence + 0.05 duration) − spoiler_penalty`. Clarity comes from the fresh-viewer judge.
 
 ## Evaluation
 
-```bash
-python -m src.evaluate --run raw_outputs/show1 --make-sheets   # blind hand-check + ranking sheets in <run>/eval/
-python -m src.evaluate --run raw_outputs/show1                 # writes eval/results.md
-```
+- **Rule check:** `python -m src.check_rules --run raw_outputs/<show>` (cut times, 20–60 s, hook in 3 s, no recap, quotes, ≤2 per thread, no reused hook, no shared footage, no major twist payoff).
+- **Blind human check:** `python src/blind_sheet.py --run raw_outputs/<show>` writes `eval/blind_sheet.html` (top 10 tool promos + top 10 baseline clips, shuffled and unlabelled; pass/fail for hook, cliffhanger and standalone; exports JSON) and `eval/blind_key.json`. Then `python src/score_blind.py --results <export>.json` reports pass rates (tool vs baseline) and agreement with the LLM judge (agreement, kappa, Spearman). Both files are git-ignored because they hold screenplay text.
+- **Gold set:** hand-picked promos in `eval/gold.json` (format: `eval/gold.example.json`); `python -m src.evaluate --run raw_outputs/<show>` counts hits at time IoU ≥ 0.5.
+- **Run comparison:** `python -m src.compare_runs --runs <run> <run> --out compare.md`.
 
-- Gold set: put hand-picked promos in `eval/gold.json` (format: `eval/gold.example.json`). A hit = an output promo with time IoU ≥ 0.5.
-- Hand check: mark `hook_pass / cliffhanger_pass / standalone_pass` for the top 10 tool promos and the top 10 baseline promos. They are mixed and blinded, and `hand_check.html` shows the lines.
-- Judge vs human: rank the tool's top 10 in `human_rank.csv`. The result is a Spearman correlation.
-- Also reported: fill rate, drops by reason, the baseline comparison (last 30 s of each episode, same judges), and a failure gallery.
-
-## Tests
-
-```bash
-python -m pytest -q
-```
-
-These cover timestamp parsing, end times, recap detection, line-id validation, the quote check, the hook-in-3-s rule, trimming, extension, the spoiler guard, the duration score, and a full offline mock run of the sample show.
+Notes from building and running it are in `notes/`: model choice, every AI mistake caught, a failure gallery, and the synthetic-show comparison.
 
 ## Confidentiality
 
-`data/`, `cache/`, `raw_outputs/`, `.env` and eval files derived from real episodes are git-ignored. This repo holds only code, prompts and a made-up 3-episode fixture.
+`data/`, `cache/`, `raw_outputs/`, `.env`, the blind eval files and the raw outputs zip are git-ignored. The repo holds code, prompts, tests, two made-up fixture shows, the demo results for the made-up show, and notes without show names or script text.
 
 ## Known limits
 
-- Text only: visual-only moments (a look, an expression) are invisible to the tool.
-- LLM judges can overrate loud scenes. The fresh-viewer judge and the hand check are there to catch this.
-- An error in an episode summary spreads to the bible, shots and scripts. The code checks catch invalid ids and quotes, but not a wrong interpretation.
+- Text only: a look or an expression that isn't written down is invisible to the tool.
+- LLM judges score batches relatively and can overrate loud scenes; the fresh-viewer judge and the blind human check are there to catch this.
+- The gold set is small (the made-up show only).
+- On the real show tested, the last 30 s of each episode still scored higher with the same judges than the tool's promos.

@@ -1,0 +1,73 @@
+{
+ "episode": 1,
+ "summary": "Mira attends a high-society party to celebrate her fiancé Arjun, only to be publicly humiliated by Leela Mehta and abandoned by Arjun. She soon realizes her best friend Tanya is betraying her with Arjun. After being thrown out into the rain, a mysterious man approaches Mira with news about her long-lost father.",
+ "characters": [
+  "Mira Kapoor",
+  "Leela Mehta",
+  "Arjun Mehta",
+  "Tanya Sethi",
+  "Harish Desai"
+ ],
+ "key_events": [
+  {
+   "event_id": "E1_ev1",
+   "line_id": "E1_L10",
+   "description": "Leela publicly drops and breaks the hand-painted frame Mira brought as a gift.",
+   "episode": 1,
+   "start": 35.0,
+   "speaker": null
+  },
+  {
+   "event_id": "E1_ev2",
+   "line_id": "E1_L18",
+   "description": "Mira notices matching red lipstick on Arjun's collar and Tanya's lips.",
+   "episode": 1,
+   "start": 64.0,
+   "speaker": null
+  },
+  {
+   "event_id": "E1_ev3",
+   "line_id": "E1_L23",
+   "description": "Leela slaps Mira across the face and orders security to throw her out.",
+   "episode": 1,
+   "start": 83.0,
+   "speaker": null
+  },
+  {
+   "event_id": "E1_ev4",
+   "line_id": "E1_L31",
+   "description": "Harish Desai approaches Mira outside and reveals he has been looking for her for twenty-two years regarding her father.",
+   "episode": 1,
+   "start": 113.0,
+   "speaker": "HARISH DESAI"
+  }
+ ],
+ "ending_cliffhanger": {
+  "line_id": "E1_L33",
+  "description": "Harish tells Mira he has information about her father, leaving her stunned in the rain."
+ },
+ "primary_label": "humiliation",
+ "secondary_labels": [
+  "betrayal",
+  "reveal"
+ ],
+ "peak_line_id": "E1_L23",
+ "label_reasons": {
+  "humiliation": "Leela mocks Mira's gift and slaps her in front of all the guests as seen in E1_L23.",
+  "betrayal": "Mira discovers Tanya's lipstick on Arjun's collar in E1_L18.",
+  "reveal": "Harish Desai appears outside and reveals he has been looking for Mira regarding her father in E1_L31."
+ },
+ "speaker_tags": {
+  "LEELA MEHTA": 7,
+  "MIRA": 5,
+  "ARJUN": 1,
+  "TANYA": 1,
+  "HARISH DESAI": 3
+ },
+ "promo_priority": "high",
+ "label_priority": {
+  "humiliation": "high",
+  "betrayal": "very_high",
+  "reveal": "very_high"
+ }
+}

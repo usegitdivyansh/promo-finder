@@ -1,0 +1,84 @@
+{
+ "episode": 4,
+ "summary": "At the investors' gala, Leela publicly humiliates Mira by pouring wine on her gown while Tanya films. Arjun then announces his engagement to Tanya, who wears Mira's ring, and Mira quietly claims it. Desai reveals that the late Vikram Rao's sole heir is Mira Rao, making her chair of the board. Mira takes the stage and says her first decision as chair concerns the Mehta Group, leaving the outcome hanging.",
+ "characters": [
+  "Mira",
+  "Leela",
+  "Tanya",
+  "Arjun Mehta",
+  "Desai"
+ ],
+ "key_events": [
+  {
+   "event_id": "E4_ev1",
+   "line_id": "E4_L7",
+   "description": "Leela publicly humiliates Mira by pouring red wine down her gown.",
+   "episode": 4,
+   "start": 29.0,
+   "speaker": null
+  },
+  {
+   "event_id": "E4_ev2",
+   "line_id": "E4_L14",
+   "description": "Arjun announces his engagement to Tanya.",
+   "episode": 4,
+   "start": 60.0,
+   "speaker": "ARJUN MEHTA"
+  },
+  {
+   "event_id": "E4_ev3",
+   "line_id": "E4_L16",
+   "description": "Mira identifies the engagement ring Tanya is wearing as hers.",
+   "episode": 4,
+   "start": 71.0,
+   "speaker": "MIRA"
+  },
+  {
+   "event_id": "E4_ev4",
+   "line_id": "E4_L23",
+   "description": "Desai reveals Mira Rao as Vikram Rao's heir and incoming chair.",
+   "episode": 4,
+   "start": 107.0,
+   "speaker": "DESAI"
+  },
+  {
+   "event_id": "E4_ev5",
+   "line_id": "E4_L29",
+   "description": "Mira says her first decision as chair concerns the Mehta Group.",
+   "episode": 4,
+   "start": 130.0,
+   "speaker": "MIRA RAO"
+  }
+ ],
+ "ending_cliffhanger": {
+  "line_id": "E4_L29",
+  "description": "Mira announces that her first decision as chair is about the Mehta Group, leaving its nature unknown."
+ },
+ "primary_label": "reveal",
+ "secondary_labels": [
+  "humiliation",
+  "power_shift"
+ ],
+ "peak_line_id": "E4_L23",
+ "label_reasons": {
+  "reveal": "Desai publicly names Mira Rao as the late Vikram Rao's heir and chair at E4_L23.",
+  "humiliation": "Leela pours wine on Mira and mocks her in front of the gala guests at E4_L7.",
+  "power_shift": "Mira takes the stage as chair and declares her first decision concerns the Mehta Group at E4_L29."
+ },
+ "speaker_tags": {
+  "MRS. MEHTA": 1,
+  "LEELA": 1,
+  "TANYA": 1,
+  "MIRA": 3,
+  "ARJUN MEHTA": 1,
+  "ARJUN": 2,
+  "DESAI": 3,
+  "MIRA RAO": 2
+ },
+ "promo_priority": "very_high",
+ "label_priority": {
+  "reveal": "very_high",
+  "humiliation": "high",
+  "power_shift": "very_high"
+ }
+}

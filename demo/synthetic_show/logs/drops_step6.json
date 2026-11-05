@@ -1,0 +1,50 @@
+[
+ {
+  "step": "assemble",
+  "item": "C2",
+  "reason": "duplicate",
+  "detail": ""
+ },
+ {
+  "step": "assemble",
+  "item": "C3",
+  "reason": "duplicate",
+  "detail": ""
+ },
+ {
+  "step": "assemble",
+  "item": "C4",
+  "reason": "duplicate",
+  "detail": ""
+ },
+ {
+  "step": "assemble",
+  "item": "C7",
+  "reason": "too_short",
+  "detail": "18.0s after extend"
+ },
+ {
+  "step": "assemble",
+  "item": "C15",
+  "reason": "duplicate",
+  "detail": ""
+ },
+ {
+  "step": "assemble",
+  "item": "SN_E4_S4",
+  "reason": "too_short",
+  "detail": "10.0s after extend"
+ },
+ {
+  "step": "assemble",
+  "item": "SN_E3_S2",
+  "reason": "too_short",
+  "detail": "16.0s after extend"
+ },
+ {
+  "step": "assemble",
+  "item": "ES_E4_ESC",
+  "reason": "spoiler",
+  "detail": "major twist W1 payoff E4_L23"
+ }
+]

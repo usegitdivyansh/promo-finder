@@ -1,0 +1,58 @@
+[
+ {
+  "cand_id": "C2",
+  "source": "script",
+  "template": "single_scene",
+  "reason": "duplicate",
+  "detail": ""
+ },
+ {
+  "cand_id": "C3",
+  "source": "script",
+  "template": "single_scene",
+  "reason": "duplicate",
+  "detail": ""
+ },
+ {
+  "cand_id": "C4",
+  "source": "script",
+  "template": "single_scene",
+  "reason": "duplicate",
+  "detail": ""
+ },
+ {
+  "cand_id": "C7",
+  "source": "script",
+  "template": "reveal_tease",
+  "reason": "too_short",
+  "detail": "18.0s after extend"
+ },
+ {
+  "cand_id": "C15",
+  "source": "script",
+  "template": "underdog_revenge",
+  "reason": "duplicate",
+  "detail": ""
+ },
+ {
+  "cand_id": "SN_E4_S4",
+  "source": "safety_net",
+  "template": "single_scene",
+  "reason": "too_short",
+  "detail": "10.0s after extend"
+ },
+ {
+  "cand_id": "SN_E3_S2",
+  "source": "safety_net",
+  "template": "reveal_tease",
+  "reason": "too_short",
+  "detail": "16.0s after extend"
+ },
+ {
+  "cand_id": "ES_E4_ESC",
+  "source": "ending_scene",
+  "template": "ending_scene",
+  "reason": "spoiler",
+  "detail": "major twist W1 payoff E4_L23"
+ }
+]

@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blind Promo Rating</title>
+<style>
+:root{--bg:#f7f7f5;--card:#fff;--ink:#1d1d1b;--mute:#6b6b66;--line:#e2e1dc;--acc:#2f5bd3;--ok:#1f7a4d;--bad:#b3261e;--chip:#efeee9}
+@media (prefers-color-scheme:dark){:root{--bg:#161615;--card:#1f1f1d;--ink:#ecebe6;--mute:#9b9a94;--line:#33322f;--acc:#7c9cf0;--ok:#5cc08b;--bad:#f08a80;--chip:#2a2a27}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+header{position:sticky;top:0;z-index:2;background:var(--bg);border-bottom:1px solid var(--line);padding:12px 16px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+header h1{font-size:17px;margin:0;flex:1 1 auto}
+#prog{color:var(--mute);font-variant-numeric:tabular-nums}
+button{font:inherit;border:1px solid var(--acc);background:var(--acc);color:#fff;border-radius:8px;padding:7px 14px;cursor:pointer}
+button.ghost{background:transparent;color:var(--acc)}
+main{max-width:860px;margin:0 auto;padding:16px}
+.intro{color:var(--mute);margin:0 0 16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin:0 0 16px}
+.card.done{border-color:var(--ok)}
+.top{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:8px}
+.top h2{margin:0;font-size:18px}
+.dur{color:var(--mute);font-variant-numeric:tabular-nums}
+.seg{border-top:1px solid var(--line);padding-top:8px;margin-top:8px}
+.seghead{font-size:13px;color:var(--mute);margin-bottom:4px}
+.ln{display:grid;grid-template-columns:48px 1fr;gap:8px;padding:2px 0}
+.t{color:var(--mute);font-variant-numeric:tabular-nums;font-size:13px;padding-top:1px}
+.k{display:inline-block;font-size:11px;letter-spacing:.04em;text-transform:uppercase;background:var(--chip);color:var(--mute);border-radius:4px;padding:0 5px;margin-right:6px}
+.who{font-weight:600}
+.del{color:var(--mute);font-style:italic}
+.dlg .txt{font-weight:500}
+.rate{display:grid;gap:8px;margin-top:12px;border-top:1px solid var(--line);padding-top:12px}
+.crit{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.crit .q{flex:1 1 220px}
+.crit .q small{display:block;color:var(--mute)}
+.pf{display:flex;gap:6px}
+.pf label{border:1px solid var(--line);border-radius:8px;padding:5px 12px;cursor:pointer;user-select:none}
+.pf input{position:absolute;opacity:0;pointer-events:none}
+.pf input:checked+span{font-weight:600}
+.pf label:has(input[value=pass]:checked){border-color:var(--ok);color:var(--ok)}
+.pf label:has(input[value=fail]:checked){border-color:var(--bad);color:var(--bad)}
+.pf label:has(input:focus-visible){outline:2px solid var(--acc)}
+textarea{width:100%;min-height:56px;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px}
+</style>
+</head>
+<body>
+<header>
+  <h1>Blind promo rating</h1>
+  <span id="prog"></span>
+  <button id="exp" type="button">Export results</button>
+</header>
+<main>
+  <p class="intro">Each item is a promo cut from the screenplay. Times run from the start of the promo. Rate each one on its own: <b>Hook</b> grabs you in the first 3 seconds; <b>Cliffhanger</b> ends on an open question that makes you want the next episode; <b>Standalone</b> makes sense to someone who has never seen the show. Your answers stay in this browser until you press Export.</p>
+  <div id="list"></div>
+</main>
+<script id="data" type="application/json">/*DATA*/null</script>
+<script>
+var D = JSON.parse(document.getElementById('data').textContent);
+var KEY = 'blind_' + D.sheet_id;
+var CRIT = [
+  ['hook', 'Hook', 'Grabs attention within 3 s'],
+  ['cliffhanger', 'Cliffhanger', 'Ends on an open question'],
+  ['standalone', 'Standalone', 'Clear to a new viewer']
+];
+var state = {};
+try { state = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { state = {}; }
+function persist() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} }
+function el(tag, cls, txt) { var x = document.createElement(tag); if (cls) x.className = cls; if (txt != null) x.textContent = txt; return x; }
+function fmt(t) { var m = Math.floor(t / 60), s = (t - m * 60).toFixed(1); return m + ':' + (s < 10 ? '0' : '') + s; }
+function rec(id) { if (!state[id]) state[id] = {hook: null, cliffhanger: null, standalone: null, notes: ''}; return state[id]; }
+function done(id) { var r = state[id]; return r && r.hook && r.cliffhanger && r.standalone; }
+function progress() {
+  var n = 0;
+  D.items.forEach(function (it) { if (done(it.id)) n++; document.getElementById('c_' + it.id).classList.toggle('done', !!done(it.id)); });
+  document.getElementById('prog').textContent = n + ' / ' + D.items.length + ' rated';
+}
+var list = document.getElementById('list');
+D.items.forEach(function (it) {
+  var c = el('section', 'card'); c.id = 'c_' + it.id;
+  var top = el('div', 'top'); top.appendChild(el('h2', null, it.id)); top.appendChild(el('span', 'dur', it.duration.toFixed(1) + ' s total')); c.appendChild(top);
+  it.segments.forEach(function (sg, i) {
+    var s = el('div', 'seg');
+    s.appendChild(el('div', 'seghead', 'Cut ' + (i + 1) + ' of ' + it.segments.length + ' · episode ' + sg.episode + ' · ' + sg.duration.toFixed(1) + ' s'));
+    sg.lines.forEach(function (ln) {
+      var row = el('div', 'ln' + (ln.type === 'dialogue' ? ' dlg' : ''));
+      row.appendChild(el('span', 't', fmt(ln.t)));
+      var body = el('div');
+      if (ln.type === 'dialogue') {
+        body.appendChild(el('span', 'who', ln.speaker));
+        if (ln.delivery) body.appendChild(el('span', 'del', ' (' + ln.delivery + ')'));
+        body.appendChild(document.createTextNode(': '));
+      } else {
+        body.appendChild(el('span', 'k', ln.type));
+      }
+      body.appendChild(el('span', 'txt', ln.text));
+      row.appendChild(body); s.appendChild(row);
+    });
+    c.appendChild(s);
+  });
+  var r = rec(it.id);
+  var rate = el('div', 'rate');
+  CRIT.forEach(function (cr) {
+    var row = el('div', 'crit');
+    var q = el('div', 'q', cr[1]); q.appendChild(el('small', null, cr[2])); row.appendChild(q);
+    var pf = el('div', 'pf');
+    ['pass', 'fail'].forEach(function (v) {
+      var lab = el('label'); var inp = el('input'); inp.type = 'radio'; inp.name = it.id + '_' + cr[0]; inp.value = v;
+      if (r[cr[0]] === v) inp.checked = true;
+      inp.addEventListener('change', function () { rec(it.id)[cr[0]] = v; persist(); progress(); });
+      lab.appendChild(inp); lab.appendChild(el('span', null, v === 'pass' ? 'Pass' : 'Fail')); pf.appendChild(lab);
+    });
+    row.appendChild(pf); rate.appendChild(row);
+  });
+  var ta = el('textarea'); ta.placeholder = 'Notes (optional)'; ta.value = r.notes || '';
+  ta.addEventListener('input', function () { rec(it.id).notes = ta.value; persist(); });
+  rate.appendChild(ta); c.appendChild(rate); list.appendChild(c);
+});
+progress();
+document.getElementById('exp').addEventListener('click', function () {
+  var miss = D.items.filter(function (it) { return !done(it.id); }).map(function (it) { return it.id; });
+  if (miss.length && !confirm(miss.length + ' item(s) not fully rated (' + miss.join(', ') + '). Export anyway?')) return;
+  var out = {sheet_id: D.sheet_id, exported_at: new Date().toISOString(), items: {}};
+  D.items.forEach(function (it) { out.items[it.id] = rec(it.id); });
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([JSON.stringify(out, null, 1)], {type: 'application/json'}));
+  a.download = 'blind_results_' + D.sheet_id + '.json';
+  document.body.appendChild(a); a.click(); a.remove();
+});
+</script>
+</body>
+</html>

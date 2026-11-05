@@ -1,0 +1,152 @@
+{
+ "run": {
+  "episodes": 5,
+  "parse_failed": 0,
+  "estimated_time_lines": 0,
+  "recap_lines": 5,
+  "shots_proposed": 23,
+  "shots_kept": 25,
+  "shots_by_size": {
+   "long": 4,
+   "medium": 8,
+   "small": 13
+  },
+  "scripts_written": 24,
+  "scripts_filled": 19,
+  "fill_rate": 0.792,
+  "safety_net_candidates": 2,
+  "candidates": 23,
+  "assembled": 15,
+  "eligible_after_rules": 15,
+  "selected": 4,
+  "drops_by_reason": {
+   "assemble:duplicate": 4,
+   "assemble:spoiler": 1,
+   "assemble:too_short": 3,
+   "match:unfilled_beat": 5,
+   "scripts:over_template_cap": 4
+  },
+  "failures": []
+ },
+ "usage": {
+  "run_id": "20261105-160108",
+  "steps": {
+   "02_episodes": {
+    "calls": 5,
+    "cached": 5,
+    "prompt_tokens": 11107,
+    "completion_tokens": 5087,
+    "latency": 0.0,
+    "retries": 0
+   },
+   "03_bible": {
+    "calls": 1,
+    "cached": 1,
+    "prompt_tokens": 2150,
+    "completion_tokens": 7515,
+    "latency": 0.0,
+    "retries": 0
+   },
+   "04_shots": {
+    "calls": 5,
+    "cached": 5,
+    "prompt_tokens": 12494,
+    "completion_tokens": 29838,
+    "latency": 0.0,
+    "retries": 0
+   },
+   "05_scripts": {
+    "calls": 1,
+    "cached": 1,
+    "prompt_tokens": 2398,
+    "completion_tokens": 16990,
+    "latency": 0.0,
+    "retries": 0
+   },
+   "05_match": {
+    "calls": 24,
+    "cached": 24,
+    "prompt_tokens": 41713,
+    "completion_tokens": 17296,
+    "latency": 0.0,
+    "retries": 0
+   },
+   "07_judge_full": {
+    "calls": 4,
+    "cached": 4,
+    "prompt_tokens": 10437,
+    "completion_tokens": 9625,
+    "latency": 0.0,
+    "retries": 0
+   },
+   "07_judge_fresh": {
+    "calls": 4,
+    "cached": 4,
+    "prompt_tokens": 6860,
+    "completion_tokens": 13082,
+    "latency": 0.0,
+    "retries": 0
+   }
+  },
+  "calls": 44,
+  "cached_calls": 44,
+  "prompt_tokens": 87159,
+  "completion_tokens": 99433,
+  "spent_prompt_tokens_all_runs": 0,
+  "spent_completion_tokens_all_runs": 0,
+  "models": [
+   "gemini/gemini-3.5-flash-lite",
+   "openrouter/deepseek/deepseek-v4.1-flash"
+  ],
+  "by_model": {
+   "gemini/gemini-3.5-flash-lite": {
+    "calls": 4,
+    "cached": 4,
+    "prompt_tokens": 9427,
+    "completion_tokens": 2710,
+    "cost_usd": 0.0
+   },
+   "openrouter/deepseek/deepseek-v4.1-flash": {
+    "calls": 40,
+    "cached": 40,
+    "prompt_tokens": 77732,
+    "completion_tokens": 96723,
+    "cost_usd": 0.0
+   }
+  },
+  "cost_usd": 0.0,
+  "cost_usd_all_runs": 0.0
+ },
+ "baseline": {
+  "n_tool": 4,
+  "n_baseline": 5,
+  "mean_total_tool_top15": 73.67,
+  "mean_total_baseline_top15": 70.19,
+  "by_metric": {
+   "hook": {
+    "tool": 7.88,
+    "baseline": 6.0
+   },
+   "cliffhanger": {
+    "tool": 7.25,
+    "baseline": 7.0
+   },
+   "clarity": {
+    "tool": 5.75,
+    "baseline": 6.0
+   },
+   "coherence": {
+    "tool": 9.0,
+    "baseline": 9.2
+   },
+   "total": {
+    "tool": 73.67,
+    "baseline": 70.19
+   }
+  },
+  "tool_wins": true,
+  "baseline_showing_major_payoff": [],
+  "mean_total_baseline_top15_no_spoilers": 70.19,
+  "tool_wins_vs_no_spoiler_baseline": true
+ }
+}
