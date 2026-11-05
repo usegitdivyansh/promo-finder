@@ -4,6 +4,8 @@ Reads timestamped microdrama screenplays and returns a **ranked list of promo cl
 
 Built by **Divyansh Gupta** for Kuku's AI Generalist assignment (Problem 1: Find the Promos).
 
+**[User manual (PDF)](docs/user_manual.pdf)**: setup, where each API key goes, the web app, the command line, costs and troubleshooting.
+
 ## Quick start
 
 ```bash
