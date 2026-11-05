@@ -67,7 +67,17 @@ Facts only, for writing the doc in your own words. No show names, plot or script
 - Independent verifier (recomputed from the parsed screenplay, not the pipeline's own code): 16 of 16 pass. Line ids exist, shown cut times match the screenplay to 0.01 s, 20–60 s, hook 0.0 to 3.0 s in, in order with no overlap, no recap lines, quotes match, ≤ 2 per thread, none of the 5 major twist payoffs shown.
 - Synthetic show (current code, demo results): 4 promos selected of 15 eligible (86.1, 77.19, 69.4, 62.01); tool 73.67 vs baseline 70.19 (tool +3.48). Gold set: 0 of 3 hand-picked promos hit at IoU ≥ 0.5 (an earlier DeepSeek run hit 1 of 3; one gold promo ends on a major twist payoff the tool is not allowed to show).
 - App test run on the synthetic show (DeepSeek, $0.10 cap, fresh cache): 41 calls, $0.085, 2 promos, all rules pass.
-- **Blind human check: PENDING.** 20 items (top 10 tool + top 10 baseline, shuffled, unlabelled). Fill in `eval/blind_sheet.html`, export, then `python src/score_blind.py --results <export>.json`; it reports hook / cliffhanger / standalone pass rates for tool vs baseline, agreement with the judge (%, kappa) and Spearman between human passes and judge totals.
+- **Blind human check (1 rater, 20 items: top 10 tool + top 10 baseline, shuffled, unlabelled; judge pass = score ≥ 7):**
+
+  | Criterion | Tool pass | Baseline pass | Agreement with judge | Kappa |
+  |---|---|---|---|---|
+  | Hook | 10/10 | 9/10 | 70% | −0.09 |
+  | Cliffhanger | 9/10 | 10/10 | 90% | −0.05 |
+  | Standalone | 9/10 | 9/10 | 70% | −0.15 |
+
+  Pass all three: tool 8/10, baseline 8/10. Spearman (human passes vs judge total): −0.28 overall (n = 20), tool −0.44, baseline −0.09.
+  The 4 fails: X03 tool rank 1 (ending_scene, judge 87.19), cliffhanger; X06 tool rank 5 (montage, 74.86), standalone; X09 baseline (78.55), standalone; X19 baseline (86.8), hook.
+  Reading: the human found tool and baseline about equal (8/10 each pass all three), unlike the judges, which put the baseline 6.5 points ahead. Kappa and Spearman are not reliable here: the rater failed only 4 of 60 checks (1–2 per criterion), so kappa rests on one or two items (moving the single hook fail onto an item the judge also failed would change hook kappa from −0.09 to +0.27), and human scores per item take only two values (3 passes for 16 items, 2 for 4), so Spearman is mostly ties. They show no measurable agreement, not disagreement. One rater, no second rater.
 
 ## 6. v1 → v5 (Kuku pack, all runs kept in the raw outputs zip)
 
