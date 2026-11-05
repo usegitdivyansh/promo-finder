@@ -97,33 +97,102 @@ def throttle():
     state["last_call"] = time.time()
 
 
-def raw_call(model, prompt):
+class QuotaError(LLMError):
+    pass
+
+
+# not an Exception subclass on purpose: steps catch Exception, but going over budget must stop the run
+class BudgetError(SystemExit):
+    pass
+
+
+def price(model):
+    p = state["cfg"]["llm"].get("prices", {}).get(model)
+    if not p:
+        return 0.0, 0.0
+    return float(p[0]), float(p[1])
+
+
+def spend_path():
+    return os.path.join(state["cache_dir"], "_spend.jsonl")
+
+
+def spent():
+    res = 0.0
+    p = spend_path()
+    if not os.path.exists(p):
+        return res
+    with open(p, encoding="utf-8") as f:
+        for ln in f:
+            ln = ln.strip()
+            if ln:
+                res += json.loads(ln)["cost_usd"]
+    return res
+
+
+def check_budget(model, prompt):
+    pi, po = price(model)
+    if pi == 0 and po == 0:
+        return
+    lc = state["cfg"]["llm"]
+    est = len(prompt) / 4 / 1e6 * pi + lc.get("max_tokens", 8192) / 1e6 * po
+    cur = spent()
+    if cur + est > lc.get("budget_usd", 2.0):
+        raise BudgetError(f"paid spend would go over budget: spent ${cur:.4f}, next call up to ${est:.4f}, budget ${lc.get('budget_usd', 2.0)}")
+
+
+def is_daily(msg):
+    m = msg.lower().replace(" ", "")
+    for k in ["perday", "daily", "requestsperday", "quotaexceededformetric"]:
+        if k in m:
+            if "perminute" in m and "perday" not in m:
+                return False
+            return True
+    return False
+
+
+def one_call(model, prompt):
     import litellm
     litellm.drop_params = True
     litellm.suppress_debug_info = True
     lc = state["cfg"]["llm"]
+    check_budget(model, prompt)
     tries = 0
+    rate_tries = 0
     while True:
         throttle()
         t0 = time.time()
+        kw = {}
+        if lc.get("reasoning_effort"):
+            kw["reasoning_effort"] = lc["reasoning_effort"]
         try:
             resp = litellm.completion(model=model, messages=[{"role": "user", "content": prompt}],
                                       temperature=lc.get("temperature", 0), max_tokens=lc.get("max_tokens", 8192),
-                                      response_format={"type": "json_object"}, timeout=lc.get("timeout_sec", 180))
+                                      response_format={"type": "json_object"}, timeout=lc.get("timeout_sec", 180), **kw)
         except Exception as ex:
             name = type(ex).__name__
+            msg = str(ex)
+            rate = "RateLimit" in name or "429" in msg or "RESOURCE_EXHAUSTED" in msg
+            if rate:
+                if is_daily(msg):
+                    raise QuotaError(f"daily quota: {msg[:300]}")
+                rate_tries += 1
+                if rate_tries > lc.get("rate_retries", 3):
+                    raise QuotaError(f"rate limited {rate_tries} times: {msg[:300]}")
+                wait = 15 * (2 ** (rate_tries-1))
+                print(f"    {model} rate limited, backing off {wait}s")
+                time.sleep(wait)
+                continue
             retryable = False
-            for k in ["RateLimit", "Timeout", "ServiceUnavailable", "InternalServer", "APIConnection", "BadGateway"]:
+            for k in ["Timeout", "ServiceUnavailable", "InternalServer", "APIConnection", "BadGateway"]:
                 if k in name:
                     retryable = True
-            if "429" in str(ex) or "503" in str(ex) or "overloaded" in str(ex).lower():
+            if "503" in msg or "500" in msg or "overloaded" in msg.lower():
                 retryable = True
             tries += 1
-            if not retryable or tries > 6:
-                raise LLMError(f"{name}: {str(ex)[:300]}")
+            if not retryable or tries > 4:
+                raise LLMError(f"{name}: {msg[:300]}")
             wait = 5 * (2 ** (tries-1))
-            if wait > 120:
-                wait = 120
             print(f"    {name}, backing off {wait}s")
             time.sleep(wait)
             continue
@@ -133,7 +202,40 @@ def raw_call(model, prompt):
             usage["prompt_tokens"] = resp.usage.prompt_tokens or 0
             usage["completion_tokens"] = resp.usage.completion_tokens or 0
         usage["latency"] = round(time.time() - t0, 2)
+        usage["model"] = model
+        pi, po = price(model)
+        cost = usage["prompt_tokens"] / 1e6 * pi + usage["completion_tokens"] / 1e6 * po
+        rep = None
+        try:
+            rep = resp._hidden_params.get("response_cost")
+        except Exception:
+            rep = None
+        if rep and rep > cost:
+            cost = rep
+        usage["cost_usd"] = round(cost, 6)
+        if cost > 0:
+            os.makedirs(state["cache_dir"], exist_ok=True)
+            with open(spend_path(), "a", encoding="utf-8") as f:
+                f.write(json.dumps({"ts": time.time(), "model": model, "cost_usd": cost, "prompt_tokens": usage["prompt_tokens"],
+                                    "completion_tokens": usage["completion_tokens"]}) + "\n")
         return text, usage
+
+
+def raw_call(model, prompt):
+    fb = state["cfg"]["llm"].get("fallback_model")
+    if fb and model != fb and state.get("primary_down"):
+        return one_call(fb, prompt)
+    try:
+        return one_call(model, prompt)
+    except QuotaError as ex:
+        if not fb or model == fb:
+            raise
+        if "daily quota" in str(ex):
+            state["primary_down"] = True
+            print(f"    {model} daily quota used up, switching to {fb} for the rest of the run")
+        else:
+            print(f"    {model} still rate limited, using {fb} for this call")
+        return one_call(fb, prompt)
 
 
 def load_mock(prompt_name, mock_key):
@@ -186,11 +288,12 @@ def call_llm(prompt_name, variables, schema, model=None, check=None, mock_key="d
         with open(cpath, encoding="utf-8") as f:
             hit = json.load(f)
         obj = schema.model_validate(hit["value"])
-        log_usage({"step": step, "prompt": prompt_name, "model": model, "prompt_tokens": hit["usage"]["prompt_tokens"],
-                   "completion_tokens": hit["usage"]["completion_tokens"], "latency": 0, "cached": True, "attempts": 0})
+        log_usage({"step": step, "prompt": prompt_name, "model": hit.get("model", model), "prompt_tokens": hit["usage"]["prompt_tokens"],
+                   "completion_tokens": hit["usage"]["completion_tokens"], "latency": 0, "cached": True, "attempts": 0, "cost_usd": 0})
         return obj
     cur = prompt
-    total = {"prompt_tokens": 0, "completion_tokens": 0, "latency": 0.0}
+    total = {"prompt_tokens": 0, "completion_tokens": 0, "latency": 0.0, "cost_usd": 0.0}
+    used = model
     last_obj = None
     last_errs = []
     attempts = 0
@@ -199,6 +302,7 @@ def call_llm(prompt_name, variables, schema, model=None, check=None, mock_key="d
         text, usage = raw_call(model, cur)
         for k in total:
             total[k] += usage[k]
+        used = usage["model"]
         obj, errs = validate(schema, text, check)
         if obj is not None:
             last_obj = obj
@@ -208,12 +312,12 @@ def call_llm(prompt_name, variables, schema, model=None, check=None, mock_key="d
         print(f"    {prompt_name} attempt {attempt+1} failed: {errs[0][:160]}")
         temp = "\n".join("- " + e for e in errs[:15])
         cur = prompt + "\n\nYOUR PREVIOUS ANSWER WAS REJECTED:\n" + temp + "\n\nPrevious answer (fix it, return the full corrected JSON only):\n" + text[:6000]
-    log_usage({"step": step, "prompt": prompt_name, "model": model, "prompt_tokens": total["prompt_tokens"],
+    log_usage({"step": step, "prompt": prompt_name, "model": used, "requested_model": model, "prompt_tokens": total["prompt_tokens"],
                "completion_tokens": total["completion_tokens"], "latency": round(total["latency"], 2), "cached": False,
-               "attempts": attempts, "check_errors": last_errs[:5]})
+               "attempts": attempts, "check_errors": last_errs[:5], "cost_usd": round(total["cost_usd"], 6)})
     if last_obj is None:
         raise LLMError(f"{prompt_name}: no valid output after {attempts} attempts: {last_errs[:2]}")
     os.makedirs(os.path.dirname(cpath), exist_ok=True)
     with open(cpath, "w", encoding="utf-8") as f:
-        json.dump({"value": last_obj.model_dump(), "usage": total, "model": model, "check_errors": last_errs}, f, ensure_ascii=False)
+        json.dump({"value": last_obj.model_dump(), "usage": total, "model": used, "check_errors": last_errs}, f, ensure_ascii=False)
     return last_obj

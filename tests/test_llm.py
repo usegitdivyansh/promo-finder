@@ -1,0 +1,95 @@
+import os
+import sys
+import copy
+import types
+import yaml
+import pytest
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, ROOT)
+
+from src import llm
+from src.schemas import MatchOut
+
+CFG = yaml.safe_load(open(os.path.join(ROOT, "config.yaml"), encoding="utf-8"))
+
+
+class RateLimitError(Exception):
+    pass
+
+
+def fake_resp(text, pt=1000, ct=200):
+    r = types.SimpleNamespace()
+    r.choices = [types.SimpleNamespace(message=types.SimpleNamespace(content=text))]
+    r.usage = types.SimpleNamespace(prompt_tokens=pt, completion_tokens=ct)
+    r._hidden_params = {}
+    return r
+
+
+def setup(tmp_path, monkeypatch, behaviour):
+    import litellm
+    cfg = copy.deepcopy(CFG)
+    cfg["llm"]["rpm_limit"] = 0
+    cfg["llm"]["rate_retries"] = 1
+    llm.setup(cfg, run_dir=str(tmp_path / "run"), cache_dir=str(tmp_path / "cache"))
+    llm.state["primary_down"] = False
+    calls = []
+
+    def fake(model, **kw):
+        calls.append(model)
+        return behaviour(model)
+    monkeypatch.setattr(litellm, "completion", fake)
+    monkeypatch.setattr(llm.time, "sleep", lambda s: None)
+    return cfg, calls
+
+
+GOOD = '{"script_id": "C1", "picks": [{"beat_index": 0, "shot_id": "none"}]}'
+VARS = {"script_id": "C1", "template": "mini_story", "idea": "x", "beats": "BEAT 0"}
+
+
+def test_daily_quota_switches_to_fallback_and_sticks(tmp_path, monkeypatch):
+    def beh(model):
+        if model.startswith("gemini/"):
+            raise RateLimitError("429 RESOURCE_EXHAUSTED quota GenerateRequestsPerDayPerProjectPerModel")
+        return fake_resp(GOOD)
+    cfg, calls = setup(tmp_path, monkeypatch, beh)
+    llm.call_llm("match", VARS, MatchOut)
+    vs = dict(VARS)
+    vs["idea"] = "y"
+    llm.call_llm("match", vs, MatchOut)
+    fb = cfg["llm"]["fallback_model"]
+    # second call goes straight to the fallback
+    assert calls == [cfg["llm"]["provider_model"], fb, fb]
+    assert llm.spent() > 0
+
+
+def test_per_minute_limit_falls_back_for_one_call(tmp_path, monkeypatch):
+    def beh(model):
+        if model.startswith("gemini/"):
+            raise RateLimitError("429 quota exceeded GenerateRequestsPerMinutePerProjectPerModel")
+        return fake_resp(GOOD)
+    cfg, calls = setup(tmp_path, monkeypatch, beh)
+    llm.call_llm("match", VARS, MatchOut)
+    assert llm.state.get("primary_down") is False
+    assert calls[-1] == cfg["llm"]["fallback_model"]
+
+
+def test_budget_stops_run(tmp_path, monkeypatch):
+    def beh(model):
+        if model.startswith("gemini/"):
+            raise RateLimitError("429 per day")
+        return fake_resp(GOOD, pt=10_000_000, ct=10_000_000)
+    cfg, calls = setup(tmp_path, monkeypatch, beh)
+    llm.state["cfg"]["llm"]["budget_usd"] = 0.5
+    llm.call_llm("match", VARS, MatchOut)
+    vs = dict(VARS)
+    vs["idea"] = "z"
+    with pytest.raises(llm.BudgetError):
+        llm.call_llm("match", vs, MatchOut)
+
+
+def test_cache_hit_costs_nothing(tmp_path, monkeypatch):
+    cfg, calls = setup(tmp_path, monkeypatch, lambda m: fake_resp(GOOD))
+    llm.call_llm("match", VARS, MatchOut)
+    llm.call_llm("match", VARS, MatchOut)
+    assert len(calls) == 1

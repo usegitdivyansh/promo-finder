@@ -92,3 +92,30 @@ def test_multi_episode_file(tmp_path):
     p.write_text("EPISODE 1\n[00:00] A: one line here\nEPISODE 2\n[00:00] B: another line\n", encoding="utf-8")
     eps, failed = parse.parse_folder(str(tmp_path), CFG)
     assert [e["episode"] for e in eps] == [1, 2]
+
+
+def test_title_preamble_is_not_an_episode(tmp_path):
+    p = tmp_path / "ep_07.txt"
+    p.write_text("MY SHOW TITLE\nEPISODE 7 - \"NAME\"\n\n[00:00] INT. ROOM - DAY\n[00:02] A: hello there\n", encoding="utf-8")
+    eps, failed = parse.parse_folder(str(tmp_path), CFG)
+    assert failed == []
+    assert [e["episode"] for e in eps] == [7]
+    assert eps[0]["lines"][0]["type"] == "scene"
+
+
+def test_title_case_colon_is_not_a_speaker_in_caps_scripts():
+    raw = "\n".join(["[00:0%d] ANNA: line %d" % (i, i) for i in range(6)])
+    raw += "\n[00:09] Inside: a letter and a photo."
+    rows = parse.rows_from_text(raw)
+    assert rows[-1]["speaker"] is None
+    assert rows[-1]["text"].startswith("Inside:")
+
+
+def test_synthetic_show_parses():
+    eps, failed = parse.parse_folder(os.path.join(ROOT, "tests", "fixtures", "synthetic_show"), CFG)
+    assert failed == []
+    assert len(eps) == 5
+    for e in eps:
+        assert 100 <= e["duration_sec"] <= 150
+        if e["episode"] > 1:
+            assert e["lines"][0]["is_recap"]

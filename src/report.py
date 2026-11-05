@@ -30,6 +30,8 @@ def usage_summary(out_dir, cfg):
         if not r.get("cached"):
             res["spent_prompt_tokens_all_runs"] += r["prompt_tokens"]
             res["spent_completion_tokens_all_runs"] += r["completion_tokens"]
+    res["by_model"] = {}
+    res["cost_usd"] = 0.0
     for r in cur:
         st = res["steps"].setdefault(r["step"], {"calls": 0, "cached": 0, "prompt_tokens": 0, "completion_tokens": 0, "latency": 0.0, "retries": 0})
         st["calls"] += 1
@@ -46,8 +48,19 @@ def usage_summary(out_dir, cfg):
         res["completion_tokens"] += r["completion_tokens"]
         if r["model"] not in res["models"]:
             res["models"].append(r["model"])
-    lc = cfg["llm"]
-    res["est_cost_usd"] = round(res["prompt_tokens"] / 1e6 * lc.get("price_in_per_m", 0) + res["completion_tokens"] / 1e6 * lc.get("price_out_per_m", 0), 4)
+        bm = res["by_model"].setdefault(r["model"], {"calls": 0, "cached": 0, "prompt_tokens": 0, "completion_tokens": 0, "cost_usd": 0.0})
+        bm["calls"] += 1
+        if r.get("cached"):
+            bm["cached"] += 1
+        bm["prompt_tokens"] += r["prompt_tokens"]
+        bm["completion_tokens"] += r["completion_tokens"]
+        bm["cost_usd"] = round(bm["cost_usd"] + r.get("cost_usd", 0), 6)
+        res["cost_usd"] += r.get("cost_usd", 0)
+    res["cost_usd"] = round(res["cost_usd"], 6)
+    all_cost = 0.0
+    for r in rows:
+        all_cost += r.get("cost_usd", 0)
+    res["cost_usd_all_runs"] = round(all_cost, 6)
     return res
 
 
@@ -267,7 +280,11 @@ def write_html(path, finals, promos, eps_by, sel, summ, use, base):
     for k, v in use["steps"].items():
         out.append(f"<tr><td>{esc(k)}</td><td>{v['calls']}</td><td>{v['cached']}</td><td>{v['retries']}</td><td>{v['prompt_tokens']}</td><td>{v['completion_tokens']}</td><td>{v['latency']}</td></tr>")
     out.append(f"<tr><th>total</th><th>{use['calls']}</th><th>{use['cached_calls']}</th><th></th><th>{use['prompt_tokens']}</th><th>{use['completion_tokens']}</th><th></th></tr></table>")
-    out.append(f"<p class='sub'>Models: {esc(', '.join(use['models']))}. Estimated cost at configured prices: ${use['est_cost_usd']}.</p>")
+    out.append("<table><tr><th>Model</th><th>Calls</th><th>Cached</th><th>Prompt tok</th><th>Completion tok</th><th>Cost $</th></tr>")
+    for k, v in use["by_model"].items():
+        out.append(f"<tr><td>{esc(k)}</td><td>{v['calls']}</td><td>{v['cached']}</td><td>{v['prompt_tokens']}</td><td>{v['completion_tokens']}</td><td>{v['cost_usd']}</td></tr>")
+    out.append("</table>")
+    out.append(f"<p class='sub'>Cost this run: ${use['cost_usd']} (all runs in this folder: ${use['cost_usd_all_runs']}). Cached calls cost nothing.</p>")
     out.append("</main></body></html>")
     with open(path, "w", encoding="utf-8") as fh:
         fh.write("\n".join(out))

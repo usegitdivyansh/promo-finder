@@ -1,14 +1,20 @@
 llm:
-  provider_model: ""        # litellm model string, e.g. gemini/<flash model> or groq/<model>; set after checking free tier
-  judge_model: ""           # empty = same as provider_model
+  # swap models here only. litellm names: provider/model
+  provider_model: "gemini/gemini-3.6-flash"            # stable flash, free tier (limits: aistudio.google.com/rate-limit)
+  judge_model: ""                                      # empty = same as provider_model
+  fallback_model: "openrouter/deepseek/deepseek-v4.1-flash"   # used when gemini hits a daily quota or keeps returning 429
+  prices:                                              # usd per 1m tokens [input, output], checked on openrouter.ai/api/v1/models 2026-11-05
+    "gemini/gemini-3.6-flash": [0, 0]                  # free tier
+    "openrouter/deepseek/deepseek-v4.1-flash": [0.045, 0.50]
+  budget_usd: 2.0                                      # hard stop for paid spend, all runs (ledger: cache/_spend.jsonl)
   temperature: 0
-  max_retries: 3
-  rpm_limit: 10             # throttle for free tier; check the provider's real limit
-  max_tokens: 8192
-  timeout_sec: 180
-  mock: false               # true = read responses from tests/fixtures/mock_responses, no api calls
-  price_in_per_m: 0         # usd per 1m input tokens, 0 on free tier
-  price_out_per_m: 0        # usd per 1m output tokens
+  reasoning_effort: "low"                              # keep thinking tokens small; dropped for models that don't support it
+  max_retries: 3                                       # retries on invalid json / failed code checks
+  rate_retries: 3                                      # 429 backoffs before falling back for that call
+  rpm_limit: 8                                         # throttle; free-tier rpm is per project, check ai studio
+  max_tokens: 16384
+  timeout_sec: 240
+  mock: false                                          # true = read responses from tests/fixtures/mock_responses, no api calls
 promo:
   num_promos_min: 12
   num_promos_max: 18

@@ -82,11 +82,13 @@ def classify(text, speaker):
     return "action"
 
 
-def split_speaker(text):
+def split_speaker(text, caps=False):
     m = SPK_RE.match(text)
     if not m:
         return None, text
     name = m.group(1).strip()
+    if caps and not name.isupper():
+        return None, text
     if len(name.split()) > 4:
         return None, text
     if name.lower().strip(". ") in NOT_SPEAKERS:
@@ -100,6 +102,7 @@ def split_speaker(text):
 def rows_from_text(raw):
     rows = []
     cue = None
+    caps = caps_mode(raw)
     for ln in raw.splitlines():
         ln = ln.strip()
         if not ln:
@@ -119,7 +122,7 @@ def rows_from_text(raw):
         if start is None and rows and rows[-1].get("pending"):
             rows[-1]["text"] = ln
             rows[-1]["pending"] = False
-            sp, txt = split_speaker(ln)
+            sp, txt = split_speaker(ln, caps)
             rows[-1]["speaker"] = sp
             rows[-1]["text"] = txt
             continue
@@ -128,7 +131,7 @@ def rows_from_text(raw):
         if cm and not SCENE_RE.match(ln) and not DIR_RE.match(ln) and ln.isupper() and len(ln.split()) <= 4 and ln.lower() not in NOT_SPEAKERS:
             cue = {"name": cm.group(1).strip(), "start": start}
             continue
-        sp, txt = split_speaker(ln)
+        sp, txt = split_speaker(ln, caps)
         if sp is None and cue is not None:
             sp = cue["name"]
             if start is None:
@@ -196,15 +199,47 @@ def split_episodes(raw, fname):
             cur = {"episode": None, "lines": []}
             chunks.append(cur)
         cur["lines"].append(ln)
+    numbered = False
+    for c in chunks:
+        if c["episode"] is not None:
+            numbered = True
     res = []
     for c in chunks:
         text = "\n".join(c["lines"])
         if not text.strip():
             continue
+        # title page or preamble before the first episode header
+        if numbered and c["episode"] is None and not has_ts(text):
+            continue
         res.append({"episode": c["episode"], "text": text})
     if len(res) == 1 and res[0]["episode"] is None:
         res[0]["episode"] = ep_from_name(fname)
     return res
+
+
+def has_ts(text):
+    for ln in text.splitlines():
+        m = TS_RE.match(ln)
+        if m and re.search(r"\d:\d", m.group(0)):
+            return True
+    return False
+
+
+def caps_mode(raw):
+    # if most "name:" prefixes are upper case, title-case ones like "Inside:" are not speakers
+    up = 0
+    cnt = 0
+    for ln in raw.splitlines():
+        ln = ln.strip()
+        m = TS_RE.match(ln)
+        if m and re.search(r"\d:\d", m.group(0)):
+            ln = ln[m.end():].strip()
+        sm = SPK_RE.match(ln)
+        if sm and len(sm.group(1).split()) <= 4:
+            cnt += 1
+            if sm.group(1).isupper():
+                up += 1
+    return cnt >= 5 and up >= 0.8 * cnt
 
 
 def ep_from_name(fname):

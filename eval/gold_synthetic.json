@@ -1,0 +1,11 @@
+[
+ {"gold_id": "G1", "written": "2026-11-05, before any pipeline run on this show",
+  "note": "ep1: the gold-digger line and the slap open it, then the stranger in the rain; cut on 'It's about your father'",
+  "segments": [{"episode": 1, "start": "01:19", "end": "01:30"}, {"episode": 1, "start": "01:42", "end": "02:06"}]},
+ {"gold_id": "G2", "written": "2026-11-05, before any pipeline run on this show",
+  "note": "ep4: 'serve the drinks' insult and wine pour, Mira's 'enjoy it while it lasts', cut right before the heir's name (no major spoiler)",
+  "segments": [{"episode": 4, "start": "00:21", "end": "00:46"}, {"episode": 4, "start": "01:16", "end": "01:21"}, {"episode": 4, "start": "01:36", "end": "01:47"}]},
+ {"gold_id": "G3", "written": "2026-11-05, before any pipeline run on this show",
+  "note": "ep5: caught slap, the pregnancy bomb, then the murder call",
+  "segments": [{"episode": 5, "start": "00:31", "end": "00:40"}, {"episode": 5, "start": "01:03", "end": "01:14"}, {"episode": 5, "start": "01:42", "end": "01:54"}]}
+]
