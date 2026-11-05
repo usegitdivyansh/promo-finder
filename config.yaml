@@ -1,10 +1,11 @@
 llm:
   # swap models here only. litellm names: provider/model
-  provider_model: "gemini/gemini-3.6-flash"            # stable flash, free tier (limits: aistudio.google.com/rate-limit)
+  provider_model: "gemini/gemini-3.5-flash-lite"       # free tier, own daily quota. gemini-3.6-flash free tier is only 20 requests/day
   judge_model: ""                                      # empty = same as provider_model
   fallback_model: "openrouter/deepseek/deepseek-v4.1-flash"   # used when gemini hits a daily quota or keeps returning 429
   prices:                                              # usd per 1m tokens [input, output], checked on openrouter.ai/api/v1/models 2026-11-05
-    "gemini/gemini-3.6-flash": [0, 0]                  # free tier
+    "gemini/gemini-3.5-flash-lite": [0, 0]             # free tier
+    "gemini/gemini-3.6-flash": [0, 0]                  # free tier (20 requests/day)
     "openrouter/deepseek/deepseek-v4.1-flash": [0.045, 0.50]
   budget_usd: 2.0                                      # hard stop for paid spend, all runs (ledger: cache/_spend.jsonl)
   temperature: 0
