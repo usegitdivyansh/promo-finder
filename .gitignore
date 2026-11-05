@@ -14,3 +14,4 @@ eval/human_rank.csv
 __pycache__/
 *.pyc
 .pytest_cache/
+eval/hand_key.json
