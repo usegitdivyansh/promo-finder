@@ -11,6 +11,7 @@ from src.common import load, load_dir, line_index
 from src.parse import to_sec
 from src.bible import resolve, premise
 from src.shots import quote_ok
+from src.select import shares_footage
 from src import select as selector
 
 
@@ -143,7 +144,14 @@ def run(run_dir, cfg, forbid):
     for h, c in hooks.items():
         if c > 1:
             rep.append(h)
-    res["diversity"] = {"ok": not over and not rep, "per_thread": cnt, "over": over, "reused_hooks": rep}
+    shared = []
+    if cfg["select"].get("no_shared_footage"):
+        for i in range(len(sel)):
+            for j in range(i+1, len(sel)):
+                if shares_footage(sel[i], sel[j]):
+                    shared.append(f"{sel[i]['promo_id']} / {sel[j]['promo_id']}")
+    res["diversity"] = {"ok": not over and not rep and not shared, "per_thread": cnt, "over": over, "reused_hooks": rep,
+                        "shared_footage": shared}
     allok = True
     for k, v in res.items():
         if v["ok"] is False:

@@ -170,3 +170,13 @@ Every mistake noticed while building or running, from Claude Code (writing this 
   (4) a swapped-in model with no price entry was treated as free, so the budget check never fired; and the DeepSeek name was repeated in 9 config lines, so a swap was not one line
   caught by: an independent verifier script, the no-cache synthetic run, and reading config.yaml for the swap line
   fix: (1) the scene shot's key line is the hook and the start moves to it, like other templates; (2) outputs show exact MM:SS.ss cut times; (3) OutageError falls back for that call only, never in confidential mode; (4) llm.models names each model once (fast, strong), unknown models are priced from litellm's table or a cautious default. Tests added for each. The final output was rebuilt from Step 6
+
+- step: review spot check (Claude Code acting as reviewer)
+  what: reported a cliffhanger summary's "lethal" as an overstatement of the script after reading screenplay lines cut to about 110 characters. The word was at the end of the cut-off camera direction, so the summary had a source after all; the real issue is that it treats a camera note as something shown on screen.
+  caught by: re-reading the full lines before writing the failure gallery entry
+  fix: entry 1 in notes/failure_gallery.md describes the corrected finding; spot checks should print whole lines
+
+- step: select (found in review, Claude Code)
+  what: two selected promos cut the same 21 s of one episode. The diversity rules only limited threads and hook shots, so both passed.
+  caught by: the reviewer's random spot check
+  fix: select.no_shared_footage plus a shared_footage check in check_rules; reran from Step 8 with no paid calls

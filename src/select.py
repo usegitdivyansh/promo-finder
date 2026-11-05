@@ -33,6 +33,15 @@ def verify(p, eps_by, cfg):
     return errs
 
 
+def shares_footage(p, q):
+    # same episode and overlapping time range (touching cuts are fine)
+    for s in p["segments"]:
+        for t in q["segments"]:
+            if s["episode"] == t["episode"] and s["start"] < t["end"] - 0.01 and t["start"] < s["end"] - 0.01:
+                return True
+    return False
+
+
 def run(scored, eps, cfg, out_dir, drops):
     eps_by = {}
     for e in eps:
@@ -64,6 +73,10 @@ def run(scored, eps, cfg, out_dir, drops):
         t = p["main_thread"]
         if t and threads.get(t, 0) >= sc["max_per_thread"]:
             return False
+        if sc.get("no_shared_footage"):
+            for q in picked:
+                if shares_footage(p, q):
+                    return False
         return True
 
     def take(p, why):

@@ -321,3 +321,15 @@ def test_single_scene_without_hook_shot_moves_start_to_key_line():
         assert ls[s0["hook_key"]]["start"] - s0["start"] <= CFG["promo"]["hook_window_sec"]
         assert s0["hook_key"] == 10
     assert "hook_unverified" not in (p or {"flags": []})["flags"]
+
+
+def test_selected_promos_never_share_footage():
+    def promo(pid, total, ep, a, b, thread):
+        seg = {"episode": ep, "start": a, "end": b}
+        return {"promo_id": pid, "hook_shot_id": pid, "main_thread": thread, "template": "single_scene",
+                "scores": {"total": total}, "segments": [seg]}
+    pool = [promo("A", 90, 46, 100.0, 133.0, "T1"), promo("B", 85, 46, 112.0, 140.0, "T2"),
+            promo("C", 80, 46, 133.0, 160.0, "T3"), promo("D", 75, 47, 112.0, 140.0, "T4")]
+    assert selector.shares_footage(pool[0], pool[1])
+    assert not selector.shares_footage(pool[0], pool[2])
+    assert not selector.shares_footage(pool[1], pool[3])

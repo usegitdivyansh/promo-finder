@@ -74,6 +74,8 @@ judge:
   seed: 7
 select:
   max_per_thread: 2
+  # two selected promos may not use the same footage (same episode, overlapping time range)
+  no_shared_footage: true
   # promos scoring below this are dropped, never used to reach num_promos_min
   min_total: 60
   min_score_for_category: 60

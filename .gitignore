@@ -15,3 +15,7 @@ __pycache__/
 *.pyc
 .pytest_cache/
 eval/hand_key.json
+
+# blind human eval (built from kuku content) and the raw outputs package
+eval/blind_*
+raw_outputs_kuku.zip
