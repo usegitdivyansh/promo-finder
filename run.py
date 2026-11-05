@@ -107,6 +107,10 @@ def run(inp, out, cfg, start="step1", only=None, progress=None, stop=None):
         save_logs(out, "step3", drops, failed)
     if bib is None and STEPS.index(todo[-1]) >= 3:
         bib = load(os.path.join(out, "03_bible.json"))
+    if bib is not None and cfg.get("_aliases") and bib.get("overrides_file") != os.path.basename(cfg["_aliases"]):
+        bib = bible.apply_overrides(bib, cfg["_aliases"])
+        save(os.path.join(out, "03_bible.json"), bib)
+        print(f"  alias overrides applied from {cfg['_aliases']}")
 
     bank = None
     if "step4" in todo:
@@ -183,6 +187,7 @@ def main():
     ap.add_argument("--from", dest="start", default="step1", choices=STEPS, help="resume from this step using saved outputs")
     ap.add_argument("--only", choices=STEPS, help="run just this step")
     ap.add_argument("--to", choices=STEPS, help="stop after this step")
+    ap.add_argument("--aliases", help="hand-checked alias overrides (json), kept next to the input, e.g. data/show1_aliases.json")
     ap.add_argument("--episodes", help="only these episodes, e.g. 1-3 or 1,4,7")
     ap.add_argument("--model", help="use this model for every step (clears step_models and judge_model)")
     ap.add_argument("--confidential", action="store_true", help="paid confidential_model for every step, no free tier, no fallback (automatic for inputs under data/)")
@@ -214,6 +219,7 @@ def main():
     if a.mock:
         cfg["llm"]["mock"] = True
     cfg["_episodes"] = a.episodes
+    cfg["_aliases"] = a.aliases
     if a.no_baseline:
         cfg["_baseline"] = False
     out = a.out

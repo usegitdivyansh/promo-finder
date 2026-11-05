@@ -60,10 +60,16 @@ def run(run_dir, cfg, forbid):
         groups.setdefault(cid, []).append(sp)
     # unnamed walk-ons (GUEST, VOICE) may stay unresolved; recurring speakers may not
     miss = []
+    extras = []
     for sp in groups.get(None, []):
-        if lines_by[sp] >= 3:
-            miss.append(sp)
-    res["aliases"] = {"ok": not miss, "unresolved_recurring": miss, "groups": {str(k): sorted(v) for k, v in groups.items()},
+        if lines_by[sp] < 3:
+            continue
+        # hand-checked unnamed extras (overrides file) are not characters
+        if sp in bib.get("extras", []):
+            extras.append(sp)
+            continue
+        miss.append(sp)
+    res["aliases"] = {"ok": not miss, "unresolved_recurring": miss, "extras_excluded": extras, "groups": {str(k): sorted(v) for k, v in groups.items()},
                       "characters": [f"{c['char_id']} {c['name']} {c['aliases']}" for c in bib["characters"]]}
 
     # 3 no hallucinated quotes kept

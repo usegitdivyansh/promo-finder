@@ -7,7 +7,7 @@ PRIORITY = {"setup": "low", "scheme": "medium", "confrontation": "high", "humili
 HOOK_TYPES = ["slap_violence", "public_humiliation", "kiss_closeness", "shocking_line", "threat", "contract_deal", "identity_reveal",
               "betrayal_caught", "secret_exposed", "underdog_flip", "revenge_moment", "in_media_res", "danger"]
 ROLES = ["hook", "escalation", "payoff", "cliffhanger"]
-TEMPLATES = ["single_scene", "reveal_tease", "mini_story", "underdog_revenge", "romance_tension", "montage"]
+TEMPLATES = ["single_scene", "reveal_tease", "mini_story", "underdog_revenge", "romance_tension", "montage", "hook_ending"]
 
 Label = Literal["setup", "scheme", "confrontation", "humiliation", "reveal", "betrayal", "power_shift", "romance", "danger", "emotional_light"]
 HookType = Literal["slap_violence", "public_humiliation", "kiss_closeness", "shocking_line", "threat", "contract_deal", "identity_reveal",

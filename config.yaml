@@ -69,6 +69,8 @@ judge:
   seed: 7
 select:
   max_per_thread: 2
+  # promos scoring below this are dropped, never used to reach num_promos_min
+  min_total: 60
   min_score_for_category: 60
 safety_net:
   num_shots: 15
@@ -80,3 +82,18 @@ parse:
   recap_window_sec: 15
   recap_similarity: 0.9
   recap_lookback_sec: 30
+
+# each episode's closing beat as a cliffhanger shot (cliffhanger line plus reaction, inside its scene)
+ending:
+  enabled: true
+  min_sec: 10
+  max_sec: 18
+  tail_sec: 4
+  default_intensity: 7
+
+# code-built promos: a strong earlier hook (same thread or character) cut into an episode ending
+hook_ending:
+  enabled: true
+  window_episodes: 8
+  min_hook_intensity: 8
+  max_candidates: 30

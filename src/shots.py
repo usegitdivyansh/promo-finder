@@ -147,6 +147,63 @@ def clean(obj, ep, summ, bible, cfg, drops):
     return out
 
 
+def ending_shot(ep, summ, shots, bible, cfg):
+    # the episode's own closing beat as a cliffhanger shot: the cliffhanger line and its reaction,
+    # going back only inside the same scene (not the baseline's fixed last 30 s)
+    ec = cfg["ending"]
+    lines = ep["lines"]
+    idx = line_index(ep)
+    k = idx.get(summ["ending_cliffhanger"]["line_id"])
+    if k is None:
+        for j in range(len(lines)-1, -1, -1):
+            if lines[j]["type"] in ["dialogue", "action"]:
+                k = j
+                break
+    if k is None or lines[k]["is_recap"]:
+        return None
+    b = k
+    while b+1 < len(lines) and lines[b+1]["type"] != "dialogue" and lines[b+1]["start"] - lines[k]["start"] <= ec["tail_sec"]:
+        b += 1
+    a = k
+    while lines[b]["end"] - lines[a]["start"] < ec["min_sec"]:
+        if a == 0:
+            break
+        p = lines[a-1]
+        if p["scene_id"] != lines[k]["scene_id"] or p["is_recap"] or p["type"] == "scene":
+            break
+        if lines[b]["end"] - p["start"] > ec["max_sec"]:
+            break
+        a -= 1
+    dur = round(lines[b]["end"] - lines[a]["start"], 2)
+    sc = cfg["shots"]
+    if dur < sc["small"][0]:
+        return None
+    inten = ec["default_intensity"]
+    thread = None
+    for s in shots:
+        if s["start_idx"] <= k <= s["end_idx"]:
+            if s["intensity"] > inten or thread is None:
+                inten = max(inten, s["intensity"])
+                thread = s["thread_id"]
+    if thread is None and summ["key_events"]:
+        last = summ["key_events"][-1]["event_id"]
+        for t in bible["threads"]:
+            if last in t["key_event_ids"]:
+                thread = t["thread_id"]
+    cids = []
+    for j in range(a, b+1):
+        if lines[j]["speaker"]:
+            c = resolve(lines[j]["speaker"], bible["alias_map"])
+            if c and c not in cids:
+                cids.append(c)
+    num = ep["episode"]
+    return {"shot_id": f"E{num}_END", "source": "episode_ending", "size": size_for(dur, sc), "role": "cliffhanger", "hook_type": None,
+            "intensity": inten, "needs_context": "medium", "characters": [], "char_ids": cids, "thread_id": thread,
+            "start_line_id": lines[a]["id"], "key_line_id": lines[k]["id"], "end_line_id": lines[b]["id"],
+            "quote_or_action": lines[k]["text"], "quote_ratio": 1.0, "episode": num, "start_idx": a, "key_idx": k, "end_idx": b,
+            "start": lines[a]["start"], "end": lines[b]["end"], "duration": dur}
+
+
 def episode_info(summ):
     res = [f"labels: {summ['primary_label']} {summ['secondary_labels']}", f"summary: {summ['summary']}", "key events:"]
     for ev in summ["key_events"]:
@@ -172,6 +229,10 @@ def run(eps, summ_by_ep, bible, cfg, out_dir, drops, failed):
             print(f"  ep {num}: FAILED {str(ex)[:120]}")
             continue
         shots = clean(obj, ep, summ, bible, cfg, drops)
+        if cfg.get("ending", {}).get("enabled"):
+            end = ending_shot(ep, summ, shots, bible, cfg)
+            if end:
+                shots.append(end)
         save(os.path.join(out_dir, "04_shots", f"ep_{num:02d}.json"), {"episode": num, "raw_count": len(obj.shots), "shots": shots})
         res[num] = shots
         temp = []

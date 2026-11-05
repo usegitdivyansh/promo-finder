@@ -138,9 +138,35 @@ def resolve(name, amap):
     return None
 
 
+def apply_overrides(b, path):
+    # hand-checked fixes kept next to the input (git-ignored with it): extra characters, extra aliases, unnamed extras
+    import json
+    with open(path, encoding="utf-8") as f:
+        ov = json.load(f)
+    for c in ov.get("characters", []):
+        c = dict(c)
+        c["char_id"] = f"C{len(b['characters'])+1}"
+        c.setdefault("aliases", [])
+        c.setdefault("role", "")
+        c.setdefault("relationships", [])
+        c["override"] = True
+        b["characters"].append(c)
+    for tag, name in ov.get("aliases", {}).items():
+        for c in b["characters"]:
+            if norm_name(c["name"]) == norm_name(name) and tag not in c["aliases"]:
+                c["aliases"].append(tag)
+    b["extras"] = ov.get("extras", [])
+    b["overrides_file"] = os.path.basename(path)
+    b["alias_map"] = alias_map(b["characters"])
+    return b
+
+
 def compact(b):
     res = [f"GENRE/TONE: {b['genre_tone']}", "CHARACTERS:"]
     for c in b["characters"]:
+        # hand-added characters stay out of prompts so cached calls still match
+        if c.get("override"):
+            continue
         temp = f"  {c['char_id']} {c['name']}"
         if c["aliases"]:
             temp += f" (aka {', '.join(c['aliases'][:4])})"

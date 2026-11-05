@@ -364,6 +364,61 @@ def safety_net(bank, used, cfg):
     return res
 
 
+def hook_endings(bank, cfg):
+    # pair a strong earlier hook with an episode's own ending; the hook must share a thread or a character
+    hc = cfg["hook_ending"]
+    pc = cfg["promo"]
+    ends = []
+    hooks = []
+    for num, arr in bank.items():
+        for s in arr:
+            if s.get("source") == "episode_ending":
+                ends.append(s)
+            elif s["role"] == "hook" and s["intensity"] >= hc["min_hook_intensity"] and s["needs_context"] != "high":
+                hooks.append(s)
+    ends.sort(key=lambda x: (-x["intensity"], x["episode"]))
+    used = set()
+    res = []
+    for e in ends:
+        best = None
+        best_key = None
+        for h in hooks:
+            if h["shot_id"] in used:
+                continue
+            if h["episode"] > e["episode"] or h["episode"] < e["episode"] - hc["window_episodes"]:
+                continue
+            if h["episode"] == e["episode"] and h["end_idx"] >= e["start_idx"]:
+                continue
+            shared = h["thread_id"] is not None and h["thread_id"] == e["thread_id"]
+            for c in h["char_ids"]:
+                if c in e["char_ids"]:
+                    shared = True
+            if not shared:
+                continue
+            tot = h["duration"] + e["duration"]
+            if tot > pc["max_sec"]:
+                continue
+            # a pair under min_sec is dropped later unless extension rescues it, so prefer pairs that reach it;
+            # then the strongest hook, then the total closest to the target length
+            short = 0
+            if tot < pc["min_sec"]:
+                short = 1
+            key = (short, -h["intensity"], abs(tot - (pc["target_min_sec"] + pc["target_max_sec"]) / 2), -h["episode"])
+            if best_key is None or key < best_key:
+                best = h
+                best_key = key
+        if best is None:
+            continue
+        used.add(best["shot_id"])
+        res.append({"cand_id": f"HE_{e['shot_id']}", "source": "hook_ending", "template": "hook_ending", "script_id": None,
+                    "idea": f"hook from ep {best['episode']} into the ending of ep {e['episode']}",
+                    "beats": [{"beat": "hook", "need": "", "event_id": None, "shot_id": best["shot_id"]},
+                              {"beat": "cliffhanger", "need": "", "event_id": None, "shot_id": e["shot_id"]}]})
+        if len(res) >= hc["max_candidates"]:
+            break
+    return res
+
+
 def run(summ, bible, bank, eps, cfg, out_dir, drops, failed):
     eps_by = {}
     for e in eps:
@@ -385,7 +440,10 @@ def run(summ, bible, bank, eps, cfg, out_dir, drops, failed):
     fill = {"scripts_written": len(scripts), "scripts_filled": len(filled), "fill_rate": 0.0}
     if scripts:
         fill["fill_rate"] = round(len(filled) / len(scripts), 3)
-    print(f"  filled {len(filled)}/{len(scripts)} scripts, {len(net)} safety-net candidates")
-    res = {"scripts": scripts, "candidates": filled + net, "fill": fill}
+    he = []
+    if cfg.get("hook_ending", {}).get("enabled"):
+        he = hook_endings(bank, cfg)
+    print(f"  filled {len(filled)}/{len(scripts)} scripts, {len(net)} safety-net candidates, {len(he)} hook_ending candidates")
+    res = {"scripts": scripts, "candidates": filled + net + he, "fill": fill}
     save(os.path.join(out_dir, "05_candidates.json"), res)
     return res

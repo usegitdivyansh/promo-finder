@@ -41,6 +41,10 @@ def run(scored, eps, cfg, out_dir, drops):
     sc = cfg["select"]
     ok = []
     for p in scored:
+        # no padding to the minimum count: weak promos are dropped and counted
+        if p["scores"]["total"] < sc.get("min_total", 0):
+            log_drop(drops, "select", p["promo_id"], "below_min_total", str(p["scores"]["total"]))
+            continue
         errs = verify(p, eps_by, cfg)
         if errs:
             log_drop(drops, "select", p["promo_id"], "rule_violation", "; ".join(errs))

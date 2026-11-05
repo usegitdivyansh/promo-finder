@@ -151,3 +151,8 @@ Every mistake noticed while building or running, from Claude Code (writing this 
   what: 9 recurring speaker tags stay unresolved (3 to 19 lines each). Most are unnamed extras, but one is a named character missing from the bible, and one character has two entries although a twist says they are the same person. One descriptive tag sits under two characters because the script uses it for two different people
   caught by: check_rules aliases FAIL
   fix: none yet; left as a reported failure. Effect is limited to thread and character diversity and code coherence, not to quotes or timing
+
+- step: hook_ending template (design result, Claude Code), Kuku pack v4
+  what: adding each episode's ending as a cliffhanger shot and code-built "hook + episode ending" promos raised the cliffhanger score (6.42 in v3 to 7.08 and 7.57) but cut fresh-viewer clarity (6.83 to 5.92 and 4.64), because a hook from an earlier episode cut straight into a later ending confuses a new viewer. The total fell (72.4 to 71.4 and 69.2) and the gap to the last-30-s baseline grew. My first pairing also chose hooks too short to reach 20 s (16 of 30 dropped as too short); the fix (prefer pairs that reach 20 s) added one promo but lowered clarity further
+  caught by: the v3 / v4 / baseline comparison by judge metric
+  fix: none that closes the gap yet; both v4 runs are kept and reported. The data points to context, not the cliffhanger line: the baseline's 30 s endings carry their own setup

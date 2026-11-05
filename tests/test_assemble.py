@@ -249,3 +249,32 @@ def test_episode_one_payoff_is_premise():
             {"episode": 3, "key_events": [{"event_id": "E3_ev2", "episode": 3, "line_id": "E3_L5"}]}]
     assert [t["twist_id"] for t in twist_lines(bib, summ)] == ["W2"]
     assert spoiler_events(bib) == ["E3_ev2"]
+
+
+def test_ending_shot_stays_in_scene_and_short():
+    e = make_ep(3, 20, step=2.0)
+    for ln in e["lines"][:12]:
+        ln["scene_id"] = 1
+    summ = {"ending_cliffhanger": {"line_id": e["lines"][18]["id"]}, "key_events": []}
+    bib = {"threads": [], "alias_map": {}}
+    s = shots.ending_shot(e, summ, [], bib, CFG)
+    assert s["role"] == "cliffhanger"
+    assert s["key_idx"] == 18
+    # line 19 is dialogue, so the tail stops at the cliffhanger line
+    assert s["end_idx"] == 18
+    assert s["start_idx"] >= 12
+    assert CFG["ending"]["min_sec"] <= s["duration"] <= CFG["ending"]["max_sec"]
+
+
+def test_hook_ending_pairs_earlier_hook_sharing_thread():
+    from src.scripts import hook_endings
+    e1, e2, eps_by = setup_world()
+    h = shot(e1, "E1_S1", 2, 2, 5, "hook", inten=9)
+    end = shot(e2, "E2_END", 14, 18, 18, "cliffhanger", inten=8)
+    end["source"] = "episode_ending"
+    other = shot(e1, "E1_S2", 6, 6, 8, "hook", inten=9, thread="T9")
+    other["char_ids"] = ["C7"]
+    res = hook_endings({1: [h, other], 2: [end]}, CFG)
+    assert len(res) == 1
+    assert [b["shot_id"] for b in res[0]["beats"]] == ["E1_S1", "E2_END"]
+    assert res[0]["template"] == "hook_ending"

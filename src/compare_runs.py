@@ -62,6 +62,11 @@ def stats(run_dir, gold):
     if nb is not None:
         res["baseline_gap_no_spoilers"] = round(c["mean_total_tool_top15"] - nb, 2)
     res["drops"] = summ["drops_by_reason"]
+    res["by_metric"] = c["by_metric"]
+    temp = {}
+    for p in sel["selected"]:
+        temp[p["template"]] = temp.get(p["template"], 0) + 1
+    res["templates"] = temp
     # every call recorded for this folder; cached rows show what the run would cost from scratch
     by = {}
     with open(os.path.join(run_dir, "usage.jsonl"), encoding="utf-8") as f:
@@ -118,9 +123,22 @@ def main():
             else:
                 vals.append(str(r.get(k, "")).replace("|", "/"))
         out.append(f"| {label} | " + " | ".join(vals) + " |")
+    out.append("")
+    out.append("## Tool vs baseline by judge metric (top 15 of each; the baseline is the last 30 s of each episode, same judges)")
+    out.append("")
+    out.append("| metric | " + " | ".join(r["run"] for r in arr) + " | baseline |")
+    out.append("|---|" + "---|" * (len(arr) + 1))
+    for k in ["hook", "cliffhanger", "clarity", "coherence", "total"]:
+        vals = []
+        for r in arr:
+            vals.append(str(r["by_metric"][k]["tool"]))
+        vals.append(str(arr[-1]["by_metric"][k]["baseline"]))
+        out.append(f"| {k} | " + " | ".join(vals) + " |")
     for r in arr:
         out.append("")
         out.append(f"## {r['run']}")
+        out.append("")
+        out.append("Selected templates: " + ", ".join(f"{k} {v}" for k, v in r["templates"].items()))
         out.append("")
         out.append("Usage by model (cached rows were paid for by an earlier run):")
         out.append("")
