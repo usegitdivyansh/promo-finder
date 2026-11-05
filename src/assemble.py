@@ -1,5 +1,6 @@
 import os
 from src.common import save, line_index, log_drop
+from src.bible import premise
 
 
 def seg_dur(seg, eps_by):
@@ -161,7 +162,7 @@ def twist_lines(bible, summ):
     res = []
     for w in bible["twists"]:
         e = w["payoff_event_id"]
-        if e and e in ev_line:
+        if e and e in ev_line and not premise(w):
             res.append({"twist_id": w["twist_id"], "severity": w["severity"], "episode": ev_line[e][0], "line_id": ev_line[e][1]})
     return res
 

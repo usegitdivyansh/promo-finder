@@ -44,7 +44,14 @@ def clean(obj, ep, drops):
         ev["event_id"] = f"E{num}_ev{i+1}"
         ev["episode"] = num
         ev["start"] = ep["lines"][idx[ev["line_id"]]]["start"]
+        # the speaker tag comes from the screenplay, so the bible can tie "the nephew" to a tag like "NEW INTERN"
+        ev["speaker"] = ep["lines"][idx[ev["line_id"]]]["speaker"]
     res["key_events"] = evs
+    cnt = {}
+    for ln in ep["lines"]:
+        if ln["type"] == "dialogue" and ln["speaker"] and not ln["is_recap"]:
+            cnt[ln["speaker"]] = cnt.get(ln["speaker"], 0) + 1
+    res["speaker_tags"] = cnt
     res["episode"] = num
     pk = res["peak_line_id"]
     if pk not in idx or ep["lines"][idx[pk]]["is_recap"]:
@@ -81,8 +88,17 @@ def run(eps, cfg, out_dir, drops, failed):
         num = ep["episode"]
         path = os.path.join(out_dir, "02_episodes", f"ep_{num:02d}.json")
         lines = fmt_lines(ep["lines"])
+        notes = "(none)"
+        meta = ep.get("meta", {})
+        if meta:
+            notes = "Logline: " + meta.get("episode_logline", "") + "\nContinuity: " + meta.get("continuity_notes", "")
+        first = ep["lines"][0]["id"]
+        for ln in ep["lines"]:
+            if ln["type"] == "dialogue" or ln["type"] == "action":
+                first = ln["id"]
+                break
         try:
-            obj = llm.call_llm("episode", {"episode": str(num), "lines": lines, "first_id": ep["lines"][0]["id"]},
+            obj = llm.call_llm("episode", {"episode": str(num), "lines": lines, "first_id": first, "notes": notes},
                                EpisodeOut, check=make_check(ep), mock_key=f"ep_{num:02d}", step="02_episodes")
         except Exception as ex:
             failed.append({"step": "episodes", "episode": num, "error": str(ex)[:300]})

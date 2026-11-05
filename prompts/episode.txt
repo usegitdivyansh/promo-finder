@@ -1,6 +1,7 @@
 You are a story editor for a vertical microdrama series (1 to 2 minute episodes). Read one episode's timestamped screenplay and label it.
 
 Each line looks like: [LINE_ID] [mm:ss] SPEAKER_OR_TYPE: text
+A speaker may carry a delivery note in brackets, e.g. "MAYA (Cold, Quiet): text". CAMERA lines describe the shot, SOUND lines the sound, SCENE lines the location. Blocks can overlap in time.
 Lines marked "(RECAP, do not use)" replay the previous episode. They are never key events or the peak.
 
 LABELS (use only these exact names):
@@ -25,6 +26,10 @@ RULES
 - peak_line_id: the single most dramatic line (not a recap line).
 - label_reasons: one short reason per label you used, citing a line id.
 - Use the character names as written in the screenplay.
+- Anchor every line id (events, cliffhanger, peak) on a DIALOGUE or ACTION line. Use a CAMERA line only for a purely visual moment with no matching action line. Never use a SCENE line.
+
+WRITER'S NOTES (not on screen; use them only to understand who is who and what came before, never as an event)
+{{notes}}
 
 EPISODE {{episode}} SCREENPLAY
 {{lines}}

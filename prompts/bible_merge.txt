@@ -1,8 +1,8 @@
 You are the story editor for a vertical microdrama series. Below are partial series bibles, each built from a block of consecutive episodes. Merge them into one compact series bible for the whole show.
 
 RULES
-- Merge the same character across parts into one entry (match by name and aliases). Renumber char_id as "C1", "C2", ... and update relationships to the new ids.
-- Merge threads that are the same story line. Renumber thread_id as "T1", "T2", ... Combine their key_event_ids. A thread is "resolved" only if some part resolves it; resolution_episode is the latest such episode.
+- Merge the same character across parts into one entry (match by name and aliases). Keep every alias, including speaker tags written in capitals, and merge entries whose aliases show they are the same person (e.g. "the woman in the red car" who is later named). Renumber char_id as "C1", "C2", ... and update relationships to the new ids.
+- Merge threads that are the same story line, including ones split by character or scene. Do not merge different story lines into one broad theme: keep separate threads for separate goals or antagonists (for a 50-episode series, usually 8 to 14 threads). No single thread should hold most of the events. Renumber thread_id as "T1", "T2", ... Combine their key_event_ids. A thread is "resolved" only if some part resolves it; resolution_episode is the latest such episode.
 - Merge twists the same way (renumber "W1", ...). If one part has the setup and a later part has the payoff, join them into one twist. severity "major" only if it changes the main story.
 - Keep every setup_payoff_link, with thread_id mapped to the new ids.
 - Use ONLY event ids that appear in the parts. Never invent ids.

@@ -1,0 +1,34 @@
+EPISODE NUMBER: Episode 1
+EPISODE LOGLINE: A baker finds a stranger's letter in her flour sack.
+CONTINUITY NOTES: First episode.
+
+--- SCRIPT START ---
+
+SCENE 01
+Scene heading: INT. BAKERY – DAWN
+Scene start: 00:00.00
+Scene end: 00:12.00
+
+Actions and dialogue:
+
+**CAMERA:**
+Start: (00:00.00) | End: (00:04.00)
+Wide shot of the empty bakery under blue light.
+
+**ACTION:**
+Start: (00:01.00) | End: (00:03.50)
+Nora tears open a flour sack and a sealed letter falls out.
+
+**NORA (Whispering, Shocked):**
+Start: (00:03.80) | End: (00:05.20)
+"This is my mother's seal."
+
+**SOUND FX:**
+Start: (00:05.00) | End: (00:09.00)
+A low string drone.
+
+**STRANGER (O.S.) (Cold):**
+Start: (00:06.00) | End: (00:07.50)
+"Put it down, Nora."
+
+--- SCRIPT END ---

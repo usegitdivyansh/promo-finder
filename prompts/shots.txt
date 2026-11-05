@@ -27,6 +27,7 @@ RULES
 - characters: names of characters on screen. thread_id: a thread id from the bible, or null.
 - Shots may overlap (a small hook inside the long shot is fine).
 - Never use lines marked RECAP.
+- Lines may be CAMERA, SOUND or SCENE notes, and blocks can overlap in time. key_line_id must be a DIALOGUE or ACTION line. A shot may start on the CAMERA line that opens the moment, but never on a SCENE line.
 - Visual-only moments (a look, an expression) are hard to sell in text; prefer moments with a clear line or action.
 
 EPISODE {{episode}} SCREENPLAY

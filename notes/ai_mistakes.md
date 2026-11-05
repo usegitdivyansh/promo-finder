@@ -106,3 +106,48 @@ Every mistake noticed while building or running, from Claude Code (writing this 
   what: picked an event (E5_S4) that was not among the beat's candidates on the first attempt, and left 6 beats empty (5 cliffhangers, 1 hook), so the fill rate is 14/20, below Flash-Lite's 16/19
   caught by: retry log and drops_step5.json
   fix: the candidate check rejected the bad pick and the retry fixed it. The empty beats are correct refusals: no shot covered those cliffhangers inside the beat's story-order bounds. DeepSeek found 26 shots against Flash-Lite's 12, so its scripts asked for more specific moments than the shot bank could cover
+
+- step: parse (design gap, Claude Code)
+  what: the first recap check on Kuku's pack flagged episode 31's opening scene heading as a recap, because the previous episode ends in the same location. Scene headings and camera notes repeat without being recaps
+  caught by: the parse report (1 recap in 50 episodes) and reading the flagged line
+  fix: recap matching now looks only at dialogue and action lines. The pack has no recaps: every episode picks up straight from the previous cliffhanger, as its continuity notes say
+
+- step: bible (pipeline LLM, deepseek-v4.1-flash, Kuku pack, 3-episode test)
+  what: split 3 episodes into 8 overlapping threads (one conflict and the answer to it as two threads), which would make the 2-per-thread promo limit meaningless. It also left a descriptive speaker tag for a recurring parent character (53 lines across the show) unlinked to that character
+  caught by: reading 03_bible.json and resolving every speaker tag against the alias map
+  fix: the thread rule now defines a thread as a cross-episode story line and asks for 3 to 8. The bible digest now shows the speaker tag of each key event's line and each episode's speaker tags, and the prompt asks for every tag to go in an alias list. Rerun: 5 threads, and the tag resolves to the right character
+
+- step: bible_merge (config gap, Claude Code)
+  what: on 50 episodes the merge of five chunk bibles failed 4 times ("no json object in response", once a schema error with an empty object). The chunk calls already used 13 to 14k completion tokens against max_tokens 16384, so the merge output (with reasoning) was being cut off. The run stopped at Step 3, as designed, after about $0.03 of failed calls
+  caught by: run log plus completion token counts in usage.jsonl
+  fix: max_tokens is now set per prompt (bible 32768, bible_merge 65536; DeepSeek allows about 940k output tokens), the budget check uses the same limit, and a cut-off response now prints "output cut off at max_tokens" instead of looking like bad JSON
+
+- step: scripts (config gap, Claude Code), same cause as the bible merge
+  what: on 50 episodes the single scripts call (20 promo scripts over the whole show) was cut off at 16384 tokens and returned broken JSON. I had raised the limit only for the bible and should have checked the other whole-show prompts at the same time
+  caught by: the new "output cut off" warning on the first attempt
+  fix: the run was stopped before the remaining retries spent money on the same cut-off; scripts 49152 and match 32768 were added to llm.max_tokens_by_prompt, and the run resumed from Step 5 (Steps 1 to 4 cached)
+
+- step: shots (pipeline LLM, deepseek-v4.1-flash, Kuku pack)
+  what: returned an empty JSON object "{}" on 3 of 50 episodes (not a token cut-off; the largest shots answer used 10.5k of 16k)
+  caught by: schema errors in the run log
+  fix: the existing retry with the error in the prompt recovered every case; no shots episode failed
+
+- step: bible thread rule (over-correction, Claude Code)
+  what: to fix the 3-episode test's 8 fragmented threads I asked for "3 to 8 threads for a whole series". On 50 episodes DeepSeek then made 5 broad threads, one of them a catch-all theme rather than a story line (116 events). 9 of the 15 eligible promos had that thread, so the plan's 2-per-thread limit capped selection at 7 promos, below the minimum of 12
+  caught by: selection note "only 7 promos passed", then counting main_thread over 07_scored.json
+  fix: a thread is now defined as one specific story line with its own goal or antagonist (not a theme), about 2 to 5 per 10 episodes, and no thread may hold most of the events. The merge keeps separate story lines apart. The run was kept as raw_outputs/show1_v1_broadthreads and rerun from Step 3
+
+- step: bible twists (pipeline LLM, deepseek-v4.1-flash, Kuku pack)
+  what: marked the show's premise (the inciting event of episode 1) as a MAJOR twist paid off in episode 1. That is the show's premise and its strongest hook; the spoiler guard would have dropped every promo built on it
+  caught by: reading the major twists in 03_bible.json before Step 5
+  fix: rule in code (bible.premise): a twist paid off in episode 1 is the premise, not a spoiler, because a promo sends viewers to episode 1. Assembly, script spoiler events, the baseline flag and check_rules all skip it. Fixed in code rather than the prompt, so the 50 cached shot calls stay valid. Test: test_episode_one_payoff_is_premise
+
+- step: scripts (pipeline LLM, deepseek-v4.1-flash, Kuku pack)
+  what: even with 10 balanced threads, 9 of 16 assembled promos took their hook from T1 (the thread that covers the first act, episodes 1 to 18), so the 2-per-thread rule left 9 promos, below the minimum of 12. The writer kept picking the hook-rich first act
+  caught by: selection note plus main_thread counts in 07_scored.json (v2 run kept as raw_outputs/show1_v2_20scripts)
+  fix: the scripts prompt now states the 2-per-thread limit and asks for at most 3 scripts per hook thread across all threads, and num_scripts went from 20 to 28. The quality bar was not lowered
+
+- step: bible aliases (pipeline LLM, deepseek-v4.1-flash, Kuku pack)
+  what: 9 recurring speaker tags stay unresolved (3 to 19 lines each). Most are unnamed extras, but one is a named character missing from the bible, and one character has two entries although a twist says they are the same person. One descriptive tag sits under two characters because the script uses it for two different people
+  caught by: check_rules aliases FAIL
+  fix: none yet; left as a reported failure. Effect is limited to thread and character diversity and code coherence, not to quotes or timing

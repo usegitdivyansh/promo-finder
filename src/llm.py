@@ -136,12 +136,19 @@ def spent():
     return res
 
 
+def cur_max():
+    lc = state["cfg"]["llm"]
+    if state.get("max_tokens"):
+        return state["max_tokens"]
+    return lc.get("max_tokens", 8192)
+
+
 def check_budget(model, prompt):
     pi, po = price(model)
     if pi == 0 and po == 0:
         return
     lc = state["cfg"]["llm"]
-    est = len(prompt) / 4 / 1e6 * pi + lc.get("max_tokens", 8192) / 1e6 * po
+    est = len(prompt) / 4 / 1e6 * pi + cur_max() / 1e6 * po
     cur = spent()
     if cur + est > lc.get("budget_usd", 2.0):
         raise BudgetError(f"paid spend would go over budget: spent ${cur:.4f}, next call up to ${est:.4f}, budget ${lc.get('budget_usd', 2.0)}")
@@ -173,7 +180,7 @@ def one_call(model, prompt):
             kw["reasoning_effort"] = lc["reasoning_effort"]
         try:
             resp = litellm.completion(model=model, messages=[{"role": "user", "content": prompt}],
-                                      temperature=lc.get("temperature", 0), max_tokens=lc.get("max_tokens", 8192),
+                                      temperature=lc.get("temperature", 0), max_tokens=cur_max(),
                                       response_format={"type": "json_object"}, timeout=lc.get("timeout_sec", 180), **kw)
         except Exception as ex:
             name = type(ex).__name__
@@ -203,6 +210,8 @@ def one_call(model, prompt):
             time.sleep(wait)
             continue
         text = resp.choices[0].message.content or ""
+        if getattr(resp.choices[0], "finish_reason", None) == "length":
+            print(f"    output cut off at max_tokens {cur_max()}; raise llm.max_tokens_by_prompt for this prompt")
         usage = {"prompt_tokens": 0, "completion_tokens": 0}
         if getattr(resp, "usage", None):
             usage["prompt_tokens"] = resp.usage.prompt_tokens or 0
@@ -312,6 +321,7 @@ def call_llm(prompt_name, variables, schema, model=None, check=None, mock_key="d
     if step is None:
         step = prompt_name
     prompt = fill(prompt_name, variables)
+    state["max_tokens"] = lc.get("max_tokens_by_prompt", {}).get(prompt_name, lc.get("max_tokens", 8192))
     if lc.get("mock"):
         text = load_mock(prompt_name, mock_key)
         obj, errs = validate(schema, text, check)

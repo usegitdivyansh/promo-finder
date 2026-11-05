@@ -9,7 +9,7 @@ sys.path.insert(0, ROOT)
 
 from src.common import load, load_dir, line_index
 from src.parse import to_sec
-from src.bible import resolve
+from src.bible import resolve, premise
 from src.shots import quote_ok
 from src import select as selector
 
@@ -101,7 +101,7 @@ def run(run_dir, cfg, forbid):
             ev_line[ev["event_id"]] = (ev["episode"], ev["line_id"])
     targets = []
     for w in bib["twists"]:
-        if w["severity"] == "major" and w["payoff_event_id"] in ev_line:
+        if w["severity"] == "major" and w["payoff_event_id"] in ev_line and not premise(w):
             targets.append(("bible " + w["twist_id"], ev_line[w["payoff_event_id"]]))
     for f in forbid:
         num, ts = f.split(":", 1)

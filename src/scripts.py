@@ -1,7 +1,7 @@
 import os
 from src import llm
 from src.schemas import ScriptsOut, MatchOut
-from src.bible import compact, resolve, norm_name
+from src.bible import compact, resolve, norm_name, premise
 from src.common import save, fmt_lines, line_index, log_drop
 
 ROLE_OK = {"hook": ["hook"], "escalation": ["escalation", "payoff", "hook"], "payoff": ["payoff", "escalation"],
@@ -22,7 +22,7 @@ def event_table(summ):
 def spoiler_events(bible):
     res = []
     for w in bible["twists"]:
-        if w["severity"] == "major" and w["payoff_event_id"]:
+        if w["severity"] == "major" and w["payoff_event_id"] and not premise(w):
             res.append(w["payoff_event_id"])
     return res
 
@@ -128,7 +128,7 @@ def write_scripts(summ, bible, cfg, drops, bank=None, eps_by=None):
         temp = ["(none)"]
     pt = cfg["promo"]["per_template_max"] + 1
     obj = llm.call_llm("scripts", {"bible": compact(bible), "events": "\n".join(rows), "spoilers": "\n".join(temp),
-                                   "num_scripts": str(cfg["scripts"]["num_scripts"]), "per_template": str(pt)},
+                                   "num_scripts": str(cfg["scripts"]["num_scripts"]), "per_template": str(pt), "max_per_thread": str(cfg["select"]["max_per_thread"])},
                        ScriptsOut, check=make_check(evs, set(spoil)), mock_key="scripts", step="05_scripts")
     res = []
     cnt = {}

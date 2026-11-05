@@ -238,3 +238,14 @@ def test_script_order_check():
     bad.beats[1].event_id = "E5_ev2"
     bad.beats[2].event_id = "E5_ev1"
     assert scripts.order_err(bad, evs)
+
+
+def test_episode_one_payoff_is_premise():
+    from src.assemble import twist_lines
+    from src.scripts import spoiler_events
+    bib = {"twists": [{"twist_id": "W1", "severity": "major", "setup_event_id": "E1_ev1", "payoff_event_id": "E1_ev4"},
+                      {"twist_id": "W2", "severity": "major", "setup_event_id": "E2_ev1", "payoff_event_id": "E3_ev2"}]}
+    summ = [{"episode": 1, "key_events": [{"event_id": "E1_ev4", "episode": 1, "line_id": "E1_L9"}]},
+            {"episode": 3, "key_events": [{"event_id": "E3_ev2", "episode": 3, "line_id": "E3_L5"}]}]
+    assert [t["twist_id"] for t in twist_lines(bib, summ)] == ["W2"]
+    assert spoiler_events(bib) == ["E3_ev2"]

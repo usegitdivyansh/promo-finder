@@ -186,6 +186,91 @@ def rows_from_json(data):
     return rows
 
 
+BLOCK_TAG_RE = re.compile(r"^\*\*(.+?):\*\*\s*$")
+BLOCK_TS_RE = re.compile(r"^Start:\s*\(([\d:.]+)\)\s*\|\s*End:\s*\(([\d:.]+)\)\s*$", re.I)
+BLOCK_KINDS = {"CAMERA": "camera", "ACTION": "action", "SOUND FX": "sound", "SFX": "sound", "MUSIC": "sound"}
+META_RE = re.compile(r"^(EPISODE NUMBER|EPISODE LOGLINE|CONTINUITY NOTES)\s*:\s*(.*)$", re.I)
+
+
+def is_blocks(raw):
+    cnt = 0
+    for ln in raw.splitlines():
+        if BLOCK_TS_RE.match(ln.strip()):
+            cnt += 1
+    return cnt >= 5
+
+
+def split_tag(tag):
+    # "LADY MAYA (Confused, Breathless)" -> name, delivery; "X (Off-screen) (Dismissive)" keeps both notes
+    notes = re.findall(r"\(([^)]*)\)", tag)
+    name = re.sub(r"\([^)]*\)", "", tag).strip()
+    return name, "; ".join(n.strip() for n in notes if n.strip())
+
+
+# block screenplay: **TAG:** / Start: (MM:SS.ss) | End: (MM:SS.ss) / text
+def rows_from_blocks(raw):
+    rows = []
+    meta = {}
+    scene = None
+    cur = None
+    for ln in raw.splitlines():
+        s = ln.strip()
+        m = META_RE.match(s)
+        if m and not rows:
+            meta[m.group(1).lower().replace(" ", "_")] = m.group(2).strip()
+            continue
+        if re.fullmatch(r"SCENE\s+\d+", s, re.I):
+            scene = {"heading": "", "start": None}
+            cur = None
+            continue
+        m = re.match(r"^scene heading\s*:\s*(.*)$", s, re.I)
+        if m and scene is not None:
+            scene["heading"] = m.group(1).strip()
+            continue
+        m = re.match(r"^scene start\s*:\s*([\d:.]+)", s, re.I)
+        if m and scene is not None:
+            st = to_sec(m.group(1))
+            rows.append({"start": st, "end": st, "text": scene["heading"] or "SCENE", "speaker": None, "type": "scene",
+                         "delivery": "", "pending": False})
+            continue
+        if re.match(r"^(scene end|actions and dialogue)\s*:", s, re.I) or s.startswith("--- SCRIPT"):
+            cur = None
+            continue
+        m = BLOCK_TAG_RE.match(s)
+        if m:
+            tag = m.group(1).strip()
+            name, notes = split_tag(tag)
+            kind = BLOCK_KINDS.get(name.upper())
+            if kind:
+                cur = {"start": None, "end": None, "text": "", "speaker": None, "type": kind, "delivery": notes, "pending": True}
+            else:
+                cur = {"start": None, "end": None, "text": "", "speaker": name, "type": "dialogue", "delivery": notes, "pending": True}
+            continue
+        if cur is None or not s:
+            continue
+        m = BLOCK_TS_RE.match(s)
+        if m:
+            cur["start"] = to_sec(m.group(1))
+            cur["end"] = to_sec(m.group(2))
+            rows.append(cur)
+            continue
+        txt = s
+        if cur["type"] == "dialogue" and len(txt) >= 2 and txt[0] in "\"“" and txt[-1] in "\"”":
+            txt = txt[1:-1].strip()
+        if cur["text"]:
+            cur["text"] += " " + txt
+        else:
+            cur["text"] = txt
+    res = []
+    for r in rows:
+        if r["text"] and r["start"] is not None:
+            r["pending"] = False
+            res.append(r)
+    # blocks overlap (camera under dialogue); a stable sort keeps file order for equal starts
+    res.sort(key=lambda r: r["start"])
+    return res, meta
+
+
 def split_episodes(raw, fname):
     chunks = []
     cur = None
@@ -258,7 +343,7 @@ def build_episode(ep, rows, cfg):
     scene = 0
     oddities = []
     for i, r in enumerate(rows):
-        typ = classify(r["text"], r["speaker"])
+        typ = r.get("type") or classify(r["text"], r["speaker"])
         if typ == "scene":
             scene += 1
         if scene == 0:
@@ -275,7 +360,22 @@ def build_episode(ep, rows, cfg):
         lines.append({"id": f"E{ep}_L{i}", "start": round(start, 2), "end": None, "type": typ,
                       "speaker": r["speaker"], "text": r["text"], "scene_id": scene,
                       "is_recap": False, "estimated_time": est})
+        if r.get("delivery"):
+            lines[-1]["delivery"] = r["delivery"]
+        if r.get("end") is not None:
+            lines[-1]["end_raw"] = r["end"]
+    run_end = 0.0
     for i, ln in enumerate(lines):
+        if "end_raw" in ln:
+            # explicit end times; a cut after line i must not chop a block that is still running
+            if ln["end_raw"] < ln["start"]:
+                oddities.append(f"{ln['id']} ends before it starts")
+            if ln["end_raw"] > run_end:
+                run_end = ln["end_raw"]
+            if ln["start"] > run_end:
+                run_end = ln["start"]
+            ln["end"] = round(run_end, 2)
+            continue
         if i+1 < len(lines):
             nxt = lines[i+1]["start"]
             if nxt < ln["start"]:
@@ -301,6 +401,9 @@ def mark_recaps(eps, cfg):
         cut = prev["duration_sec"] - cfg["recap_lookback_sec"]
         tail = []
         for ln in prev["lines"]:
+            # scene headings and camera notes repeat across episodes without being a recap
+            if ln["type"] not in ["dialogue", "action"]:
+                continue
             if ln["end"] >= cut:
                 temp = norm(ln["text"])
                 if len(temp) >= 10:
@@ -308,6 +411,8 @@ def mark_recaps(eps, cfg):
         for ln in e["lines"]:
             if ln["start"] > cfg["recap_window_sec"]:
                 break
+            if ln["type"] not in ["dialogue", "action"]:
+                continue
             temp = norm(ln["text"])
             if len(temp) < 10:
                 continue
@@ -346,8 +451,18 @@ def parse_folder(inp, cfg, out_dir=None):
             else:
                 raw = read_text(path)
                 chunks = []
-                for c in split_episodes(raw, path):
-                    chunks.append({"episode": c["episode"], "rows": rows_from_text(c["text"])})
+                if is_blocks(raw):
+                    rows, meta = rows_from_blocks(raw)
+                    num = None
+                    m = re.search(r"(\d+)", meta.get("episode_number", ""))
+                    if m:
+                        num = int(m.group(1))
+                    if num is None:
+                        num = ep_from_name(path)
+                    chunks.append({"episode": num, "rows": rows, "meta": meta})
+                else:
+                    for c in split_episodes(raw, path):
+                        chunks.append({"episode": c["episode"], "rows": rows_from_text(c["text"])})
             for c in chunks:
                 order += 1
                 num = c["episode"]
@@ -363,6 +478,8 @@ def parse_folder(inp, cfg, out_dir=None):
                 seen.add(num)
                 ep = build_episode(num, c["rows"], pcfg)
                 ep["source_file"] = os.path.relpath(path, inp)
+                if c.get("meta"):
+                    ep["meta"] = c["meta"]
                 eps.append(ep)
         except Exception as ex:
             failed.append({"file": path, "episode": None, "error": f"{type(ex).__name__}: {ex}"})
@@ -386,7 +503,7 @@ def make_report(eps, failed):
         est = 0
         rec = 0
         for ln in e["lines"]:
-            cnt[ln["type"]] += 1
+            cnt[ln["type"]] = cnt.get(ln["type"], 0) + 1
             if ln["estimated_time"]:
                 est += 1
             if ln["is_recap"]:

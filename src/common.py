@@ -28,6 +28,8 @@ def fmt_line(ln):
         who = ln["speaker"] or "UNKNOWN"
     else:
         who = ln["type"].upper()
+    if ln.get("delivery"):
+        who += f" ({ln['delivery']})"
     res = f"[{ln['id']}] [{fmt_ts(ln['start'])}] {who}: {ln['text']}"
     if ln["is_recap"]:
         res = "(RECAP, do not use) " + res

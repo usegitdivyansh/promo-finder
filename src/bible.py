@@ -6,14 +6,26 @@ from src.schemas import Bible
 from src.common import save, log_drop
 
 
+def premise(w):
+    # a promo sends viewers to episode 1, so what episode 1 shows is the premise, not a spoiler
+    e = w.get("payoff_event_id") or ""
+    return e.startswith("E1_")
+
+
 def digest(summ):
     res = []
     for s in summ:
         lbl = [s["primary_label"]] + s["secondary_labels"]
         res.append(f"EP {s['episode']} [{', '.join(lbl)}]: {s['summary']}")
         for ev in s["key_events"]:
-            res.append(f"  {ev['event_id']}: {ev['description']}")
+            if ev.get("speaker"):
+                res.append(f"  {ev['event_id']} (line spoken by {ev['speaker']}): {ev['description']}")
+            else:
+                res.append(f"  {ev['event_id']}: {ev['description']}")
         res.append(f"  cliffhanger: {s['ending_cliffhanger']['description']}")
+        tags = s.get("speaker_tags", {})
+        if tags:
+            res.append("  speaker tags: " + ", ".join(f"{k} ({v})" for k, v in sorted(tags.items(), key=lambda x: -x[1])))
     return "\n".join(res)
 
 

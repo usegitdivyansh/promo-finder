@@ -43,6 +43,7 @@ RULES
 - Each beat's "need" says what the viewer should see in that beat, in a few words.
 - thread_id: the bible thread the beat belongs to, or null.
 - Prefer moments a new viewer understands without context. Vary the threads and characters across scripts; do not build many scripts on the same event.
+- The final list keeps at most {{max_per_thread}} promos per thread (the thread of the hook beat). So spread the HOOK beats across the bible's threads: at most 3 scripts may share a hook thread, and use every thread that has a strong hook moment, including later episodes.
 - script_id: "C1", "C2", ...
 
 Return ONLY a JSON object in this shape:

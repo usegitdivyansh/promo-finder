@@ -30,6 +30,12 @@ llm:
     "gemini/gemini-3.5-flash-lite": 8                  # free tier
     "openrouter/deepseek/deepseek-v4.1-flash": 40      # paid, no free-tier cap
   max_tokens: 16384
+  # the bible holds every character, thread and event id; on 50 episodes its output (with reasoning) passes 16k
+  max_tokens_by_prompt:
+    bible: 32768
+    bible_merge: 65536
+    scripts: 49152
+    match: 32768
   timeout_sec: 240
   mock: false                                          # true = read responses from tests/fixtures/mock_responses, no api calls
 promo:
@@ -52,7 +58,8 @@ shots:
   extend_min_intensity: 5
   quote_match: 0.85
 scripts:
-  num_scripts: 20
+  # 2 promos per thread means 12+ promos need hooks from 6+ threads; more scripts give the selector room
+  num_scripts: 28
 bible:
   chunk_size: 10            # episodes per partial bible when input is too long
   max_input_chars: 60000    # above this, build partial bibles then merge

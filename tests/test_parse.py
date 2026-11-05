@@ -119,3 +119,24 @@ def test_synthetic_show_parses():
         assert 100 <= e["duration_sec"] <= 150
         if e["episode"] > 1:
             assert e["lines"][0]["is_recap"]
+
+
+def test_block_format():
+    eps, failed = parse.parse_folder(os.path.join(ROOT, "tests", "fixtures", "block_show"), CFG)
+    assert not failed
+    e = eps[0]
+    assert e["episode"] == 1
+    assert e["meta"]["episode_logline"].startswith("A baker")
+    types = [ln["type"] for ln in e["lines"]]
+    assert types == ["scene", "camera", "action", "dialogue", "sound", "dialogue"]
+    d = e["lines"][3]
+    assert d["speaker"] == "NORA"
+    assert d["delivery"] == "Whispering, Shocked"
+    assert d["text"] == "This is my mother's seal."
+    s = e["lines"][5]
+    assert s["speaker"] == "STRANGER"
+    assert s["delivery"] == "O.S.; Cold"
+    # the sound block runs to 9.0, so a cut after the stranger's line keeps it whole
+    assert s["end"] == 9.0
+    assert e["lines"][1]["end"] == 4.0
+    assert e["duration_sec"] == 9.0
