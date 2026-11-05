@@ -278,3 +278,24 @@ def test_hook_ending_pairs_earlier_hook_sharing_thread():
     assert len(res) == 1
     assert [b["shot_id"] for b in res[0]["beats"]] == ["E1_S1", "E2_END"]
     assert res[0]["template"] == "hook_ending"
+
+
+def test_ending_scene_starts_at_hook_inside_scene():
+    e = make_ep(4, 30, step=2.0)
+    for i, ln in enumerate(e["lines"]):
+        ln["scene_id"] = 1
+        if i >= 10:
+            ln["scene_id"] = 2
+    summ = {"ending_cliffhanger": {"line_id": e["lines"][27]["id"]}, "key_events": []}
+    bib = {"threads": [], "alias_map": {}}
+    weak = shot(e, "E4_S1", 12, 13, 14, "hook", inten=6)
+    strong = shot(e, "E4_S2", 15, 16, 17, "hook", inten=9)
+    other_scene = shot(e, "E4_S3", 3, 4, 5, "hook", inten=10)
+    for s in [weak, strong, other_scene]:
+        s["hook_type"] = "shocking_line"
+    s = shots.ending_scene_shot(e, summ, [weak, strong, other_scene], bib, CFG)
+    assert s["hook_shot_id"] == "E4_S2"
+    ls = e["lines"]
+    assert ls[s["key_idx"]]["start"] - ls[s["start_idx"]]["start"] <= CFG["promo"]["hook_window_sec"]
+    assert ls[s["start_idx"]]["scene_id"] == 2
+    assert CFG["ending_scene"]["min_sec"] <= s["duration"] <= CFG["ending_scene"]["max_sec"]

@@ -85,7 +85,7 @@ parse:
 
 # each episode's closing beat as a cliffhanger shot (cliffhanger line plus reaction, inside its scene)
 ending:
-  enabled: true
+  enabled: false
   min_sec: 10
   max_sec: 18
   tail_sec: 4
@@ -93,7 +93,14 @@ ending:
 
 # code-built promos: a strong earlier hook (same thread or character) cut into an episode ending
 hook_ending:
-  enabled: true
+  enabled: false
   window_episodes: 8
   min_hook_intensity: 8
   max_candidates: 30
+
+# single-scene promos that end on each episode's cliffhanger and start where a strong line lands within the hook window
+ending_scene:
+  enabled: true
+  min_sec: 20
+  max_sec: 45
+  hook_min_intensity: 8

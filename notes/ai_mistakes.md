@@ -156,3 +156,8 @@ Every mistake noticed while building or running, from Claude Code (writing this 
   what: adding each episode's ending as a cliffhanger shot and code-built "hook + episode ending" promos raised the cliffhanger score (6.42 in v3 to 7.08 and 7.57) but cut fresh-viewer clarity (6.83 to 5.92 and 4.64), because a hook from an earlier episode cut straight into a later ending confuses a new viewer. The total fell (72.4 to 71.4 and 69.2) and the gap to the last-30-s baseline grew. My first pairing also chose hooks too short to reach 20 s (16 of 30 dropped as too short); the fix (prefer pairs that reach 20 s) added one promo but lowered clarity further
   caught by: the v3 / v4 / baseline comparison by judge metric
   fix: none that closes the gap yet; both v4 runs are kept and reported. The data points to context, not the cliffhanger line: the baseline's 30 s endings carry their own setup
+
+- step: ending_scene template (design result, Claude Code), Kuku pack v5
+  what: single-scene promos that end on each episode's cliffhanger and start where a strong line lands within 3 s (20 to 45 s, no cross-episode hook) fixed what v4 broke. Coherence 9.1 and clarity 6.3 for the new promos, against 4.4 to 5.6 clarity for v4's cross-episode pairs. v5 (v3 pool plus 23 ending scenes, judged together) beats v3 at every count (top 5 82.2 vs 79.2, top 15 74.4 vs 72.4) but still trails the last-30-s baseline (79.5). Only 23 of 50 episodes had a strong line inside the closing scene that fits 20 to 45 s
+  caught by: the v3 / v5 / baseline comparison
+  fix: v5 is the final output. Caveat: the judges score batches relatively, so v3's promos re-judged inside the v5 pool fell from their v3 scores; cross-run totals compare pools, not individual promos

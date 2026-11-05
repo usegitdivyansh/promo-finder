@@ -181,7 +181,12 @@ def assemble_one(cand, shot_by, eps_by, cov, twists, cfg):
     if hk is None:
         hk = first["keys"][0]
     hook_shot = cand["beats"][0]["shot_id"]
-    if cand["template"] == "single_scene" or "scene" in first["roles"]:
+    if cand["template"] == "ending_scene":
+        # built so its hook lands within the window; the hook shot is named, not searched for
+        esc = shot_by[hook_shot]
+        hk = esc["key_idx"]
+        hook_shot = esc["hook_shot_id"]
+    elif cand["template"] == "single_scene" or "scene" in first["roles"]:
         # use the earliest hook-role shot inside the scene if there is one
         best = None
         for s in shot_by.values():

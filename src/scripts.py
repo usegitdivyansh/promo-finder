@@ -101,6 +101,8 @@ def shot_tags(ev, bank, eps_by):
     j = line_index(ep).get(ev["line_id"])
     res = []
     for s in bank.get(ev["episode"], []):
+        if s.get("source") == "ending_scene":
+            continue
         # a shot covers the event, or its key line is within 3 lines of it
         if (s["start_idx"] <= j <= s["end_idx"]) or abs(s["key_idx"] - j) <= 3:
             temp = f"{s['role']} {s['size']} i{s['intensity']}"
@@ -198,6 +200,8 @@ def candidates(beat, ev, bank, eps_by, bible, lo=None, hi=None):
     res = []
     for num in [ev["episode"]-1, ev["episode"], ev["episode"]+1]:
         for s in bank.get(num, []):
+            if s.get("source") == "ending_scene":
+                continue
             if beat["beat"] == "scene":
                 if s["size"] != "long":
                     continue
@@ -336,6 +340,8 @@ def safety_net(bank, used, cfg):
         for s in arr:
             if s["shot_id"] in used:
                 continue
+            if s.get("source") == "ending_scene":
+                continue
             if s["needs_context"] == "high":
                 continue
             pool.append(s)
@@ -443,7 +449,13 @@ def run(summ, bible, bank, eps, cfg, out_dir, drops, failed):
     he = []
     if cfg.get("hook_ending", {}).get("enabled"):
         he = hook_endings(bank, cfg)
-    print(f"  filled {len(filled)}/{len(scripts)} scripts, {len(net)} safety-net candidates, {len(he)} hook_ending candidates")
+    for num in sorted(bank):
+        for s in bank[num]:
+            if s.get("source") == "ending_scene":
+                he.append({"cand_id": f"ES_{s['shot_id']}", "source": "ending_scene", "template": "ending_scene", "script_id": None,
+                           "idea": f"ep {s['episode']} closing scene, hook to cliffhanger",
+                           "beats": [{"beat": "scene", "need": "", "event_id": None, "shot_id": s["shot_id"]}]})
+    print(f"  filled {len(filled)}/{len(scripts)} scripts, {len(net)} safety-net candidates, {len(he)} ending candidates")
     res = {"scripts": scripts, "candidates": filled + net + he, "fill": fill}
     save(os.path.join(out_dir, "05_candidates.json"), res)
     return res
