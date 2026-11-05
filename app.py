@@ -36,20 +36,67 @@ STEP_NAMES = {"step1": "Parse screenplays", "step2": "Summarise episodes", "step
               "step5": "Write promo scripts", "step6": "Assemble cuts", "step7": "Judge promos", "step8": "Select",
               "baseline": "Score the last-30 s baseline", "step9": "Write report"}
 
-st.set_page_config(page_title="Promo Finder", page_icon="🎬", layout="centered")
+AUTHOR = "Divyansh Gupta"
 
+st.set_page_config(page_title="Promo Finder", page_icon="✂️", layout="centered",
+                   menu_items={"Get help": None, "Report a bug": None, "About": f"Promo Finder · Built by {AUTHOR}"})
+
+# palette from kukufm.com (sources in .streamlit/config.toml); the slate and phone are dark in both themes,
+# everything else inherits the theme's text colour
 st.markdown("""
 <style>
-.tl{margin:2px 0 8px}
-.tl-row{display:flex;align-items:center;gap:8px;font-size:12px;margin:3px 0}
-.tl-ep{width:44px;flex:none;opacity:.75}
-.tl-bar{position:relative;flex:1;height:10px;border-radius:5px;background:rgba(128,128,128,.22)}
-.tl-seg{position:absolute;top:0;height:10px;border-radius:5px;background:#e8590c;min-width:3px}
-.tl-t{width:96px;flex:none;text-align:right;font-variant-numeric:tabular-nums;opacity:.75}
+#MainMenu, footer, [data-testid="stToolbar"], [data-testid="stDecoration"], [data-testid="stStatusWidget"],
+[data-testid="stAppDeployButton"], .stDeployButton, .viewerBadge_container__1QSob {display:none !important}
+header[data-testid="stHeader"] {background:transparent}
+:root{--k-brand:#E25506;--k-red:#EC1C24;--k-gold:#FFBB10;--k-green:#01860A;--k-ink:#0A0A14}
+.hero{border-radius:14px;padding:18px 18px 14px;margin:0 0 6px;color:#fff;
+  background:linear-gradient(135deg,#0A0A14 0%,#1A1420 55%,#3A1A0E 100%)}
+.hero .ttl{font-size:28px;font-weight:700;line-height:1.15;margin:0 0 6px;color:#fff}
+.hero .ttl .acc{color:var(--k-brand)}
+.hero p{margin:0;opacity:.85;font-size:15px}
+.hero .by{margin-top:10px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;opacity:.7}
+.cr{display:grid;grid-template-columns:minmax(0,1fr) 188px;gap:14px;align-items:start}
+@media (max-width:640px){.cr{grid-template-columns:minmax(0,1fr)}.phone{margin:4px auto 0}}
+.slate{border-radius:10px;overflow:hidden;background:var(--k-ink);color:#fff;border:1px solid rgba(128,128,128,.35)}
+.clap{height:12px;background:repeating-linear-gradient(-45deg,#fff 0 12px,var(--k-ink) 12px 24px)}
+.slate-row{display:flex;flex-wrap:wrap;gap:0;border-top:1px solid rgba(255,255,255,.14)}
+.slate-row div{flex:1 1 auto;padding:6px 10px;border-right:1px solid rgba(255,255,255,.14);min-width:72px}
+.slate-row div:last-child{border-right:none}
+.slate-row small{display:block;font-size:10px;letter-spacing:.08em;text-transform:uppercase;opacity:.6}
+.slate-row b{font-size:15px;font-variant-numeric:tabular-nums}
+.slate-row .cut b{color:var(--k-brand);font-size:18px}
+.conf{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;border-radius:999px;padding:2px 9px}
+.conf.high{background:var(--k-green);color:#fff}.conf.medium{background:var(--k-gold);color:var(--k-ink)}.conf.low{background:var(--k-red);color:#fff}
+.beats{margin:10px 2px 6px;font-size:15px;line-height:1.5}
+.beats b{color:var(--k-brand)}
+.strip{border-radius:8px;padding:7px 12px;margin:6px 0;background:#15151f;color:#e9e9ee;position:relative;outline:1px solid rgba(128,128,128,.35);
+  border-top:6px dotted rgba(255,255,255,.35);border-bottom:6px dotted rgba(255,255,255,.35)}
+.strip-top{display:flex;justify-content:space-between;gap:8px;font-size:12px;flex-wrap:wrap}
+.strip-top .tc{font-family:ui-monospace,Menlo,Consolas,monospace;font-variant-numeric:tabular-nums}
+.role{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border-radius:4px;padding:1px 6px;background:rgba(255,255,255,.12)}
+.role.hook,.role.scene{background:var(--k-brand);color:#fff}.role.cliffhanger{background:var(--k-red);color:#fff}
+.bar{position:relative;height:6px;border-radius:3px;background:rgba(255,255,255,.16);margin-top:6px}
+.bar span{position:absolute;top:0;height:6px;border-radius:3px;background:var(--k-brand);min-width:3px}
+.scores{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 2px}
+.scores span{font-size:12px;border:1px solid rgba(128,128,128,.35);border-radius:999px;padding:1px 9px;font-variant-numeric:tabular-nums}
+.phone{width:188px;border-radius:26px;padding:9px;background:#1b1b22;box-shadow:0 6px 18px rgba(0,0,0,.25)}
+.screen{position:relative;aspect-ratio:9/16;border-radius:18px;overflow:hidden;background:linear-gradient(180deg,#191925,#0A0A14)}
+.notch{position:absolute;top:6px;left:50%;transform:translateX(-50%);width:54px;height:6px;border-radius:3px;background:#000;z-index:2}
+.pv-top{position:absolute;top:18px;left:10px;right:10px;display:flex;justify-content:space-between;font-size:10px;color:#fff;opacity:.8;z-index:2}
+.pv-caps{position:absolute;top:36px;bottom:104px;-webkit-mask-image:linear-gradient(#000 82%,transparent);mask-image:linear-gradient(#000 82%,transparent);left:8px;right:8px;overflow-y:auto;display:flex;flex-direction:column;gap:5px;scrollbar-width:none}
+.cap{font-size:11px;line-height:1.3;color:#fff;background:rgba(0,0,0,.45);border-radius:6px;padding:4px 6px}
+.cap i{opacity:.75}
+.cap.hk{background:var(--k-brand)}.cap.cf{background:var(--k-red)}
+.cap .t{opacity:.7;font-size:9px;margin-right:4px;font-variant-numeric:tabular-nums}
+.pv-cf{position:absolute;bottom:42px;left:8px;right:8px}
+.pv-cf .cap{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.pv-end{position:absolute;bottom:10px;left:10px;right:10px;text-align:center;font-size:11px;font-weight:700;color:var(--k-ink);
+  background:var(--k-gold);border-radius:999px;padding:5px}
 .ln{font-size:13px;line-height:1.45;margin:1px 0}
 .ln .ts{opacity:.6;font-variant-numeric:tabular-nums;margin-right:6px}
 .ln .who{font-weight:600}
-.ln.key{background:rgba(232,89,12,.14);border-radius:4px;padding:0 4px}
+.ln.key{background:rgba(226,85,6,.16);border-radius:4px;padding:0 4px}
+.foot{margin:28px 0 8px;padding-top:12px;border-top:1px solid rgba(128,128,128,.3);font-size:13px;opacity:.75;text-align:center}
 </style>
 """, unsafe_allow_html=True)
 
@@ -202,26 +249,78 @@ def usage_cost(out):
     return calls, cached, cost
 
 
-def badge(conf):
-    colors = {"high": "green", "medium": "orange", "low": "red"}
-    c = colors.get(str(conf).lower(), "gray")
-    return f":{c}-badge[{str(conf).capitalize()} confidence]"
+def esc(x):
+    return html.escape(str(x))
 
 
-def timeline(p, eps_by):
-    rows = []
+def strip_html(s, eps_by):
+    # one film-strip row per cut: episode, timecodes in/out, role, where the cut sits in the episode
+    e = eps_by[s["episode"]]
+    lines = e["lines"]
+    dur = e.get("duration_sec") or lines[-1]["end"] or 1
+    a = lines[s["a"]]["start"]
+    b = lines[s["b"]]["end"]
+    left = max(0.0, min(100.0, a / dur * 100))
+    width = max(0.8, min(100.0 - left, (b - a) / dur * 100))
+    roles = ""
+    for r in s["roles"]:
+        roles += f'<span class="role {esc(r)}">{esc(r)}</span> '
+    return (f'<div class="strip"><div class="strip-top"><span>EP {s["episode"]} &nbsp;{roles}</span>'
+            f'<span class="tc">TC IN {fmt_cut(a)} → OUT {fmt_cut(b)} · {b - a:.1f} s</span></div>'
+            f'<div class="bar" title="position in the episode"><span style="left:{left:.2f}%;width:{width:.2f}%"></span></div></div>')
+
+
+def phone_html(p, eps_by):
+    # 9:16 preview: the promo's dialogue and action as captions, promo time from 0, hook and cliffhanger marked
+    caps = []
+    off = 0.0
+    for i, s in enumerate(p["segments"]):
+        lines = eps_by[s["episode"]]["lines"]
+        t0 = lines[s["a"]]["start"]
+        for j in range(s["a"], s["b"]+1):
+            ln = lines[j]
+            if ln["type"] not in ["dialogue", "action"]:
+                continue
+            t = ln["start"] - t0 + off
+            cls = "cap"
+            if i == 0 and j == s.get("hook_key"):
+                cls = "cap hk"
+            txt = f"<i>{esc(ln['text'])}</i>"
+            if ln["type"] == "dialogue":
+                txt = f"<b>{esc(ln['speaker'] or '')}</b> {esc(ln['text'])}"
+            caps.append((cls, f'<span class="t">{int(t // 60)}:{int(t % 60):02d}</span>{txt}'))
+        off += lines[s["b"]]["end"] - t0
+    cliff = ""
+    if caps:
+        cliff = f'<div class="pv-cf"><div class="cap cf">{caps[-1][1]}</div></div>'
+        caps = caps[:-1]
+    body = ""
+    for cls, txt in caps:
+        body += f'<div class="{cls}">{txt}</div>'
+    first = p["segments"][0]["episode"]
+    return (f'<div class="phone"><div class="screen"><div class="notch"></div>'
+            f'<div class="pv-top"><span>EP {first}</span><span>{off:.0f} s</span></div>'
+            f'<div class="pv-caps">{body}</div>{cliff}<div class="pv-end">Next episode ▸</div></div></div>')
+
+
+def card_html(f, p, eps_by):
+    sc = f["scores"]
+    conf = str(f["confidence"]).lower()
+    slate = (f'<div class="slate"><div class="clap"></div><div class="slate-row">'
+             f'<div class="cut"><small>Cut</small><b>{f["rank"]:02d}</b></div>'
+             f'<div><small>Template</small><b>{esc(f["template"].replace("_", " "))}</b></div>'
+             f'<div><small>Runtime</small><b>{f["total_duration_sec"]:.1f} s</b></div>'
+             f'<div><small>Score</small><b>{sc["total"]}</b></div>'
+             f'<div><small>Confidence</small><span class="conf {esc(conf)}">{esc(conf)}</span></div></div></div>')
+    beats = (f'<div class="beats"><b>Hook</b> {esc(f["hook"])}<br><b>Cliffhanger</b> {esc(f["cliffhanger"])}<br>'
+             f'<b>Why it works</b> {esc(f["why_it_works"])}</div>')
+    strips = ""
     for s in p["segments"]:
-        e = eps_by[s["episode"]]
-        dur = e.get("duration_sec") or e["lines"][-1]["end"] or 1
-        lines = e["lines"]
-        a = lines[s["a"]]["start"]
-        b = lines[s["b"]]["end"]
-        left = max(0.0, min(100.0, a / dur * 100))
-        width = max(0.8, min(100.0 - left, (b - a) / dur * 100))
-        rows.append(f'<div class="tl-row"><span class="tl-ep">Ep {s["episode"]}</span>'
-                    f'<span class="tl-bar"><span class="tl-seg" style="left:{left:.2f}%;width:{width:.2f}%"></span></span>'
-                    f'<span class="tl-t">{fmt_cut(a)}–{fmt_cut(b)}</span></div>')
-    return '<div class="tl">' + "".join(rows) + "</div>"
+        strips += strip_html(s, eps_by)
+    scores = (f'<div class="scores"><span>hook {sc["hook"]}</span><span>cliffhanger {sc["cliffhanger"]}</span>'
+              f'<span>clarity {sc["clarity"]}</span><span>coherence {sc["coherence"]}</span>'
+              f'<span>duration {sc["duration"]}</span><span>spoiler −{sc["spoiler_penalty"]}</span></div>')
+    return f'<div class="cr"><div>{slate}{beats}{strips}{scores}</div>{phone_html(p, eps_by)}</div>'
 
 
 def lines_html(s, eps_by):
@@ -240,14 +339,8 @@ def lines_html(s, eps_by):
 
 
 def card(f, p, eps_by):
-    sc = f["scores"]
     with st.container(border=True):
-        st.markdown(f"**#{f['rank']} · {f['template'].replace('_', ' ')}** · {round(f['total_duration_sec'], 1)} s · "
-                    f"score **{sc['total']}** &nbsp; {badge(f['confidence'])}")
-        st.markdown(f"**Hook:** {f['hook']}  \n**Cliffhanger:** {f['cliffhanger']}  \n**Why it works:** {f['why_it_works']}")
-        st.markdown(timeline(p, eps_by), unsafe_allow_html=True)
-        st.caption(f"hook {sc['hook']} · cliffhanger {sc['cliffhanger']} · clarity {sc['clarity']} · coherence {sc['coherence']} · "
-                   f"duration {sc['duration']} · spoiler −{sc['spoiler_penalty']}")
+        st.markdown(card_html(f, p, eps_by), unsafe_allow_html=True)
         with st.expander("Screenplay lines"):
             if f.get("confusion"):
                 st.caption(f"A fresh viewer might ask: {f['confusion']}")
@@ -314,9 +407,11 @@ with st.sidebar:
         fresh = st.checkbox("Fresh-viewer judge", value=True)
         do_base = st.checkbox("Score the last-30 s baseline", value=True)
     st.caption("Your key stays in this browser session. It is passed straight to the provider and cleared after the run.")
+    st.caption(f"Promo Finder · Built by {AUTHOR}")
 
-st.title("Promo Finder")
-st.write("Finds ranked promo clips in timestamped episode screenplays: each with cut times, the hook, the cliffhanger and why it works. An editor still approves and cuts.")
+st.markdown(f'''<div class="hero"><div class="ttl" role="heading" aria-level="1">Promo <span class="acc">Finder</span></div>
+<p>Ranked promo cuts from timestamped episode screenplays: exact cut times, the hook, the cliffhanger and why it works. An editor still approves and cuts.</p>
+<div class="by">Built by {AUTHOR}</div></div>''', unsafe_allow_html=True)
 st.info("Upload your own screenplays. No Kuku data is included.")
 
 if st.button("Demo mode: see it on a made-up show", use_container_width=True):
@@ -406,3 +501,5 @@ if go:
 view = st.session_state.get("view")
 if view and os.path.exists(os.path.join(view["out"], "09_final", "promos.json")):
     results(view["out"], view["demo"])
+
+st.markdown(f'<div class="foot">Promo Finder · Built by {AUTHOR}</div>', unsafe_allow_html=True)

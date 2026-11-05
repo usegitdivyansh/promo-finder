@@ -18,6 +18,9 @@ def test_demo_mode_loads_without_key(monkeypatch):
     assert btn["Run"].disabled
     btn["Demo mode: see it on a made-up show"].click().run()
     assert not at.exception
-    assert len([m for m in at.markdown if m.value.startswith("**#")]) >= 1
+    cards = [m.value for m in at.markdown if 'class="cr"' in m.value]
+    assert len(cards) >= 1
+    assert all('class="slate"' in c and 'class="phone"' in c and 'class="strip"' in c for c in cards)
+    assert any("Built by Divyansh Gupta" in m.value for m in at.markdown)
     assert len(at.get("download_button")) == 4
     assert [m.value for m in at.metric if m.label == "Cost of this view"] == ["$0"]

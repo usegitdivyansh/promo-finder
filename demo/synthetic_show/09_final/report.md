@@ -1,5 +1,7 @@
 # Promo report
 
+Promo Finder · Built by Divyansh Gupta
+
 **Note:** only 4 promos passed the rules and diversity limits (min is 12); the quality bar was not lowered
 
 ## #1 P01 · mini_story · 32s · total 86.1

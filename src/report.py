@@ -165,7 +165,7 @@ def seg_lines(p, eps_by):
 
 
 def write_md(path, finals, promos, eps_by, sel, summ, use, base):
-    out = ["# Promo report", ""]
+    out = ["# Promo report", "", f"Promo Finder · Built by {AUTHOR}", ""]
     if sel["note"]:
         out.append(f"**Note:** {sel['note']}")
         out.append("")
@@ -228,6 +228,9 @@ td,th{border-bottom:1px solid var(--line);padding:5px 6px;text-align:left}detail
 """
 
 
+AUTHOR = "Divyansh Gupta"
+
+
 def esc(x):
     return html.escape(str(x))
 
@@ -235,7 +238,7 @@ def esc(x):
 def write_html(path, finals, promos, eps_by, sel, summ, use, base):
     out = ["<!doctype html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'>",
            "<title>Promo Report</title><style>" + CSS + "</style></head><body><main>",
-           "<h1>Promo report</h1>",
+           f"<h1>Promo report</h1><p class='sub'>Promo Finder · Built by {AUTHOR}</p>",
            f"<p class='sub'>{len(finals)} ranked promos. Every segment shows its screenplay lines so an editor can verify it quickly. Highlighted line = hook.</p>"]
     if sel["note"]:
         out.append(f"<p><b>Note:</b> {esc(sel['note'])}</p>")
@@ -293,6 +296,7 @@ def write_html(path, finals, promos, eps_by, sel, summ, use, base):
         out.append(f"<tr><td>{esc(k)}</td><td>{v['calls']}</td><td>{v['cached']}</td><td>{v['prompt_tokens']}</td><td>{v['completion_tokens']}</td><td>{v['cost_usd']}</td></tr>")
     out.append("</table>")
     out.append(f"<p class='sub'>Cost this run: ${use['cost_usd']} (all runs in this folder: ${use['cost_usd_all_runs']}). Cached calls cost nothing.</p>")
+    out.append(f"<p class='sub' style='margin-top:32px;text-align:center'>Promo Finder · Built by {AUTHOR}</p>")
     out.append("</main></body></html>")
     with open(path, "w", encoding="utf-8") as fh:
         fh.write("\n".join(out))
