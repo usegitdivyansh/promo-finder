@@ -3,7 +3,11 @@ You are the story editor for a vertical microdrama series. Below are per-episode
 RULES
 - characters: every recurring character. char_id like "C1", "C2". aliases = every way the screenplay refers to them (first name, surname, title like "Ms. Clarke", nickname, role like "the lawyer"). role = a few words. relationships reference other char_ids (e.g. "wife of C2").
 - threads: the main plot threads (aim for 4 to 10). thread_id like "T1". status is "open" or "resolved". key_event_ids are event ids from the input that belong to this thread.
-- twists: story turns. severity "major" only if it changes the main story (e.g. a stolen company, a rigged contest, a long-hidden crime coming out). Otherwise "minor". setup_event_id is where it is planted or hinted, payoff_event_id is where it is revealed (null if not revealed yet).
+- twists: hidden truths that the show later reveals. severity "major" only if it changes the main story (e.g. a stolen company, a rigged contest, a long-hidden crime coming out). Otherwise "minor" (e.g. a forged report found, a lie exposed, a cheating scheme uncovered). List the minor ones too.
+  - setup_event_id: where the truth is first planted or hinted.
+  - payoff_event_id: where the truth is CONFIRMED to the audience (a public announcement, a confession, proof found).
+  - A new mystery raised at the end of an episode ("someone was murdered", "who is she really?") is NOT a payoff. It is the setup of a twist that has not paid off yet, so its payoff_event_id is null.
+  - Never use the same event as both the setup and the payoff, and the payoff always comes after the setup.
 - setup_payoff_links: pairs of event ids where an earlier event sets up a later one.
 - Use ONLY event ids that appear in the input. Never invent ids.
 - Keep it compact: short descriptions, no prose.

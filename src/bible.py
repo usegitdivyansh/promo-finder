@@ -71,6 +71,9 @@ def clean(obj, ids, drops):
             if w[k] and w[k] not in ids:
                 log_drop(drops, "bible", w["twist_id"], "invalid_id", w[k])
                 w[k] = None
+        if w["payoff_event_id"] and w["payoff_event_id"] == w["setup_event_id"]:
+            log_drop(drops, "bible", w["twist_id"], "payoff_equals_setup", w["payoff_event_id"])
+            w["payoff_event_id"] = None
     links = []
     for l in res["setup_payoff_links"]:
         if l["setup_event_id"] in ids and l["payoff_event_id"] in ids:

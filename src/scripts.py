@@ -57,11 +57,32 @@ def template_errs(sc):
     return None
 
 
+def ev_pos(ev):
+    return (ev["episode"], ev["start"])
+
+
+def order_err(sc, evs):
+    if sc.template == "montage":
+        return None
+    prev = None
+    for b in sc.beats:
+        if b.event_id not in evs:
+            return None
+        pos = ev_pos(evs[b.event_id])
+        if prev is not None and pos < prev:
+            return f"{sc.script_id}: beats must be in story order (episode, then time); {b.event_id} comes before the previous beat's event"
+        prev = pos
+    return None
+
+
 def make_check(evs, spoil):
     def check(obj):
         errs = []
         for sc in obj.scripts:
             temp = template_errs(sc)
+            if temp:
+                errs.append(temp)
+            temp = order_err(sc, evs)
             if temp:
                 errs.append(temp)
             for b in sc.beats:
@@ -73,12 +94,32 @@ def make_check(evs, spoil):
     return check
 
 
-def write_scripts(summ, bible, cfg, drops):
+def shot_tags(ev, bank, eps_by):
+    ep = eps_by.get(ev["episode"])
+    if ep is None:
+        return "[no shot]"
+    j = line_index(ep).get(ev["line_id"])
+    res = []
+    for s in bank.get(ev["episode"], []):
+        # a shot covers the event, or its key line is within 3 lines of it
+        if (s["start_idx"] <= j <= s["end_idx"]) or abs(s["key_idx"] - j) <= 3:
+            temp = f"{s['role']} {s['size']} i{s['intensity']}"
+            if temp not in res:
+                res.append(temp)
+    if not res:
+        return "[no shot]"
+    return "[shots: " + "; ".join(res) + "]"
+
+
+def write_scripts(summ, bible, cfg, drops, bank=None, eps_by=None):
     evs = event_table(summ)
     spoil = spoiler_events(bible)
     rows = []
     for eid, ev in evs.items():
-        rows.append(f"{eid} | {','.join(ev['labels'])} | {ev['description']}")
+        tag = ""
+        if bank is not None:
+            tag = " " + shot_tags(ev, bank, eps_by)
+        rows.append(f"{eid} | {','.join(ev['labels'])} | {ev['description']}{tag}")
     temp = []
     for e in spoil:
         if e in evs:
@@ -98,6 +139,8 @@ def write_scripts(summ, bible, cfg, drops):
             sid = f"{sid}_{len(seen)}"
         seen.add(sid)
         bad = template_errs(sc)
+        if not bad:
+            bad = order_err(sc, evs)
         for b in sc.beats:
             if b.event_id not in evs:
                 bad = f"unknown event {b.event_id}"
@@ -142,7 +185,7 @@ def event_threads(eid, bible):
     return res
 
 
-def candidates(beat, ev, bank, eps_by, bible):
+def candidates(beat, ev, bank, eps_by, bible, lo=None, hi=None):
     amap = bible["alias_map"]
     chars = event_chars(ev, eps_by, amap)
     threads = event_threads(beat["event_id"], bible)
@@ -162,6 +205,12 @@ def candidates(beat, ev, bank, eps_by, bible):
                 if s["intensity"] < 7:
                     continue
             elif s["role"] not in ROLE_OK[beat["beat"]]:
+                continue
+            # keep story order with the neighbouring beats' events
+            kpos = (s["episode"], eps_by[s["episode"]]["lines"][s["key_idx"]]["start"])
+            if lo is not None and kpos < lo:
+                continue
+            if hi is not None and kpos > hi:
                 continue
             if chars or threads:
                 share = False
@@ -199,8 +248,16 @@ def match_scripts(scripts, evs, bank, eps_by, bible, cfg, drops):
     for sc in scripts:
         sid = sc["script_id"]
         cands = []
-        for b in sc["beats"]:
-            cands.append(candidates(b, evs[b["event_id"]], bank, eps_by, bible))
+        n = len(sc["beats"])
+        for i, b in enumerate(sc["beats"]):
+            lo = None
+            hi = None
+            if sc["template"] != "montage":
+                if i > 0:
+                    lo = ev_pos(evs[sc["beats"][i-1]["event_id"]])
+                if i < n-1:
+                    hi = ev_pos(evs[sc["beats"][i+1]["event_id"]])
+            cands.append(candidates(b, evs[b["event_id"]], bank, eps_by, bible, lo, hi))
         sc["candidates"] = cands
         fail = None
         for i, b in enumerate(sc["beats"]):
@@ -312,7 +369,7 @@ def run(summ, bible, bank, eps, cfg, out_dir, drops, failed):
     for e in eps:
         eps_by[e["episode"]] = e
     try:
-        scripts, evs = write_scripts(summ, bible, cfg, drops)
+        scripts, evs = write_scripts(summ, bible, cfg, drops, bank, eps_by)
     except Exception as ex:
         failed.append({"step": "scripts", "error": str(ex)[:300]})
         print(f"  scripts FAILED: {str(ex)[:200]}")

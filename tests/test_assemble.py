@@ -214,3 +214,27 @@ def test_mock_pipeline_end_to_end(tmp_path):
     for p in sel["selected"]:
         hooks.append(p["hook_shot_id"])
     assert len(hooks) == len(set(hooks))
+
+
+def test_quote_check_partial_and_parenthetical():
+    ln = {"text": "Means nothing? I'm carrying your child, Arjun.", "speaker": "TANYA"}
+    ok, r = shots.quote_ok("I'm carrying your child, Arjun.", ln, 0.85)
+    assert ok
+    ok, r = shots.quote_ok("child", ln, 0.85)
+    assert not ok
+    ok, r = shots.quote_ok("This can't be true.", {"text": "(whispering) This can't be true.", "speaker": "MIRA"}, 0.85)
+    assert ok
+
+
+def test_script_order_check():
+    from src import scripts
+    from src.schemas import Script
+    evs = {"E1_ev1": {"episode": 1, "start": 10.0}, "E5_ev1": {"episode": 5, "start": 17.0}, "E5_ev2": {"episode": 5, "start": 33.0}}
+    good = Script(script_id="C1", template="mini_story", idea="x", beats=[
+        {"beat": "hook", "need": "", "event_id": "E1_ev1"}, {"beat": "escalation", "need": "", "event_id": "E5_ev1"},
+        {"beat": "cliffhanger", "need": "", "event_id": "E5_ev2"}])
+    assert scripts.order_err(good, evs) is None
+    bad = good.model_copy(deep=True)
+    bad.beats[1].event_id = "E5_ev2"
+    bad.beats[2].event_id = "E5_ev1"
+    assert scripts.order_err(bad, evs)

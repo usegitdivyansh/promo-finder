@@ -51,6 +51,8 @@ def judge(kind, promos, eps_by, bible, cfg, mock_key, failed):
             ids.append(p["promo_id"])
             txt.append(promo_text(p, eps_by, cfg, show_ep=(kind == "judge_full")))
         def check(obj, ids=ids):
+            for sc in obj.scores:
+                sc.promo_id = sc.promo_id.replace("PROMO", "").strip()
             got = set()
             for s in obj.scores:
                 got.add(s.promo_id)

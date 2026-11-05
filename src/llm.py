@@ -278,6 +278,15 @@ def validate(schema, text, check):
         data = extract_json(text)
     except Exception as ex:
         return None, [f"invalid json: {ex}"]
+    # some models wrap the object in a list, or return just the list field
+    if isinstance(data, list):
+        if len(data) == 1 and isinstance(data[0], dict) and set(data[0].keys()) & set(schema.model_fields.keys()):
+            data = data[0]
+        else:
+            for name, f in schema.model_fields.items():
+                if "List" in str(f.annotation) or "list" in str(f.annotation):
+                    data = {name: data}
+                    break
     try:
         obj = schema.model_validate(data)
     except Exception as ex:

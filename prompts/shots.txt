@@ -22,6 +22,7 @@ RULES
 - Refer to lines ONLY by LINE_ID. start_line_id <= key_line_id <= end_line_id, all from this episode.
 - key_line_id is the single line that carries the moment. quote_or_action must be the EXACT text of the key line (copy it character for character, without the speaker name or timestamp).
 - A shot should start right before its moment and end on a strong line, not mid-thought.
+- For role "hook", the key line must play within the first 3 seconds of the shot: start the shot ON the key line or one short line before it, then let the shot run on for the reaction.
 - needs_context: "low" if a brand-new viewer gets it instantly, "medium" if it needs a little setup, "high" if it only makes sense after earlier episodes.
 - characters: names of characters on screen. thread_id: a thread id from the bible, or null.
 - Shots may overlap (a small hook inside the long shot is fine).

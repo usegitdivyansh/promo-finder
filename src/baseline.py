@@ -36,8 +36,33 @@ def mean(arr):
     return round(sum(arr) / len(arr), 2)
 
 
+def major_payoffs(bible, out_dir):
+    from src.common import load_dir
+    from src.assemble import twist_lines
+    summ = load_dir(os.path.join(out_dir, "02_episodes"))
+    res = []
+    for t in twist_lines(bible, summ):
+        if t["severity"] == "major":
+            res.append(t)
+    return res
+
+
 def run(eps, bible, selected, cfg, out_dir, drops, failed):
     promos = build(eps, cfg)
+    # the naive rule ignores spoilers; mark clips that show a major twist payoff so the comparison can be fair
+    pays = major_payoffs(bible, out_dir)
+    eps_by = {}
+    for e in eps:
+        eps_by[e["episode"]] = e
+    for p in promos:
+        s = p["segments"][0]
+        lines = eps_by[s["episode"]]["lines"]
+        for t in pays:
+            if t["episode"] != s["episode"]:
+                continue
+            for j in range(s["a"], s["b"]+1):
+                if lines[j]["id"] == t["line_id"]:
+                    p["flags"].append("shows_major_payoff")
     scored = score.run(promos, eps, bible, cfg, out_dir, drops, failed, mock_key="baseline", name="10_baseline_scored.json")
     top_tool = []
     for p in selected[:15]:
@@ -57,6 +82,16 @@ def run(eps, bible, selected, cfg, out_dir, drops, failed):
             b.append(p["scores"][k])
         comp["by_metric"][k] = {"tool": mean(a), "baseline": mean(b)}
     comp["tool_wins"] = comp["mean_total_tool_top15"] > comp["mean_total_baseline_top15"]
+    fair = []
+    spoil = []
+    for p in scored:
+        if "shows_major_payoff" in p["flags"]:
+            spoil.append(p["promo_id"])
+        else:
+            fair.append(p["scores"]["total"])
+    comp["baseline_showing_major_payoff"] = spoil
+    comp["mean_total_baseline_top15_no_spoilers"] = mean(fair[:15])
+    comp["tool_wins_vs_no_spoiler_baseline"] = comp["mean_total_tool_top15"] > comp["mean_total_baseline_top15_no_spoilers"]
     save(os.path.join(out_dir, "10_baseline.json"), {"comparison": comp, "baseline_ranked": scored})
     print(f"  baseline top15 mean {comp['mean_total_baseline_top15']} vs tool {comp['mean_total_tool_top15']}")
     return comp

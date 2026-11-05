@@ -9,7 +9,7 @@ WHAT MAKES A GOOD PROMO
 SERIES BIBLE
 {{bible}}
 
-KEY EVENTS (event_id | episode labels | description)
+KEY EVENTS (event_id | episode labels | description [clip-able shots found near this event: role, size, intensity])
 {{events}}
 
 DO NOT USE these events as any beat (they are payoffs of major twists, showing them spoils the show):
@@ -38,6 +38,7 @@ RULES
 - Write {{num_scripts}} scripts. Spread them across templates: at most {{per_template}} scripts per template, and use every template that the material supports.
 - Use the exact beat names and order given for the template.
 - Every beat's event_id must be an event_id from the list above. Never invent ids.
+- Build beats on events that HAVE shots. A hook beat needs a hook shot near its event, a cliffhanger beat needs a cliffhanger or payoff shot, an escalation beat needs an escalation, payoff or hook shot, a peak needs any shot of intensity 7+, and single_scene needs a long shot. An event marked [no shot] cannot be filled.
 - Beats must be in story order (earlier episode first), except in montage where peaks can come in any order.
 - Each beat's "need" says what the viewer should see in that beat, in a few words.
 - thread_id: the bible thread the beat belongs to, or null.

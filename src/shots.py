@@ -1,4 +1,5 @@
 import os
+import re
 import difflib
 from src import llm
 from src.schemas import ShotsOut
@@ -29,11 +30,19 @@ def make_check(ep):
 
 def quote_ok(quote, ln, thr):
     q = norm(quote)
-    best = difflib.SequenceMatcher(None, q, norm(ln["text"])).ratio()
+    # parentheticals like "(whispering)" are stage directions, not part of the quote
+    bare = norm(re.sub(r"\([^)]*\)", " ", ln["text"]))
+    cands = [norm(ln["text"]), bare]
     if ln["speaker"]:
-        temp = difflib.SequenceMatcher(None, q, norm(ln["speaker"] + " " + ln["text"])).ratio()
+        cands.append(norm(ln["speaker"] + " " + ln["text"]))
+    best = 0.0
+    for c in cands:
+        temp = difflib.SequenceMatcher(None, q, c).ratio()
         if temp > best:
             best = temp
+        # an exact piece of the line that covers most of it is a real quote, not a hallucination
+        if q and q in c and len(q) >= 0.5 * len(c):
+            best = 1.0
     return best >= thr, round(best, 3)
 
 

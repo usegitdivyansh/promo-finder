@@ -290,6 +290,9 @@ def run(run_dir, gold_path, out_path):
         c = load(p)["comparison"]
         out.append("## Baseline (last 30 s of each episode), same judges")
         out.append(f"Mean total, top 15: tool **{c['mean_total_tool_top15']}** vs baseline **{c['mean_total_baseline_top15']}**.")
+        if "mean_total_baseline_top15_no_spoilers" in c:
+            out.append(f"Baseline clips that show a major twist payoff (the tool may never do this): {', '.join(c['baseline_showing_major_payoff']) or 'none'}. "
+                       f"Baseline without them: **{c['mean_total_baseline_top15_no_spoilers']}**.")
         out.append("")
         out.append("| metric | tool | baseline |")
         out.append("|---|---|---|")
