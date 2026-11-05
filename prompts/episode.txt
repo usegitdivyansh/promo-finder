@@ -20,7 +20,8 @@ RULES
 - Every line_id you use must appear in the screenplay below.
 - key_events: 2 to 6 of the most important story moments, in screenplay order. Each description is one short sentence naming who does what.
 - ending_cliffhanger: the line where the episode leaves the open question.
-- primary_label: one label. secondary_labels: at most 2 other labels.
+- primary_label: the ONE label that dominates the episode's screen time and energy. An episode that is mostly conversation, planning or quiet discovery is "setup" (or "emotional_light"), even if it contains one small discovery.
+- secondary_labels: at most 2 other labels, and only for moments that are clearly strong on screen (a slap, a public scene, an open accusation). Deciding something on the phone is not power_shift; a quiet discovery is not betrayal unless someone is confronted. Fewer labels is better than weak ones.
 - peak_line_id: the single most dramatic line (not a recap line).
 - label_reasons: one short reason per label you used, citing a line id.
 - Use the character names as written in the screenplay.

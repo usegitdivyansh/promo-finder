@@ -26,3 +26,23 @@ Every mistake noticed while building or running, from Claude Code (writing this 
   what: any "Word:" at the start of a line was taken as a speaker, so the action line "Inside: a legal document and an old photograph..." became dialogue spoken by "Inside"
   caught by: listing all parsed speaker names on the synthetic show
   fix: if most speaker names in a file are upper case, title-case "Name:" prefixes are treated as action; regression test added
+
+- step: llm wrapper cost tracking (build time, Claude Code)
+  what: the wrapper charged each call at max(config price, litellm's reported cost). litellm prices Gemini at paid rates even on the free tier, so free calls would have eaten into the $2 OpenRouter budget and could have stopped the run early
+  caught by: the provider smoke test printed a nonzero response_cost for free-tier gemini-3.6-flash
+  fix: litellm's cost is used only for models with a nonzero configured price
+
+- step: episodes (pipeline LLM, gemini-3.6-flash)
+  what: synthetic ep 3 is a quiet setup episode, but it was labelled primary "betrayal" with secondary reveal and power_shift; a phone call accepting an inheritance was called a power_shift
+  caught by: reading Step 2 output on 3 episodes
+  fix: prompt now says the primary label is what dominates screen time and that quiet decisions or discoveries are not power_shift or betrayal. Partly fixed: after the change ep 3 is "reveal" + "betrayal" (power_shift gone), not "setup"
+
+- step: shots (pipeline LLM, gemini-3.6-flash)
+  what: ep 2 got only 2 shots and none covered its own ending ("This can't be true"), and quiet ep 3's phone call got intensity 9 as an "underdog_flip"
+  caught by: reading Step 4 output on 3 episodes
+  fix: prompt gives an intensity scale and asks for a cliffhanger shot when the ending is strong; on rerun ep 2 got a cliffhanger shot and ep 3 dropped to intensity 6
+
+- step: shots (pipeline LLM + code)
+  what: the LLM labelled three ep 1 shots "small" although their line ranges were 15 to 19 s, and proposed a "long" shot spanning 65 s. After relabelling by duration, the 2-medium cap cut the episode's only cliffhanger shot ("It's about your father"), which tied on intensity with another shot
+  caught by: comparing the raw LLM shots in the cache with the kept shots
+  fix: per-size cap still keeps the highest intensity but breaks ties in favour of cliffhanger, then hook roles

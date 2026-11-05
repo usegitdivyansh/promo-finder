@@ -7,6 +7,9 @@ from src.bible import compact, resolve
 from src.common import save, fmt_lines, line_index, log_drop
 
 
+ROLE_RANK = {"cliffhanger": 0, "hook": 1, "payoff": 2, "escalation": 3}
+
+
 def make_check(ep):
     idx = line_index(ep)
     def check(obj):
@@ -125,7 +128,8 @@ def clean(obj, ep, summ, bible, cfg, drops):
         for s in res:
             if s["size"] == size:
                 temp.append(s)
-        temp.sort(key=lambda x: -x["intensity"])
+        # highest intensity first; on ties keep the scarcer role (promos need cliffhangers to end on)
+        temp.sort(key=lambda x: (-x["intensity"], ROLE_RANK[x["role"]], x["start_idx"]))
         cap = sc["max_" + size]
         for s in temp[cap:]:
             log_drop(drops, "shots", s["shot_id"], "over_size_cap", size)

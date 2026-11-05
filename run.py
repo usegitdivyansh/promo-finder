@@ -37,10 +37,12 @@ def save_logs(out, name, drops, failed):
     save(os.path.join(out, "logs", f"failed_{name}.json"), failed)
 
 
-def run(inp, out, cfg, start="step1", only=None, progress=None):
+def run(inp, out, cfg, start="step1", only=None, progress=None, stop=None):
     os.makedirs(out, exist_ok=True)
     i0 = STEPS.index(start)
     todo = STEPS[i0:]
+    if stop:
+        todo = STEPS[i0:STEPS.index(stop)+1]
     if only:
         todo = [only]
     t0 = time.time()
@@ -180,6 +182,7 @@ def main():
     ap.add_argument("--config", default=os.path.join(ROOT, "config.yaml"))
     ap.add_argument("--from", dest="start", default="step1", choices=STEPS, help="resume from this step using saved outputs")
     ap.add_argument("--only", choices=STEPS, help="run just this step")
+    ap.add_argument("--to", choices=STEPS, help="stop after this step")
     ap.add_argument("--episodes", help="only these episodes, e.g. 1-3 or 1,4,7")
     ap.add_argument("--model", help="override llm.provider_model")
     ap.add_argument("--judge-model", help="override llm.judge_model")
@@ -210,7 +213,7 @@ def main():
     if not out:
         out = os.path.join(ROOT, "raw_outputs", os.path.basename(os.path.normpath(a.input)))
     llm.setup(cfg, run_dir=out, mock_dir=a.mock_dir)
-    run(a.input, out, cfg, start=a.start, only=a.only)
+    run(a.input, out, cfg, start=a.start, only=a.only, stop=a.to)
 
 
 if __name__ == "__main__":

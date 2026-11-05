@@ -16,6 +16,9 @@ HOOK TYPES (hook_type, use the closest, or null if not a hook): slap_violence, p
 
 RULES
 - Only strong moments: intensity {{min_intensity}} or more on a 1 to 10 scale. Do not force the maximum count. A quiet setup episode may have 1 shot or none.
+- Intensity scale: 9 to 10 = a slap, a public humiliation at its peak, a major reveal, a life-or-death moment. 7 to 8 = an open confrontation, a betrayal caught, a sharp shocking line. 5 to 6 = tension without an outburst. A phone call, a quiet decision or a private discovery is at most 6.
+- If the episode ends on a strong open question (intensity {{min_intensity}}+), include a small or medium shot with role "cliffhanger" that ENDS on that line. Promos need cliffhanger shots.
+- Prefer a small shot (one or two lines) for a punchy hook such as a slap or a shocking line, even if a longer shot also contains it.
 - Refer to lines ONLY by LINE_ID. start_line_id <= key_line_id <= end_line_id, all from this episode.
 - key_line_id is the single line that carries the moment. quote_or_action must be the EXACT text of the key line (copy it character for character, without the speaker name or timestamp).
 - A shot should start right before its moment and end on a strong line, not mid-thought.

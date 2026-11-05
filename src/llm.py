@@ -210,7 +210,8 @@ def one_call(model, prompt):
             rep = resp._hidden_params.get("response_cost")
         except Exception:
             rep = None
-        if rep and rep > cost:
+        # litellm prices every model at paid rates; only trust it for models we pay for
+        if (pi > 0 or po > 0) and rep and rep > cost:
             cost = rep
         usage["cost_usd"] = round(cost, 6)
         if cost > 0:
