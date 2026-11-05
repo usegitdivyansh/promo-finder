@@ -222,21 +222,45 @@ def one_call(model, prompt):
         return text, usage
 
 
+# not an Exception subclass: when no provider can answer, the run must stop, not write empty outputs
+class ProvidersDown(SystemExit):
+    pass
+
+
+def dead(ex):
+    s = str(ex)
+    if isinstance(ex, QuotaError):
+        return True
+    for k in ["AuthenticationError", "401", "403", "User not found", "invalid api key", "API key not valid", "PermissionDenied"]:
+        if k.lower() in s.lower():
+            return True
+    return False
+
+
+def call_fallback(fb, prompt, why):
+    try:
+        return one_call(fb, prompt)
+    except LLMError as ex:
+        if dead(ex):
+            raise ProvidersDown(f"no provider available. primary: {why[:200]} | fallback {fb}: {str(ex)[:200]}")
+        raise
+
+
 def raw_call(model, prompt):
     fb = state["cfg"]["llm"].get("fallback_model")
     if fb and model != fb and state.get("primary_down"):
-        return one_call(fb, prompt)
+        return call_fallback(fb, prompt, state["primary_down"])
     try:
         return one_call(model, prompt)
     except QuotaError as ex:
         if not fb or model == fb:
-            raise
+            raise ProvidersDown(f"{model}: {str(ex)[:300]}")
         if "daily quota" in str(ex):
-            state["primary_down"] = True
+            state["primary_down"] = str(ex)
             print(f"    {model} daily quota used up, switching to {fb} for the rest of the run")
         else:
             print(f"    {model} still rate limited, using {fb} for this call")
-        return one_call(fb, prompt)
+        return call_fallback(fb, prompt, str(ex))
 
 
 def load_mock(prompt_name, mock_key):

@@ -46,3 +46,13 @@ Every mistake noticed while building or running, from Claude Code (writing this 
   what: the LLM labelled three ep 1 shots "small" although their line ranges were 15 to 19 s, and proposed a "long" shot spanning 65 s. After relabelling by duration, the 2-medium cap cut the episode's only cliffhanger shot ("It's about your father"), which tied on intensity with another shot
   caught by: comparing the raw LLM shots in the cache with the kept shots
   fix: per-size cap still keeps the highest intensity but breaks ties in favour of cliffhanger, then hook roles
+
+- step: llm wrapper / run control (build time, Claude Code)
+  what: when Gemini's free daily quota ran out (20 requests/day for gemini-3.6-flash) and the OpenRouter fallback returned 401, every step logged a failure and carried on, so the "full run" finished in 56 s with 0 scored promos and an empty report
+  caught by: the first real full run on the synthetic show
+  fix: if the primary is out of quota and the fallback is out of quota or rejects its key, the wrapper raises ProvidersDown and the run stops with the reason; test added
+
+- step: model choice (build time, Claude Code)
+  what: picked gemini-3.6-flash as the free-tier main model without knowing its daily cap; it turned out to be 20 requests per day per model, far below the ~140 calls a 50-episode show needs
+  caught by: the 429 body on the full synthetic run (quotaId GenerateRequestsPerDayPerProjectPerModel-FreeTier, quotaValue 20)
+  fix: pending the user's choice of model or provider

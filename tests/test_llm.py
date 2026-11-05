@@ -93,3 +93,13 @@ def test_cache_hit_costs_nothing(tmp_path, monkeypatch):
     llm.call_llm("match", VARS, MatchOut)
     llm.call_llm("match", VARS, MatchOut)
     assert len(calls) == 1
+
+
+def test_run_stops_when_both_providers_down(tmp_path, monkeypatch):
+    def beh(model):
+        if model.startswith("gemini/"):
+            raise RateLimitError("429 RESOURCE_EXHAUSTED GenerateRequestsPerDayPerProjectPerModel-FreeTier")
+        raise Exception("AuthenticationError: OpenrouterException - User not found. 401")
+    cfg, calls = setup(tmp_path, monkeypatch, beh)
+    with pytest.raises(llm.ProvidersDown):
+        llm.call_llm("match", VARS, MatchOut)
