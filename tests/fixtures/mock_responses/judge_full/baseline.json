@@ -1,0 +1,37 @@
+{
+ "scores": [
+  {
+   "promo_id": "B01",
+   "hook": 4,
+   "cliffhanger": 7,
+   "coherence": 6,
+   "clarity": 6,
+   "why_it_works": "Ends on a vow and a mysterious call",
+   "hook_text": "Emma alone in a corridor",
+   "cliffhanger_text": "what has begun?",
+   "safety_flags": []
+  },
+  {
+   "promo_id": "B02",
+   "hook": 3,
+   "cliffhanger": 7,
+   "coherence": 6,
+   "clarity": 5,
+   "why_it_works": "Ends on a secret identity hint",
+   "hook_text": "Lily with the ring",
+   "cliffhanger_text": "who is Emma really?",
+   "safety_flags": []
+  },
+  {
+   "promo_id": "B03",
+   "hook": 5,
+   "cliffhanger": 8,
+   "coherence": 7,
+   "clarity": 6,
+   "why_it_works": "Takeover aftermath and an identity reveal",
+   "hook_text": "board stares at Ryan",
+   "cliffhanger_text": "who did Ryan marry?",
+   "safety_flags": []
+  }
+ ]
+}

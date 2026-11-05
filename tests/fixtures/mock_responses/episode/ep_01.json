@@ -1,0 +1,12 @@
+{"episode": 1,
+ "summary": "At a Blake family wedding, Lily pours red wine over Emma and calls her the maid while the guests laugh. Emma's husband Ryan tells her to go home, and Lily demands she sign divorce papers. Alone in the corridor, Emma vows they will all regret it. A call from lawyer Harlow says her grandfather's will has been read.",
+ "characters": ["Emma", "Lily", "Ryan", "Harlow"],
+ "key_events": [
+  {"line_id": "E1_L2", "description": "Lily pours red wine over Emma at the wedding"},
+  {"line_id": "E1_L5", "description": "Ryan tells Emma to go home because she embarrasses him"},
+  {"line_id": "E1_L7", "description": "Lily demands Emma sign the divorce papers and disappear"},
+  {"line_id": "E1_L12", "description": "Emma whispers that they will all regret this"},
+  {"line_id": "E1_L14", "description": "Harlow tells Emma her grandfather's will has been read"}],
+ "ending_cliffhanger": {"line_id": "E1_L15", "description": "Emma says 'Then let's begin' after hearing about the will"},
+ "primary_label": "humiliation", "secondary_labels": ["confrontation", "scheme"], "peak_line_id": "E1_L2",
+ "label_reasons": {"humiliation": "wine poured on Emma at E1_L2", "confrontation": "divorce demand at E1_L7", "scheme": "Emma's vow at E1_L12"}}

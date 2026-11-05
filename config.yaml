@@ -1,0 +1,52 @@
+llm:
+  provider_model: ""        # litellm model string, e.g. gemini/<flash model> or groq/<model>; set after checking free tier
+  judge_model: ""           # empty = same as provider_model
+  temperature: 0
+  max_retries: 3
+  rpm_limit: 10             # throttle for free tier; check the provider's real limit
+  max_tokens: 8192
+  timeout_sec: 180
+  mock: false               # true = read responses from tests/fixtures/mock_responses, no api calls
+  price_in_per_m: 0         # usd per 1m input tokens, 0 on free tier
+  price_out_per_m: 0        # usd per 1m output tokens
+promo:
+  num_promos_min: 12
+  num_promos_max: 18
+  per_template_max: 3
+  min_sec: 20
+  max_sec: 60
+  target_min_sec: 30
+  target_max_sec: 45
+  hook_window_sec: 3
+shots:
+  long: [25, 45]
+  medium: [10, 20]
+  small: [3, 8]
+  max_long: 1
+  max_medium: 2
+  max_small: 3
+  min_intensity: 6
+  extend_min_intensity: 5
+  quote_match: 0.85
+scripts:
+  num_scripts: 20
+bible:
+  chunk_size: 10            # episodes per partial bible when input is too long
+  max_input_chars: 60000    # above this, build partial bibles then merge
+judge:
+  fresh: true              # tier 2 fresh-viewer judge; false = clarity from judge_full
+  batch_size: 5
+  seed: 7
+select:
+  max_per_thread: 2
+  min_score_for_category: 60
+safety_net:
+  num_shots: 15
+baseline:
+  last_sec: 30
+parse:
+  words_per_sec: 2.5
+  min_line_sec: 2
+  recap_window_sec: 15
+  recap_similarity: 0.9
+  recap_lookback_sec: 30

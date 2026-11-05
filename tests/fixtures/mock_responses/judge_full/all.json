@@ -1,0 +1,59 @@
+{
+ "scores": [
+  {
+   "promo_id": "X001",
+   "hook": 9,
+   "cliffhanger": 9,
+   "coherence": 9,
+   "clarity": 8,
+   "why_it_works": "Public humiliation flips into a takeover, cut on an identity question",
+   "hook_text": "wine poured on the 'maid'",
+   "cliffhanger_text": "who is the woman Ryan married?",
+   "safety_flags": []
+  },
+  {
+   "promo_id": "X002",
+   "hook": 8,
+   "cliffhanger": 9,
+   "coherence": 8,
+   "clarity": 7,
+   "why_it_works": "The 'maid' takes the owner's chair in front of the man who mocked her",
+   "hook_text": "'Who let the maid in?'",
+   "cliffhanger_text": "who is Emma really?",
+   "safety_flags": []
+  },
+  {
+   "promo_id": "X003",
+   "hook": 8,
+   "cliffhanger": 6,
+   "coherence": 9,
+   "clarity": 8,
+   "why_it_works": "A full humiliation scene that ends on a revenge vow",
+   "hook_text": "wine poured over the bride's rival",
+   "cliffhanger_text": "what will Emma do?",
+   "safety_flags": []
+  },
+  {
+   "promo_id": "X004",
+   "hook": 8,
+   "cliffhanger": 9,
+   "coherence": 6,
+   "clarity": 6,
+   "why_it_works": "Fast peaks across the arc, ending on the identity question",
+   "hook_text": "wine pour",
+   "cliffhanger_text": "who did Ryan marry?",
+   "safety_flags": []
+  },
+  {
+   "promo_id": "X005",
+   "hook": 7,
+   "cliffhanger": 7,
+   "coherence": 8,
+   "clarity": 7,
+   "why_it_works": "Boardroom takeover in one scene",
+   "hook_text": "'Who let the maid in?'",
+   "cliffhanger_text": "what happens to Ryan now?",
+   "safety_flags": []
+  }
+ ]
+}

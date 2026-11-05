@@ -1,0 +1,21 @@
+You are the story editor for a vertical microdrama series. Below are partial series bibles, each built from a block of consecutive episodes. Merge them into one compact series bible for the whole show.
+
+RULES
+- Merge the same character across parts into one entry (match by name and aliases). Renumber char_id as "C1", "C2", ... and update relationships to the new ids.
+- Merge threads that are the same story line. Renumber thread_id as "T1", "T2", ... Combine their key_event_ids. A thread is "resolved" only if some part resolves it; resolution_episode is the latest such episode.
+- Merge twists the same way (renumber "W1", ...). If one part has the setup and a later part has the payoff, join them into one twist. severity "major" only if it changes the main story.
+- Keep every setup_payoff_link, with thread_id mapped to the new ids.
+- Use ONLY event ids that appear in the parts. Never invent ids.
+- Keep it compact.
+
+PARTS
+{{parts}}
+
+Return ONLY a JSON object in this shape:
+{
+  "genre_tone": "...",
+  "characters": [{"char_id": "C1", "name": "...", "aliases": ["..."], "role": "...", "relationships": ["..."]}],
+  "threads": [{"thread_id": "T1", "name": "...", "start_episode": 1, "resolution_episode": null, "status": "open", "key_event_ids": ["E1_ev1"]}],
+  "twists": [{"twist_id": "W1", "description": "...", "severity": "major", "setup_event_id": "E1_ev1", "payoff_event_id": null}],
+  "setup_payoff_links": [{"setup_event_id": "E1_ev1", "payoff_event_id": "E3_ev2", "thread_id": "T1"}]
+}

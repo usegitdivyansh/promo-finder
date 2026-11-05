@@ -1,0 +1,21 @@
+You are the story editor for a vertical microdrama series. Below are per-episode summaries, key events (with event ids) and cliffhangers{{scope}}. Build a compact series bible.
+
+RULES
+- characters: every recurring character. char_id like "C1", "C2". aliases = every way the screenplay refers to them (first name, surname, title like "Ms. Clarke", nickname, role like "the lawyer"). role = a few words. relationships reference other char_ids (e.g. "wife of C2").
+- threads: the main plot threads (aim for 4 to 10). thread_id like "T1". status is "open" or "resolved". key_event_ids are event ids from the input that belong to this thread.
+- twists: story turns. severity "major" only if it changes the main story (e.g. a stolen company, a rigged contest, a long-hidden crime coming out). Otherwise "minor". setup_event_id is where it is planted or hinted, payoff_event_id is where it is revealed (null if not revealed yet).
+- setup_payoff_links: pairs of event ids where an earlier event sets up a later one.
+- Use ONLY event ids that appear in the input. Never invent ids.
+- Keep it compact: short descriptions, no prose.
+
+INPUT
+{{digest}}
+
+Return ONLY a JSON object in this shape:
+{
+  "genre_tone": "revenge romance",
+  "characters": [{"char_id": "C1", "name": "Full Name", "aliases": ["First", "Ms. Last"], "role": "lead, hidden heir", "relationships": ["wife of C2"]}],
+  "threads": [{"thread_id": "T1", "name": "short name", "start_episode": 1, "resolution_episode": null, "status": "open", "key_event_ids": ["E1_ev1"]}],
+  "twists": [{"twist_id": "W1", "description": "...", "severity": "major", "setup_event_id": "E1_ev1", "payoff_event_id": null}],
+  "setup_payoff_links": [{"setup_event_id": "E1_ev1", "payoff_event_id": "E3_ev2", "thread_id": "T1"}]
+}

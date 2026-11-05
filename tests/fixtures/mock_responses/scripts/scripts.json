@@ -1,0 +1,39 @@
+{"scripts": [
+ {"script_id": "C1", "template": "underdog_revenge", "idea": "Emma humiliated at the wedding, then revealed as owner; cut on Ryan's question",
+  "beats": [
+   {"beat": "hook", "need": "Emma publicly humiliated with wine", "event_id": "E1_ev1", "thread_id": "T4"},
+   {"beat": "escalation", "need": "Emma revealed as the new owner", "event_id": "E3_ev3", "thread_id": "T1"},
+   {"beat": "cliffhanger", "need": "Ryan asks who his wife is", "event_id": "E3_ev7", "thread_id": "T3"}]},
+ {"script_id": "C2", "template": "reveal_tease", "idea": "The 'maid' walks into the boardroom and takes the owner's seat",
+  "beats": [
+   {"beat": "hook", "need": "Ryan calls Emma the maid", "event_id": "E3_ev1", "thread_id": "T4"},
+   {"beat": "escalation", "need": "Emma claims the owner's seat", "event_id": "E3_ev3", "thread_id": "T1"},
+   {"beat": "cliffhanger", "need": "Ryan asks who he married", "event_id": "E3_ev7", "thread_id": "T3"}]},
+ {"script_id": "C3", "template": "single_scene", "idea": "The full wedding humiliation ending on Emma's vow",
+  "beats": [
+   {"beat": "scene", "need": "wine pour through to Emma's vow", "event_id": "E1_ev1", "thread_id": "T4"}]},
+ {"script_id": "C4", "template": "montage", "idea": "Wine, insults, the takeover, a secret, and Ryan's question",
+  "beats": [
+   {"beat": "peak", "need": "wine pour", "event_id": "E1_ev1", "thread_id": "T4"},
+   {"beat": "peak", "need": "maid insult in the boardroom", "event_id": "E3_ev1", "thread_id": "T4"},
+   {"beat": "peak", "need": "owner announcement", "event_id": "E3_ev3", "thread_id": "T1"},
+   {"beat": "peak", "need": "lawyer hints at her real identity", "event_id": "E2_ev4", "thread_id": "T3"},
+   {"beat": "cliffhanger", "need": "Ryan asks who he married", "event_id": "E3_ev7", "thread_id": "T3"}]},
+ {"script_id": "C5", "template": "romance_tension", "idea": "Lily takes Emma's ring, then the secret threatens her",
+  "beats": [
+   {"beat": "hook", "need": "Lily wears Emma's ring", "event_id": "E2_ev3", "thread_id": "T2"},
+   {"beat": "cliffhanger", "need": "Lily is caught", "event_id": "E2_ev4", "thread_id": "T3"}]},
+ {"script_id": "C6", "template": "mini_story", "idea": "Maid insult, Ryan fired, then the truth about Emma",
+  "beats": [
+   {"beat": "hook", "need": "Ryan calls Emma the maid", "event_id": "E3_ev1", "thread_id": "T4"},
+   {"beat": "escalation", "need": "Emma fires Ryan", "event_id": "E3_ev5", "thread_id": "T1"},
+   {"beat": "cliffhanger", "need": "Ryan learns something about Emma", "event_id": "E3_ev7", "thread_id": "T3"}]},
+ {"script_id": "C7", "template": "mini_story", "idea": "Uses the major twist payoff directly (should be dropped)",
+  "beats": [
+   {"beat": "hook", "need": "Ryan calls Emma the maid", "event_id": "E3_ev1", "thread_id": "T4"},
+   {"beat": "escalation", "need": "Emma's real identity revealed", "event_id": "E3_ev6", "thread_id": "T3"},
+   {"beat": "cliffhanger", "need": "Ryan asks who he married", "event_id": "E3_ev7", "thread_id": "T3"}]},
+ {"script_id": "C8", "template": "reveal_tease", "idea": "Invented event id (should be dropped)",
+  "beats": [
+   {"beat": "hook", "need": "Emma slaps Lily", "event_id": "E1_ev9", "thread_id": "T2"},
+   {"beat": "cliffhanger", "need": "Ryan asks who he married", "event_id": "E3_ev7", "thread_id": "T3"}]}]}

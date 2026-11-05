@@ -1,0 +1,18 @@
+{"genre_tone": "revenge romance, hidden heiress",
+ "characters": [
+  {"char_id": "C1", "name": "Emma Clarke", "aliases": ["Emma", "Ms. Clarke", "Miss Clarke", "Emma Sterling"], "role": "lead, humiliated wife, hidden heiress", "relationships": ["wife of C2"]},
+  {"char_id": "C2", "name": "Ryan Blake", "aliases": ["Ryan"], "role": "Emma's husband, wants to be CEO", "relationships": ["husband of C1"]},
+  {"char_id": "C3", "name": "Lily", "aliases": [], "role": "rival, wants Ryan", "relationships": ["rival of C1"]},
+  {"char_id": "C4", "name": "Mr. Harlow", "aliases": ["Harlow", "the lawyer"], "role": "Emma's lawyer", "relationships": ["lawyer of C1"]}],
+ "threads": [
+  {"thread_id": "T1", "name": "Emma's inheritance and revenge", "start_episode": 1, "resolution_episode": null, "status": "open", "key_event_ids": ["E1_ev4", "E1_ev5", "E2_ev1", "E2_ev2", "E3_ev2", "E3_ev3", "E3_ev5"]},
+  {"thread_id": "T2", "name": "Lily wants Emma's place", "start_episode": 1, "resolution_episode": 2, "status": "resolved", "key_event_ids": ["E1_ev3", "E2_ev3"]},
+  {"thread_id": "T3", "name": "Emma's true identity", "start_episode": 2, "resolution_episode": 3, "status": "resolved", "key_event_ids": ["E2_ev4", "E3_ev6", "E3_ev7"]},
+  {"thread_id": "T4", "name": "Emma treated as the maid", "start_episode": 1, "resolution_episode": 3, "status": "resolved", "key_event_ids": ["E1_ev1", "E1_ev2", "E3_ev1", "E3_ev4"]}],
+ "twists": [
+  {"twist_id": "W1", "description": "Emma is Richard Sterling's daughter", "severity": "major", "setup_event_id": "E2_ev4", "payoff_event_id": "E3_ev6"},
+  {"twist_id": "W2", "description": "Lily is after Emma's place as Ryan's wife", "severity": "minor", "setup_event_id": "E1_ev3", "payoff_event_id": "E2_ev3"}],
+ "setup_payoff_links": [
+  {"setup_event_id": "E1_ev4", "payoff_event_id": "E3_ev3", "thread_id": "T1"},
+  {"setup_event_id": "E2_ev4", "payoff_event_id": "E3_ev6", "thread_id": "T3"},
+  {"setup_event_id": "E1_ev1", "payoff_event_id": "E3_ev3", "thread_id": "T4"}]}

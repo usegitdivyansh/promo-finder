@@ -1,0 +1,11 @@
+{"episode": 2,
+ "summary": "Lawyer Harlow tells Emma her grandfather left her fifty-one percent of Blake Group, and Ryan's family has no idea. Emma signs the transfer and calls a board meeting. Meanwhile Lily tries on Emma's wedding ring and Ryan plans to become CEO. Harlow asks if he should tell them who she really is.",
+ "characters": ["Emma", "Harlow", "Lily", "Ryan"],
+ "key_events": [
+  {"line_id": "E2_L3", "description": "Harlow reveals Emma inherited fifty-one percent of Blake Group"},
+  {"line_id": "E2_L6", "description": "Emma signs the majority-shares transfer"},
+  {"line_id": "E2_L10", "description": "Lily wears Emma's wedding ring and says it suits her better"},
+  {"line_id": "E2_L13", "description": "Harlow asks whether to tell them who Emma really is"}],
+ "ending_cliffhanger": {"line_id": "E2_L15", "description": "Emma says they will find out the hard way"},
+ "primary_label": "reveal", "secondary_labels": ["scheme", "betrayal"], "peak_line_id": "E2_L13",
+ "label_reasons": {"reveal": "inheritance at E2_L3", "scheme": "board meeting plan at E2_L7", "betrayal": "Lily with the ring at E2_L10"}}

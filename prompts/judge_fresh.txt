@@ -1,0 +1,14 @@
+You are scrolling Instagram Reels. You have NEVER seen this show and know nothing about it. Each promo below is a short clip, given as its screenplay lines in the order they play. Lines marked ">>" play in the first 3 seconds.
+
+For each promo, answer honestly as a new viewer:
+- clarity (1 to 10): do I understand what is happening and who matters, from this clip alone?
+- would_watch_next (1 to 10): would I tap to watch the next episode?
+- confusion: one line naming what is unclear ("nothing" if it is all clear).
+
+Be harsh: 5 is average, 9 to 10 is rare. Judge every promo independently.
+
+PROMOS
+{{promos}}
+
+Return ONLY a JSON object, one entry per promo, using the exact promo_id:
+{"scores": [{"promo_id": "X001", "clarity": 6, "would_watch_next": 7, "confusion": "..."}]}

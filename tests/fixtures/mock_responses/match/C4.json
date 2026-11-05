@@ -1,0 +1,25 @@
+{
+ "script_id": "C4",
+ "picks": [
+  {
+   "beat_index": 0,
+   "shot_id": "E1_S2"
+  },
+  {
+   "beat_index": 1,
+   "shot_id": "E3_S3"
+  },
+  {
+   "beat_index": 2,
+   "shot_id": "E3_S1"
+  },
+  {
+   "beat_index": 3,
+   "shot_id": "E2_S3"
+  },
+  {
+   "beat_index": 4,
+   "shot_id": "E3_S2"
+  }
+ ]
+}

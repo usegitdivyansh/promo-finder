@@ -1,0 +1,34 @@
+{
+ "scores": [
+  {
+   "promo_id": "X001",
+   "clarity": 8,
+   "would_watch_next": 9,
+   "confusion": "nothing"
+  },
+  {
+   "promo_id": "X002",
+   "clarity": 7,
+   "would_watch_next": 8,
+   "confusion": "why she owns the company"
+  },
+  {
+   "promo_id": "X003",
+   "clarity": 8,
+   "would_watch_next": 6,
+   "confusion": "nothing"
+  },
+  {
+   "promo_id": "X004",
+   "clarity": 5,
+   "would_watch_next": 7,
+   "confusion": "too many jumps between scenes"
+  },
+  {
+   "promo_id": "X005",
+   "clarity": 6,
+   "would_watch_next": 6,
+   "confusion": "who Harlow is"
+  }
+ ]
+}

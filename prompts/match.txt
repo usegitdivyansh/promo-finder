@@ -1,0 +1,15 @@
+You are a promo editor. A promo script has beats. For each beat you get up to 5 candidate shots (exact screenplay lines). Pick the one shot per beat that best delivers the beat's need, or "none" if no candidate fits.
+
+Guidance
+- hook / first peak: the first line of the shot must grab attention immediately.
+- cliffhanger: the shot must END on an open question or unresolved moment.
+- The beats together should read as one story a new viewer can follow.
+- Pick "none" rather than a shot that does not deliver the need.
+
+SCRIPT {{script_id}} ({{template}}): {{idea}}
+
+BEATS AND CANDIDATES
+{{beats}}
+
+Return ONLY a JSON object in this shape (one pick per beat, beat_index as listed):
+{"script_id": "{{script_id}}", "picks": [{"beat_index": 0, "shot_id": "E1_S2"}, {"beat_index": 1, "shot_id": "none"}]}

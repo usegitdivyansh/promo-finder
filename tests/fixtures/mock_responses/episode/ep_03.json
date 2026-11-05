@@ -1,0 +1,14 @@
+{"episode": 3,
+ "summary": "At the board meeting Ryan mocks Emma as the maid and Lily calls her pathetic. Emma takes the chairman's seat and announces she is the new owner of Blake Group, then fires Ryan. In the corridor Harlow reveals her real name is Emma Sterling, Richard Sterling's daughter, and Ryan asks who he really married.",
+ "characters": ["Emma", "Ryan", "Lily", "Harlow"],
+ "key_events": [
+  {"line_id": "E3_L3", "description": "Ryan calls Emma the maid and calls security"},
+  {"line_id": "E3_L5", "description": "Emma sits in the chairman's seat"},
+  {"line_id": "E3_L9", "description": "Emma announces she is the new owner of Blake Group"},
+  {"line_id": "E3_L10", "description": "Lily drops her glass in shock"},
+  {"line_id": "E3_L13", "description": "Emma fires Ryan"},
+  {"line_id": "E3_L16", "description": "Harlow reveals Emma is Richard Sterling's daughter"},
+  {"line_id": "E3_L17", "description": "Ryan asks who the woman he married really is"}],
+ "ending_cliffhanger": {"line_id": "E3_L17", "description": "Ryan: Then who is the woman I married?"},
+ "primary_label": "power_shift", "secondary_labels": ["reveal", "humiliation"], "peak_line_id": "E3_L9",
+ "label_reasons": {"power_shift": "owner announcement at E3_L9", "reveal": "real identity at E3_L16", "humiliation": "maid insult at E3_L3"}}

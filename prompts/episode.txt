@@ -1,0 +1,42 @@
+You are a story editor for a vertical microdrama series (1 to 2 minute episodes). Read one episode's timestamped screenplay and label it.
+
+Each line looks like: [LINE_ID] [mm:ss] SPEAKER_OR_TYPE: text
+Lines marked "(RECAP, do not use)" replay the previous episode. They are never key events or the peak.
+
+LABELS (use only these exact names):
+- setup: introduces characters, situation or arc; little conflict
+- scheme: someone plans a trick, lie or plot
+- confrontation: open argument, fight or face-off
+- humiliation: a character is insulted, rejected or shamed, often publicly
+- reveal: a hidden truth comes out (identity, secret, pregnancy, past)
+- betrayal: a trusted character is caught lying, cheating or switching sides
+- power_shift: the underdog flips the situation or gets revenge
+- romance: attraction, kiss, confession, jealousy
+- danger: physical threat, accident, illness, kidnapping
+- emotional_light: sad, reflective or comedic, low stakes
+
+RULES
+- Refer to moments ONLY by LINE_ID (e.g. "{{first_id}}"). Never write timestamps.
+- Every line_id you use must appear in the screenplay below.
+- key_events: 2 to 6 of the most important story moments, in screenplay order. Each description is one short sentence naming who does what.
+- ending_cliffhanger: the line where the episode leaves the open question.
+- primary_label: one label. secondary_labels: at most 2 other labels.
+- peak_line_id: the single most dramatic line (not a recap line).
+- label_reasons: one short reason per label you used, citing a line id.
+- Use the character names as written in the screenplay.
+
+EPISODE {{episode}} SCREENPLAY
+{{lines}}
+
+Return ONLY a JSON object in this shape:
+{
+  "episode": {{episode}},
+  "summary": "3 to 4 sentences",
+  "characters": ["Name1", "Name2"],
+  "key_events": [{"line_id": "{{first_id}}", "description": "..."}],
+  "ending_cliffhanger": {"line_id": "...", "description": "..."},
+  "primary_label": "reveal",
+  "secondary_labels": ["confrontation"],
+  "peak_line_id": "...",
+  "label_reasons": {"reveal": "reason citing line id"}
+}

@@ -1,0 +1,22 @@
+{
+ "scores": [
+  {
+   "promo_id": "B01",
+   "clarity": 5,
+   "would_watch_next": 5,
+   "confusion": "who is calling"
+  },
+  {
+   "promo_id": "B02",
+   "clarity": 4,
+   "would_watch_next": 5,
+   "confusion": "who these people are"
+  },
+  {
+   "promo_id": "B03",
+   "clarity": 6,
+   "would_watch_next": 7,
+   "confusion": "why Ryan was fired"
+  }
+ ]
+}
