@@ -96,3 +96,13 @@ Every mistake noticed while building or running, from Claude Code (writing this 
   what: kept listing script beats out of story order even after the error was fed back (4 retries on the final run, and 1 script still dropped), and labelled a "You're fired" to "nobody learns my name" promo as romance_tension, which has no romance
   caught by: retry log and reading the final promos
   fix: none yet; the order check drops the bad scripts, and the template label is cosmetic. A stronger model for the scripts step is the likely fix
+
+- step: bible (pipeline LLM, deepseek-v4.1-flash, synthetic_deepseek run)
+  what: invented a major twist W5, "a legal document about Mira's mother hides a shocking family secret", which the script never says. It also split the Arjun/Tanya betrayal into two minor twists, one being "Tanya is pregnant", with the same setup event
+  caught by: comparing 03_bible.json across the two runs
+  fix: none needed for the promos; W5 has no payoff, so the spoiler guard ignores it. The earlier Flash-Lite mistake (the ep 5 murder call marked as a major payoff) did not happen: DeepSeek left that payoff empty, as the prompt asks
+
+- step: match (pipeline LLM, deepseek-v4.1-flash)
+  what: picked an event (E5_S4) that was not among the beat's candidates on the first attempt, and left 6 beats empty (5 cliffhangers, 1 hook), so the fill rate is 14/20, below Flash-Lite's 16/19
+  caught by: retry log and drops_step5.json
+  fix: the candidate check rejected the bad pick and the retry fixed it. The empty beats are correct refusals: no shot covered those cliffhangers inside the beat's story-order bounds. DeepSeek found 26 shots against Flash-Lite's 12, so its scripts asked for more specific moments than the shot bank could cover
