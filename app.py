@@ -39,16 +39,21 @@ STEP_NAMES = {"step1": "Parse screenplays", "step2": "Summarise episodes", "step
 AUTHOR = "Divyansh Gupta"
 TITLE = f"Promo Finder: Kuku AI Generalist Assignment, by {AUTHOR}"
 
-st.set_page_config(page_title=TITLE, page_icon="✂️", layout="centered",
+st.set_page_config(page_title=TITLE, page_icon="✂️", layout="centered", initial_sidebar_state="expanded",
                    menu_items={"Get help": None, "Report a bug": None, "About": f"Promo Finder · Built by {AUTHOR}"})
 
 # palette from kukufm.com (sources in .streamlit/config.toml). colours only: no kuku logo, wordmark or icons.
 # one accent (#E25506) for the rank badge, the timeline segments and the hook caption; everything else is neutral
 st.markdown("""
 <style>
-#MainMenu, footer, [data-testid="stToolbar"], [data-testid="stDecoration"], [data-testid="stStatusWidget"],
+/* hide streamlit's menu, toolbar actions and footer, but not stToolbar itself: the sidebar's expand button lives inside it */
+#MainMenu, [data-testid="stMainMenu"], [data-testid="stToolbarActions"], footer, [data-testid="stDecoration"], [data-testid="stStatusWidget"],
 [data-testid="stAppDeployButton"], .stDeployButton, .viewerBadge_container__1QSob {display:none !important}
 header[data-testid="stHeader"] {background:transparent}
+[data-testid="stToolbar"], [data-testid="stSidebarCollapsedControl"] {display:flex !important;visibility:visible !important}
+[data-testid="stExpandSidebarButton"], [data-testid="stSidebarCollapsedControl"] button {display:inline-flex !important;visibility:visible !important;opacity:1 !important;
+  background:#14141F !important;border:1px solid rgba(255,255,255,.18) !important;border-radius:10px !important;color:#ECEBE6 !important}
+[data-testid="stSidebarCollapseButton"], [data-testid="stSidebarCollapseButton"] button {visibility:visible !important;opacity:1 !important}
 :root{--acc:#E25506;--red:#EC1C24;--gold:#FFBB10;--green:#3FCB5A;--ink:#0A0A14;--surf:#14141F;--surf2:#1D1D2A;
   --line:rgba(255,255,255,.10);--mute:rgba(236,235,230,.62);--txt:#ECEBE6}
 .block-container{padding-top:2.2rem;padding-bottom:3rem}
@@ -490,6 +495,7 @@ st.markdown(f'''<div class="hero"><div class="ttl" role="heading" aria-level="1"
 <p>Ranked promo cuts from timestamped episode screenplays: exact cut times, the hook, the cliffhanger and why it works. An editor still approves and cuts.</p>
 <div class="by">Built by {AUTHOR}</div></div>''', unsafe_allow_html=True)
 st.info("Upload your own screenplays. No Kuku data is included.")
+st.caption("Enter your API key in the left sidebar (click » at top-left if hidden).")
 
 if st.button("Demo mode: see it on a made-up show", use_container_width=True):
     st.session_state["view"] = {"out": DEMO, "demo": True}
