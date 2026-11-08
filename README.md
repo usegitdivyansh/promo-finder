@@ -1,4 +1,4 @@
-# Promo Finder
+# Kuku Cut
 
 Reads timestamped microdrama screenplays and returns a **ranked list of promo clips** for Instagram, TikTok and YouTube Shorts. Each promo is one or more cuts (episode + start/end time, to the hundredth of a second), with the hook, the cliffhanger and why it works. It does not edit video: an editor approves the picks and cuts them.
 

@@ -1,6 +1,6 @@
 # Promo report
 
-Promo Finder · Built by Divyansh Gupta
+Kuku Cut · Built by Divyansh Gupta
 
 **Note:** only 4 promos passed the rules and diversity limits (min is 12); the quality bar was not lowered
 

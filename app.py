@@ -37,12 +37,12 @@ STEP_NAMES = {"step1": "Parse screenplays", "step2": "Summarise episodes", "step
               "baseline": "Score the last-30 s baseline", "step9": "Write report"}
 
 AUTHOR = "Divyansh Gupta"
-TITLE = f"Promo Finder: Kuku AI Generalist Assignment, by {AUTHOR}"
+TITLE = f"Kuku Cut: Kuku AI Generalist Assignment, by {AUTHOR}"
 
 TAGLINE = "Find the moment worth promoting"
 
 st.set_page_config(page_title=TITLE, page_icon="✂️", layout="wide", initial_sidebar_state="expanded",
-                   menu_items={"Get help": None, "Report a bug": None, "About": f"Promo Finder · Built by {AUTHOR}"})
+                   menu_items={"Get help": None, "Report a bug": None, "About": f"Kuku Cut · Built by {AUTHOR}"})
 
 
 def load_css():
@@ -233,7 +233,7 @@ def render_status(kind, text):
 
 def render_hero():
     st.markdown(f'''<div class="hero"><div class="eyebrow lbl">Kuku AI Generalist Assignment · by {AUTHOR}</div>
-<div class="ttl" role="heading" aria-level="1">Promo Finder<span class="live" title="live"></span></div>
+<div class="ttl" role="heading" aria-level="1">Kuku Cut<span class="live" title="live"></span></div>
 <p class="tag-line">{TAGLINE}</p>
 <p class="lede">Upload timestamped episode screenplays and get ranked promo cuts back: exact cut times, the hook, the cliffhanger and why each one works. An editor still approves and cuts.</p></div>''',
                 unsafe_allow_html=True)
@@ -495,12 +495,12 @@ def render_sidebar(base_cfg):
             fresh = st.checkbox("Fresh-viewer judge", value=True)
             do_base = st.checkbox("Score the last-30 s baseline", value=True)
         st.markdown('<p class="side-note"><b>Your key stays in this browser session.</b> It is passed straight to the provider and cleared after the run.</p>'
-                    f'<p class="side-note">Promo Finder · Built by {AUTHOR}</p>', unsafe_allow_html=True)
+                    f'<p class="side-note">Kuku Cut · Built by {AUTHOR}</p>', unsafe_allow_html=True)
     return provider, name, api_key, cap, num, fresh, do_base
 
 
 def render_footer():
-    st.markdown(f'<div class="foot">Built by {AUTHOR} · Promo Finder is an independent assignment project, not a Kuku product.</div>',
+    st.markdown(f'<div class="foot">Built by {AUTHOR} · Kuku Cut is an independent assignment project, not a Kuku product.</div>',
                 unsafe_allow_html=True)
 
 

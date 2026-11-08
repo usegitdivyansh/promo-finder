@@ -29,7 +29,7 @@ def test_demo_mode_loads_without_key(monkeypatch):
         for part in ['class="pr-rank"', 'class="pr-score"', 'class="tag"', 'class="conf ', 'class="dbar"', 'class="pq hook"', 'class="pq cliff"',
                      'class="seg"', 'class="track"', 'class="chip ', 'class="phone"']:
             assert part in c
-    assert any("Built by Divyansh Gupta · Promo Finder is an independent assignment project, not a Kuku product." in m.value for m in at.markdown)
+    assert any("Built by Divyansh Gupta · Kuku Cut is an independent assignment project, not a Kuku product." in m.value for m in at.markdown)
     assert len(at.get("download_button")) == 4
     strip = [m.value for m in at.markdown if 'class="sum"' in m.value]
     assert len(strip) == 1
