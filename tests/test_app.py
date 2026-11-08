@@ -16,15 +16,20 @@ def test_demo_mode_loads_without_key(monkeypatch):
     btn = {b.label: b for b in at.button}
     # no key, no files: the real run stays off
     assert btn["Run"].disabled
+    texts = " ".join(m.value for m in at.markdown)
+    assert "Enter your API key in the left sidebar (click » at top left if hidden)." in texts
+    assert "Upload your own screenplays. No Kuku data is included." in texts
     btn["Demo mode: see it on a made-up show"].click().run()
     assert not at.exception
-    cards = [m.value for m in at.markdown if 'class="cr"' in m.value]
+    cards = [m.value for m in at.markdown if 'class="pr"' in m.value]
     assert len(cards) >= 1
     for c in cards:
-        # rank badge, template tag, duration bar, bold hook, italic cliffhanger, colour-coded chips, timeline, phone
-        for part in ['class="rank"', 'class="tag"', 'class="dbar"', 'class="beat hook"', 'class="beat cliff"', 'class="chip ', 'class="track"', 'class="phone"']:
+        # rank and score, template tag, confidence badge, duration bar, hook and cliffhanger pull quotes,
+        # mono segments, per-episode timeline, colour-coded chips, phone preview
+        for part in ['class="pr-rank"', 'class="pr-score"', 'class="tag"', 'class="conf ', 'class="dbar"', 'class="pq hook"', 'class="pq cliff"',
+                     'class="seg"', 'class="track"', 'class="chip ', 'class="phone"']:
             assert part in c
-    assert any("Built by Divyansh Gupta" in m.value for m in at.markdown)
+    assert any("Built by Divyansh Gupta · Promo Finder is an independent assignment project, not a Kuku product." in m.value for m in at.markdown)
     assert len(at.get("download_button")) == 4
     strip = [m.value for m in at.markdown if 'class="sum"' in m.value]
     assert len(strip) == 1

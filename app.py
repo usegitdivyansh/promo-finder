@@ -39,90 +39,30 @@ STEP_NAMES = {"step1": "Parse screenplays", "step2": "Summarise episodes", "step
 AUTHOR = "Divyansh Gupta"
 TITLE = f"Promo Finder: Kuku AI Generalist Assignment, by {AUTHOR}"
 
-st.set_page_config(page_title=TITLE, page_icon="✂️", layout="centered", initial_sidebar_state="expanded",
+TAGLINE = "Find the moment worth promoting"
+
+st.set_page_config(page_title=TITLE, page_icon="✂️", layout="wide", initial_sidebar_state="expanded",
                    menu_items={"Get help": None, "Report a bug": None, "About": f"Promo Finder · Built by {AUTHOR}"})
 
-# palette from kukufm.com (sources in .streamlit/config.toml). colours only: no kuku logo, wordmark or icons.
-# one accent (#E25506) for the rank badge, the timeline segments and the hook caption; everything else is neutral
-st.markdown("""
-<style>
-/* hide streamlit's menu, toolbar actions and footer, but not stToolbar itself: the sidebar's expand button lives inside it */
-#MainMenu, [data-testid="stMainMenu"], [data-testid="stToolbarActions"], footer, [data-testid="stDecoration"], [data-testid="stStatusWidget"],
-[data-testid="stAppDeployButton"], .stDeployButton, .viewerBadge_container__1QSob {display:none !important}
-header[data-testid="stHeader"] {background:transparent}
-[data-testid="stToolbar"], [data-testid="stSidebarCollapsedControl"] {display:flex !important;visibility:visible !important}
-[data-testid="stExpandSidebarButton"], [data-testid="stSidebarCollapsedControl"] button {display:inline-flex !important;visibility:visible !important;opacity:1 !important;
-  background:#14141F !important;border:1px solid rgba(255,255,255,.18) !important;border-radius:10px !important;color:#ECEBE6 !important}
-[data-testid="stSidebarCollapseButton"], [data-testid="stSidebarCollapseButton"] button {visibility:visible !important;opacity:1 !important}
-:root{--acc:#E25506;--red:#EC1C24;--gold:#FFBB10;--green:#3FCB5A;--ink:#0A0A14;--surf:#14141F;--surf2:#1D1D2A;
-  --line:rgba(255,255,255,.10);--mute:rgba(236,235,230,.62);--txt:#ECEBE6}
-.block-container{padding-top:2.2rem;padding-bottom:3rem}
-.hero{border-radius:16px;padding:24px 22px 20px;margin:0 0 14px;background:var(--surf);border:1px solid var(--line)}
-.hero .ttl{font-size:30px;font-weight:700;line-height:1.1;margin:0;color:var(--txt);letter-spacing:-.01em}
-.hero .ttl::after{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--acc);margin-left:6px;vertical-align:baseline}
-.hero .sub{margin:6px 0 12px;font-size:14px;color:var(--mute)}
-.hero p{margin:0;font-size:15px;line-height:1.55;color:var(--txt);opacity:.9}
-.hero .by{margin-top:14px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
-.sum{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:14px 0 18px}
-.sum div{background:var(--surf);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
-.sum b{display:block;font-size:22px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--txt)}
-.sum small{display:block;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);margin-top:2px}
-.sum .ok b{color:var(--green)}.sum .bad b{color:var(--red)}
-@media (max-width:640px){.sum{grid-template-columns:repeat(2,minmax(0,1fr))}}
-.cr{display:grid;grid-template-columns:minmax(0,1fr) 176px;gap:20px;align-items:start;padding:4px 2px}
-@media (max-width:640px){.cr{grid-template-columns:minmax(0,1fr)}.phone{margin:6px auto 0}}
-.head{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
-.rank{display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:34px;padding:0 8px;border-radius:10px;
-  background:var(--acc);color:#fff;font-weight:700;font-size:15px;font-variant-numeric:tabular-nums}
-.tag{font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;border:1px solid var(--line);background:var(--surf2);
-  color:var(--txt);border-radius:999px;padding:3px 10px}
-.conf{font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;border-radius:999px;padding:3px 9px;border:1px solid currentColor}
-.conf.high{color:var(--green)}.conf.medium{color:var(--gold)}.conf.low{color:var(--red)}
-.tot{margin-left:auto;font-size:22px;font-weight:700;font-variant-numeric:tabular-nums}
-.tot small{font-size:11px;font-weight:500;color:var(--mute);margin-left:3px}
-.dur{margin:14px 0 4px}
-.dbar{position:relative;height:6px;border-radius:3px;background:var(--surf2);overflow:hidden}
-.dbar .win{position:absolute;top:0;bottom:0;left:33.33%;right:0;background:rgba(255,255,255,.07)}
-.dbar .fill{position:absolute;top:0;bottom:0;left:0;border-radius:3px;background:var(--txt);opacity:.85}
-.dur small{display:flex;justify-content:space-between;font-size:12px;color:var(--mute);margin-top:4px;font-variant-numeric:tabular-nums}
-.beat{margin:14px 0 0}
-.beat small{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);margin-bottom:2px}
-.beat.hook div{font-weight:700;font-size:16px;line-height:1.45}
-.beat.cliff div{font-style:italic;font-size:15px;line-height:1.5}
-.beat.why div{font-size:14px;line-height:1.55;opacity:.88}
-.tl{margin:16px 0 0;border-top:1px solid var(--line);padding-top:12px}
-.tl-row{display:grid;grid-template-columns:44px minmax(0,1fr) 42px;gap:8px;align-items:center;margin:4px 0}
-.tl-row .ep{font-size:12px;font-weight:600;color:var(--mute)}
-.tl-row .len{font-size:11px;color:var(--mute);text-align:right;font-variant-numeric:tabular-nums}
-.track{position:relative;height:6px;border-radius:3px;background:var(--surf2)}
-.track span{position:absolute;top:-1px;height:8px;border-radius:3px;background:var(--acc);min-width:4px}
-.tcs{margin:6px 0 0;font-size:12px;color:var(--mute);font-family:ui-monospace,Menlo,Consolas,monospace;font-variant-numeric:tabular-nums;line-height:1.6;overflow-wrap:anywhere}
-.scores{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0 2px}
-.chip{font-size:12px;border-radius:999px;padding:2px 10px;font-variant-numeric:tabular-nums;border:1px solid currentColor}
-.chip.hi{color:var(--green)}.chip.mid{color:var(--gold)}.chip.lo{color:var(--red)}.chip.na{color:var(--mute)}
-.phone{width:176px;border-radius:26px;padding:8px;background:#000;border:1px solid var(--line)}
-.screen{position:relative;aspect-ratio:9/16;border-radius:19px;overflow:hidden;background:var(--surf)}
-.notch{position:absolute;top:6px;left:50%;transform:translateX(-50%);width:50px;height:6px;border-radius:3px;background:#000;z-index:2}
-.pv-top{position:absolute;top:18px;left:10px;right:10px;display:flex;justify-content:space-between;font-size:10px;color:var(--mute);z-index:2}
-.pv-caps{position:absolute;top:36px;bottom:100px;left:8px;right:8px;overflow-y:auto;display:flex;flex-direction:column;gap:5px;scrollbar-width:none;
-  -webkit-mask-image:linear-gradient(#000 82%,transparent);mask-image:linear-gradient(#000 82%,transparent)}
-.cap{font-size:11px;line-height:1.3;color:var(--txt);background:var(--surf2);border-radius:7px;padding:4px 7px}
-.cap i{opacity:.75}
-.cap.hk{background:var(--acc);color:#fff}
-.cap.cf{background:var(--txt);color:var(--ink);font-style:italic}
-.cap .t{opacity:.6;font-size:9px;margin-right:4px;font-variant-numeric:tabular-nums;font-style:normal}
-.pv-cf{position:absolute;bottom:40px;left:8px;right:8px}
-.pv-cf .cap{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-.pv-end{position:absolute;bottom:10px;left:10px;right:10px;text-align:center;font-size:11px;font-weight:600;color:var(--txt);
-  border:1px solid var(--line);border-radius:999px;padding:4px}
-.ln{font-size:13px;line-height:1.45;margin:1px 0}
-.ln .ts{opacity:.6;font-variant-numeric:tabular-nums;margin-right:6px}
-.ln .who{font-weight:600}
-.ln.key{background:rgba(226,85,6,.18);border-radius:4px;padding:0 4px}
-.foot{margin:32px 0 8px;padding-top:14px;border-top:1px solid var(--line);font-size:13px;color:var(--mute);text-align:center;line-height:1.6}
-[data-testid="stVerticalBlockBorderWrapper"]{border-radius:16px}
-</style>
-""", unsafe_allow_html=True)
+
+def load_css():
+    # every style lives in ui/style.css (colours, fonts and spacing are variables at its top)
+    with open(os.path.join(ROOT, "ui", "style.css"), encoding="utf-8") as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
+
+load_css()
+
+# inline feather-style icons; no hosted images
+ICONS = {
+    "upload": '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>',
+    "spark": '<path d="M12 3l1.8 5.4L19 10l-5.2 1.6L12 17l-1.8-5.4L5 10l5.2-1.6z"/><path d="M19 15l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7z"/>',
+    "cut": '<circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/>',
+    "check": '<polyline points="20 6 9 17 4 12"/>',
+}
+WORKFLOW = [("01", "Upload", "your episode screenplays", "upload"),
+            ("02", "Discover", "AI finds the most promo-worthy moments", "spark"),
+            ("03", "Extract", "cut points, hooks, cliffhangers and why", "cut")]
 
 
 @st.cache_resource
@@ -277,8 +217,80 @@ def esc(x):
     return html.escape(str(x))
 
 
+def svg(name):
+    return (f'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" '
+            f'stroke-linejoin="round" aria-hidden="true">{ICONS[name]}</svg>')
+
+
+def status_html(kind, text):
+    # kind: active (amber), idle (gray) or error (red). text is html built in this file; escape anything external first
+    return f'<div class="status {kind}"><span class="dot"></span><span>{text}</span></div>'
+
+
+def render_status(kind, text):
+    st.markdown(status_html(kind, text), unsafe_allow_html=True)
+
+
+def render_hero():
+    st.markdown(f'''<div class="hero"><div class="eyebrow lbl">Kuku AI Generalist Assignment · by {AUTHOR}</div>
+<div class="ttl" role="heading" aria-level="1">Promo Finder<span class="live" title="live"></span></div>
+<p class="tag-line">{TAGLINE}</p>
+<p class="lede">Upload timestamped episode screenplays and get ranked promo cuts back: exact cut times, the hook, the cliffhanger and why each one works. An editor still approves and cuts.</p></div>''',
+                unsafe_allow_html=True)
+
+
+def render_steps():
+    items = ""
+    for num, name, desc, ic in WORKFLOW:
+        items += (f'<div class="step"><div class="ic">{svg(ic)}</div><div class="num">{num}</div>'
+                  f'<div class="name">{name}</div><div class="desc">{desc}</div></div>')
+    st.markdown(f'<div class="steps">{items}</div>', unsafe_allow_html=True)
+
+
+def render_stat_tile(value, label, cls=""):
+    return f'<div class="tile {cls}"><b>{value}</b><span class="lbl">{label}</span></div>'
+
+
+def render_estimate(est, model, cap):
+    t = est["total"]
+    pi, po = est["price_per_1m"]
+    tokens = (t["prompt_tokens"] + t["completion_tokens"]) / 1000
+    st.markdown(f'''<div class="lbl">Estimate for {est["episodes"]} episodes</div><div class="est">
+<div><b>~{t["calls"]}</b><span class="lbl">LLM calls</span></div><div><b>{tokens:,.0f}k</b><span class="lbl">tokens</span></div>
+<div><b>~${t["usd"]:.2f}</b><span class="lbl">cost</span></div></div>
+<p class="est-note">At ${pi:g} / ${po:g} per 1M tokens for <code>{esc(model)}</code>. A rough estimate from token use on earlier runs; reasoning models can use more. The spend cap is the hard limit.</p>''',
+                unsafe_allow_html=True)
+    if t["usd"] > cap:
+        render_status("error", f"The estimate is above your <b>${cap:.2f}</b> cap, so the run will probably stop early. Raise the cap or upload fewer episodes.")
+
+
+def score_class(v, hi, mid):
+    if v >= hi:
+        return "hi"
+    if v >= mid:
+        return "mid"
+    return "lo"
+
+
+def chip(label, v, hi, mid):
+    return f'<span class="chip {score_class(v, hi, mid)}">{label} <span class="mono">{v}</span></span>'
+
+
+def segments_html(p, eps_by):
+    # cut times as data: episode, in, out, length, role
+    rows = ""
+    for i, s in enumerate(p["segments"]):
+        lines = eps_by[s["episode"]]["lines"]
+        a = lines[s["a"]]["start"]
+        b = lines[s["b"]]["end"]
+        rows += (f'<div class="seg"><span class="k">CUT {i+1}</span><span>EP {s["episode"]}</span>'
+                 f'<span>{fmt_cut(a)} → {fmt_cut(b)}</span><span class="m"><span class="d">{b - a:.1f}s</span>'
+                 f'<span class="r">{esc(", ".join(s["roles"]))}</span></span></div>')
+    return f'<div class="segs"><span class="lbl">Segments</span>{rows}</div>'
+
+
 def timeline_html(p, eps_by):
-    # one slim bar per episode, every cut from that episode highlighted on it, timecodes listed below
+    # one slim bar per episode, every cut from that episode highlighted on it
     order = []
     segs = {}
     for s in p["segments"]:
@@ -299,22 +311,7 @@ def timeline_html(p, eps_by):
             spans += f'<span style="left:{left:.2f}%;width:{width:.2f}%" title="{fmt_cut(a)} → {fmt_cut(b)}"></span>'
         rows += (f'<div class="tl-row"><span class="ep">EP {ep}</span><div class="track">{spans}</div>'
                  f'<span class="len">{int(dur // 60)}:{int(dur % 60):02d}</span></div>')
-    tcs = ""
-    for i, s in enumerate(p["segments"]):
-        lines = eps_by[s["episode"]]["lines"]
-        a = lines[s["a"]]["start"]
-        b = lines[s["b"]]["end"]
-        tcs += f'Cut {i+1} · EP {s["episode"]} · {fmt_cut(a)} → {fmt_cut(b)} · {b - a:.1f} s · {esc(", ".join(s["roles"]))}<br>'
-    return f'<div class="tl">{rows}<div class="tcs">{tcs}</div></div>'
-
-
-def chip(label, v, hi, mid):
-    cls = "lo"
-    if v >= hi:
-        cls = "hi"
-    elif v >= mid:
-        cls = "mid"
-    return f'<span class="chip {cls}">{label} {v}</span>'
+    return f'<div class="tl">{rows}</div>'
 
 
 def phone_html(p, eps_by):
@@ -350,28 +347,30 @@ def phone_html(p, eps_by):
             f'<div class="pv-caps">{body}</div>{cliff}<div class="pv-end">Next episode ▸</div></div></div>')
 
 
-def card_html(f, p, eps_by):
+def promo_row_html(f, p, eps_by):
     sc = f["scores"]
     conf = str(f["confidence"]).lower()
     d = f["total_duration_sec"]
-    head = (f'<div class="head"><span class="rank">#{f["rank"]}</span>'
-            f'<span class="tag">{esc(f["template"].replace("_", " "))}</span>'
-            f'<span class="conf {esc(conf)}">{esc(conf)} confidence</span>'
-            f'<span class="tot">{sc["total"]}<small>/ 100</small></span></div>')
-    # bar runs 0-60 s; the shaded part is the 20-60 s target window
+    head = (f'<div class="pr-head"><span class="pr-rank"><small>#</small>{f["rank"]:02d}</span>'
+            f'<span class="pr-score">{sc["total"]}<small>/100</small></span>'
+            f'<span class="pr-tags"><span class="tag">{esc(f["template"].replace("_", " "))}</span>'
+            f'<span class="conf {esc(conf)}">{esc(conf)} confidence</span></span></div>')
+    # bar runs 0-60 s; the lighter part is the 20-60 s target window
     fill = max(2.0, min(100.0, d / 60 * 100))
     dur = (f'<div class="dur"><div class="dbar"><div class="win"></div><div class="fill" style="width:{fill:.1f}%"></div></div>'
            f'<small><span>{d:.1f} s</span><span>target 20–60 s</span></small></div>')
-    beats = (f'<div class="beat hook"><small>Hook</small><div>{esc(f["hook"])}</div></div>'
-             f'<div class="beat cliff"><small>Cliffhanger</small><div>{esc(f["cliffhanger"])}</div></div>'
-             f'<div class="beat why"><small>Why it works</small><div>{esc(f["why_it_works"])}</div></div>')
-    pen = "na"
+    quotes = (f'<div class="pq hook"><span class="lbl">Hook</span><q>{esc(f["hook"])}</q></div>'
+              f'<div class="pq cliff"><span class="lbl">Cliffhanger</span><q>{esc(f["cliffhanger"])}</q></div>'
+              f'<p class="why"><span class="lbl">Why it works</span><br>{esc(f["why_it_works"])}</p>')
+    pen = "hi"
     if sc["spoiler_penalty"]:
         pen = "lo"
     scores = ('<div class="scores">' + chip("hook", sc["hook"], 8, 6) + chip("cliffhanger", sc["cliffhanger"], 8, 6)
               + chip("clarity", sc["clarity"], 8, 6) + chip("coherence", sc["coherence"], 8, 6)
-              + chip("duration", sc["duration"], 8, 6) + f'<span class="chip {pen}">spoiler −{sc["spoiler_penalty"]}</span></div>')
-    return f'<div class="cr"><div>{head}{dur}{beats}{timeline_html(p, eps_by)}{scores}</div>{phone_html(p, eps_by)}</div>'
+              + chip("duration", sc["duration"], 8, 6)
+              + f'<span class="chip {pen}">spoiler <span class="mono">−{sc["spoiler_penalty"]}</span></span></div>')
+    main = head + dur + quotes + segments_html(p, eps_by) + timeline_html(p, eps_by) + scores
+    return f'<div class="pr"><div>{main}</div>{phone_html(p, eps_by)}</div>'
 
 
 def lines_html(s, eps_by):
@@ -389,16 +388,19 @@ def lines_html(s, eps_by):
     return "".join(out)
 
 
-def card(f, p, eps_by):
-    with st.container(border=True):
-        st.markdown(card_html(f, p, eps_by), unsafe_allow_html=True)
+def render_promo_row(f, p, eps_by):
+    # the container key carries the score grade, which colours the left accent bar
+    grade = score_class(f["scores"]["total"], 80, 65)
+    with st.container(key=f"promo-{grade}-{f['rank']}"):
+        st.markdown(promo_row_html(f, p, eps_by), unsafe_allow_html=True)
         with st.expander("Screenplay lines"):
             if f.get("confusion"):
-                st.caption(f"A fresh viewer might ask: {f['confusion']}")
+                st.markdown(status_html("idle", f"A fresh viewer might ask: {esc(f['confusion'])}"), unsafe_allow_html=True)
             for i, s in enumerate(p["segments"]):
                 lines = eps_by[s["episode"]]["lines"]
-                st.markdown(f"**Cut {i+1}** · episode {s['episode']} · {fmt_cut(lines[s['a']]['start'])}–{fmt_cut(lines[s['b']]['end'])} · {', '.join(s['roles'])}")
-                st.markdown(lines_html(s, eps_by), unsafe_allow_html=True)
+                st.markdown(f'<div class="lines-h">CUT {i+1} · EP {s["episode"]} · {fmt_cut(lines[s["a"]]["start"])} → '
+                            f'{fmt_cut(lines[s["b"]]["end"])} · {esc(", ".join(s["roles"]))}</div>' + lines_html(s, eps_by),
+                            unsafe_allow_html=True)
 
 
 def rules_passed(out):
@@ -426,10 +428,21 @@ def summary_html(eps, promos, rules, cost):
         rc = "bad"
         if rules[0] == rules[1]:
             rc = "ok"
-    return (f'<div class="sum"><div><b>{eps}</b><small>Episodes processed</small></div>'
-            f'<div><b>{promos}</b><small>Promos found</small></div>'
-            f'<div class="{rc}"><b>{rv}</b><small>Rules passed</small></div>'
-            f'<div><b>{cost}</b><small>Cost of this run</small></div></div>')
+    tiles = (render_stat_tile(eps, "Episodes processed") + render_stat_tile(promos, "Promos found")
+             + render_stat_tile(rv, "Rules passed", rc) + render_stat_tile(cost, "Cost of this run"))
+    return f'<div class="sum">{tiles}</div>'
+
+
+def render_downloads(out):
+    d = os.path.join(out, "09_final")
+    cols = st.columns(4)
+    cols[0].download_button("promos.json", open(os.path.join(d, "promos.json"), "rb").read(), "promos.json", use_container_width=True)
+    cols[1].download_button("promos.csv", open(os.path.join(d, "promos.csv"), "rb").read(), "promos.csv", use_container_width=True)
+    cols[2].download_button("report.html", open(os.path.join(d, "report.html"), "rb").read(), "report.html", use_container_width=True)
+    zk = "zip_" + out
+    if zk not in st.session_state:
+        st.session_state[zk] = zip_dir(out)
+    cols[3].download_button("raw outputs (zip)", st.session_state[zk], "raw_outputs.zip", use_container_width=True)
 
 
 def results(out, demo):
@@ -443,151 +456,153 @@ def results(out, demo):
     for p in sel["selected"]:
         by_id[p["promo_id"]] = p
     calls, cached, cost = usage_cost(out)
-    if demo:
-        st.success("Demo: a made-up 5-episode show, with saved results from a real run. No key, no cost.")
     cost_txt = f"${cost:.3f}"
     if demo:
         cost_txt = "$0"
-    st.markdown(summary_html(summ["run"].get("episodes", 0), len(finals), rules_passed(out), cost_txt), unsafe_allow_html=True)
-    if demo:
-        st.caption("Demo results were rebuilt from saved model responses, so this view made no LLM calls and cost nothing.")
-    if sel["note"]:
-        st.warning(sel["note"])
-    b = summ.get("baseline")
-    if b:
-        st.caption(f"Same judges on the last 30 s of each episode (baseline): top-15 mean {b['mean_total_baseline_top15']} vs tool {b['mean_total_tool_top15']}.")
-    st.subheader("Ranked promos")
-    for f in finals:
-        card(f, by_id[f["internal_id"]], eps_by)
-    st.subheader("Downloads")
-    d = os.path.join(out, "09_final")
-    c1, c2 = st.columns(2)
-    c1.download_button("promos.json", open(os.path.join(d, "promos.json"), "rb").read(), "promos.json", use_container_width=True)
-    c2.download_button("promos.csv", open(os.path.join(d, "promos.csv"), "rb").read(), "promos.csv", use_container_width=True)
-    c1.download_button("report.html", open(os.path.join(d, "report.html"), "rb").read(), "report.html", use_container_width=True)
-    zk = "zip_" + out
-    if zk not in st.session_state:
-        st.session_state[zk] = zip_dir(out)
-    c2.download_button("raw outputs (zip)", st.session_state[zk], "raw_outputs.zip", use_container_width=True)
-    if not demo:
-        st.caption(f"{calls} LLM calls ({cached} from this session's cache).")
+    with st.container(key="results"):
+        st.markdown('<div class="sec-h">Results</div>', unsafe_allow_html=True)
+        if demo:
+            render_status("idle", "<b>Demo:</b> a made-up 5-episode show. Rebuilt from saved model responses, so this view made no LLM calls and cost nothing.")
+        st.markdown(summary_html(summ["run"].get("episodes", 0), len(finals), rules_passed(out), cost_txt), unsafe_allow_html=True)
+        if sel["note"]:
+            render_status("error", esc(sel["note"]))
+        b = summ.get("baseline")
+        if b:
+            render_status("idle", f"Same judges on the last 30 s of each episode (baseline): top-15 mean "
+                                  f"<b>{b['mean_total_baseline_top15']}</b> vs tool <b>{b['mean_total_tool_top15']}</b>.")
+        st.markdown('<div class="sec-h" style="margin-top:28px">Ranked cuts</div>', unsafe_allow_html=True)
+        with st.container(key="promolist"):
+            for f in finals:
+                render_promo_row(f, by_id[f["internal_id"]], eps_by)
+        st.markdown('<div class="sec-h" style="margin-top:28px">Downloads</div>', unsafe_allow_html=True)
+        render_downloads(out)
+        if not demo:
+            render_status("idle", f"{calls} LLM calls ({cached} from this session's cache).")
+
+
+def render_sidebar(base_cfg):
+    # widgets, labels and order are unchanged; the key lives only in this session's widget state
+    with st.sidebar:
+        st.markdown('<div class="side-h">Model</div>', unsafe_allow_html=True)
+        provider = st.selectbox("Provider", list(PROVIDERS))
+        name = st.text_input("Model name", value=PROVIDERS[provider][1], key="model_" + provider,
+                             help="As the provider names it. With 'Other', the full litellm name, e.g. mistral/mistral-small-latest.")
+        api_key = st.text_input("API key", type="password", help="Used for this session's run only. Never saved, logged or shared.")
+        cap = st.number_input("Spend cap per run (USD)", min_value=0.01, max_value=20.0, value=1.0, step=0.1, format="%.2f",
+                              help="The run stops before any call that could go over this.")
+        with st.expander("Options"):
+            num = st.slider("Max promos", 3, 30, int(base_cfg["promo"]["num_promos_max"]))
+            fresh = st.checkbox("Fresh-viewer judge", value=True)
+            do_base = st.checkbox("Score the last-30 s baseline", value=True)
+        st.markdown('<p class="side-note"><b>Your key stays in this browser session.</b> It is passed straight to the provider and cleared after the run.</p>'
+                    f'<p class="side-note">Promo Finder · Built by {AUTHOR}</p>', unsafe_allow_html=True)
+    return provider, name, api_key, cap, num, fresh, do_base
+
+
+def render_footer():
+    st.markdown(f'<div class="foot">Built by {AUTHOR} · Promo Finder is an independent assignment project, not a Kuku product.</div>',
+                unsafe_allow_html=True)
 
 
 base_cfg = load_cfg()
+provider, name, api_key, cap, num, fresh, do_base = render_sidebar(base_cfg)
 
-with st.sidebar:
-    st.header("Model")
-    provider = st.selectbox("Provider", list(PROVIDERS))
-    name = st.text_input("Model name", value=PROVIDERS[provider][1], key="model_" + provider,
-                         help="As the provider names it. With 'Other', the full litellm name, e.g. mistral/mistral-small-latest.")
-    api_key = st.text_input("API key", type="password", help="Used for this session's run only. Never saved, logged or shared.")
-    cap = st.number_input("Spend cap per run (USD)", min_value=0.01, max_value=20.0, value=1.0, step=0.1, format="%.2f",
-                          help="The run stops before any call that could go over this.")
-    with st.expander("Options"):
-        num = st.slider("Max promos", 3, 30, int(base_cfg["promo"]["num_promos_max"]))
-        fresh = st.checkbox("Fresh-viewer judge", value=True)
-        do_base = st.checkbox("Score the last-30 s baseline", value=True)
-    st.caption("Your key stays in this browser session. It is passed straight to the provider and cleared after the run.")
-    st.caption(f"Promo Finder · Built by {AUTHOR}")
+with st.container(key="intro"):
+    render_hero()
+    render_status("idle", "Upload your own screenplays. No Kuku data is included.")
+    render_status("idle", "Enter your API key in the left sidebar (click » at top left if hidden).")
+    if st.button("Demo mode: see it on a made-up show", key="demo", type="tertiary"):
+        st.session_state["view"] = {"out": DEMO, "demo": True}
+    render_steps()
 
-st.markdown(f'''<div class="hero"><div class="ttl" role="heading" aria-level="1">Promo Finder</div>
-<div class="sub">Kuku AI Generalist Assignment, by {AUTHOR}</div>
-<p>Ranked promo cuts from timestamped episode screenplays: exact cut times, the hook, the cliffhanger and why it works. An editor still approves and cuts.</p>
-<div class="by">Built by {AUTHOR}</div></div>''', unsafe_allow_html=True)
-st.info("Upload your own screenplays. No Kuku data is included.")
-st.caption("Enter your API key in the left sidebar (click » at top-left if hidden).")
+    with st.container(key="upload"):
+        files = st.file_uploader("Screenplays: one file per episode, or a zip", accept_multiple_files=True, type=EXTS + ["zip"])
 
-if st.button("Demo mode: see it on a made-up show", use_container_width=True):
-    st.session_state["view"] = {"out": DEMO, "demo": True}
+        model = model_name(provider, name)
+        cfg = run_cfg(base_cfg, model, cap, num, fresh, do_base)
+        ready = False
+        if files:
+            up = parsed_upload(files, cfg)
+            if up["err"]:
+                render_status("error", f"Could not read the upload: {esc(up['err'])}")
+            elif not up["eps"]:
+                render_status("error", "No episodes found. Each file needs timestamped lines.")
+            else:
+                for x in up["failed"]:
+                    render_status("error", f"Skipped {esc(x.get('file'))}: {esc(x.get('error'))}")
+                ready = True
+                if model:
+                    render_estimate(estimate(up["eps"], cfg, model), model, cap)
 
-files = st.file_uploader("Screenplays: one file per episode, or a zip", accept_multiple_files=True, type=EXTS + ["zip"])
+        missing = []
+        if not files:
+            missing.append("upload screenplays")
+        if not name.strip():
+            missing.append("set a model name")
+        if not api_key:
+            missing.append("enter an API key")
+        if missing:
+            render_status("idle", "Idle. To run on your own files: " + ", ".join(missing) + ".")
+        elif ready:
+            render_status("active", "Ready to run")
+        go = st.button("Run", key="run", type="primary", disabled=bool(missing) or not ready, use_container_width=True)
 
-model = model_name(provider, name)
-cfg = run_cfg(base_cfg, model, cap, num, fresh, do_base)
-ready = False
-if files:
-    up = parsed_upload(files, cfg)
-    if up["err"]:
-        st.error(f"Could not read the upload: {up['err']}")
-    elif not up["eps"]:
-        st.error("No episodes found. Each file needs timestamped lines.")
-    else:
-        for x in up["failed"]:
-            st.warning(f"Skipped {x.get('file')}: {x.get('error')}")
-        ready = True
-        if model:
-            est = estimate(up["eps"], cfg, model)
-            t = est["total"]
-            pi, po = est["price_per_1m"]
-            st.markdown(f"**Estimate for {est['episodes']} episodes:** about {t['calls']} LLM calls, "
-                        f"{(t['prompt_tokens'] + t['completion_tokens']) / 1000:,.0f}k tokens, **~${t['usd']:.2f}** "
-                        f"at ${pi:g} / ${po:g} per 1M tokens for `{model}`.")
-            if t["usd"] > cap:
-                st.warning(f"The estimate is above your ${cap:.2f} cap, so the run will probably stop early. Raise the cap or upload fewer episodes.")
-            st.caption("A rough estimate from token use on earlier runs; reasoning models can use more. The cap is the hard limit.")
+        if go:
+            lock = run_lock()
+            if not lock.acquire(blocking=False):
+                render_status("error", "Another run is in progress on this server. Try again in a few minutes, or use demo mode.")
+                st.stop()
+            up = st.session_state["upload"]
+            out = os.path.join(up["work"], "out_" + time.strftime("%H%M%S"))
+            if "cache" not in st.session_state:
+                st.session_state["cache"] = tempfile.mkdtemp(prefix="promo_cache_")
+            order = [s for s in pipeline.STEPS if s != "baseline" or do_base]
+            scan = st.empty()
+            scan.markdown('<div class="scan"><span></span></div>', unsafe_allow_html=True)
+            status = st.status("Running…", expanded=True)
+            bar = status.progress(0.0)
+            note = status.empty()
+            done = []
 
-missing = []
-if not files:
-    missing.append("upload screenplays")
-if not name.strip():
-    missing.append("set a model name")
-if not api_key:
-    missing.append("enter an API key")
-if missing:
-    st.caption("To run on your own files: " + ", ".join(missing) + ".")
-go = st.button("Run", type="primary", disabled=bool(missing) or not ready, use_container_width=True)
+            def prog(step, i, n):
+                if done:
+                    note.write("✓ " + " · ".join(STEP_NAMES[s] for s in done))
+                done.append(step)
+                k = order.index(step)
+                bar.progress(k / len(order), text=f"{STEP_NAMES[step]} ({k+1}/{len(order)}) · spent ${llm.state.get('run_spent', 0.0):.3f}")
 
-if go:
-    lock = run_lock()
-    if not lock.acquire(blocking=False):
-        st.error("Another run is in progress on this server. Try again in a few minutes, or use demo mode.")
-        st.stop()
-    up = st.session_state["upload"]
-    out = os.path.join(up["work"], "out_" + time.strftime("%H%M%S"))
-    if "cache" not in st.session_state:
-        st.session_state["cache"] = tempfile.mkdtemp(prefix="promo_cache_")
-    order = [s for s in pipeline.STEPS if s != "baseline" or do_base]
-    status = st.status("Running…", expanded=True)
-    bar = status.progress(0.0)
-    note = status.empty()
-    done = []
-
-    def prog(step, i, n):
-        if done:
-            note.write("✓ " + " · ".join(STEP_NAMES[s] for s in done))
-        done.append(step)
-        k = order.index(step)
-        bar.progress(k / len(order), text=f"{STEP_NAMES[step]} ({k+1}/{len(order)}) · spent ${llm.state.get('run_spent', 0.0):.3f}")
-
-    try:
-        llm.setup(cfg, run_dir=out, cache_dir=st.session_state["cache"], api_key=api_key, use_env=False)
-        pipeline.run(up["inp"], out, cfg, progress=prog)
-        try:
-            check_rules.run(out, cfg, [])
-        except Exception as ex:
-            st.warning(f"Rule check could not run: {str(ex)[:200]}")
-        bar.progress(1.0, text=f"Done · spent ${llm.state.get('run_spent', 0.0):.3f}")
-        status.update(label="Done", state="complete", expanded=False)
-        st.session_state["view"] = {"out": out, "demo": False}
-    except llm.BudgetError as ex:
-        status.update(label="Stopped at the spend cap", state="error")
-        st.error(f"Stopped: {redact(str(ex), api_key)}")
-    except SystemExit as ex:
-        status.update(label="Stopped", state="error")
-        st.error(redact(str(ex), api_key))
-    except Exception as ex:
-        status.update(label="Failed", state="error")
-        msg = redact(f"{type(ex).__name__}: {ex}", api_key)
-        if "auth" in msg.lower() or "401" in msg:
-            msg = "The provider rejected the API key or model name. " + msg[:300]
-        st.error(msg[:600])
-    finally:
-        llm.forget_key()
-        lock.release()
+            try:
+                llm.setup(cfg, run_dir=out, cache_dir=st.session_state["cache"], api_key=api_key, use_env=False)
+                pipeline.run(up["inp"], out, cfg, progress=prog)
+                try:
+                    check_rules.run(out, cfg, [])
+                except Exception as ex:
+                    render_status("error", f"Rule check could not run: {esc(str(ex)[:200])}")
+                bar.progress(1.0, text=f"Done · spent ${llm.state.get('run_spent', 0.0):.3f}")
+                status.update(label="Done", state="complete", expanded=False)
+                scan.markdown(f'<div class="scan-done">{svg("check")}<span>Run complete</span></div>', unsafe_allow_html=True)
+                st.session_state["view"] = {"out": out, "demo": False}
+            except llm.BudgetError as ex:
+                scan.empty()
+                status.update(label="Stopped at the spend cap", state="error")
+                render_status("error", f"Stopped: {esc(redact(str(ex), api_key))}")
+            except SystemExit as ex:
+                scan.empty()
+                status.update(label="Stopped", state="error")
+                render_status("error", esc(redact(str(ex), api_key)))
+            except Exception as ex:
+                scan.empty()
+                status.update(label="Failed", state="error")
+                msg = redact(f"{type(ex).__name__}: {ex}", api_key)
+                if "auth" in msg.lower() or "401" in msg:
+                    msg = "The provider rejected the API key or model name. " + msg[:300]
+                render_status("error", esc(msg[:600]))
+            finally:
+                llm.forget_key()
+                lock.release()
 
 view = st.session_state.get("view")
 if view and os.path.exists(os.path.join(view["out"], "09_final", "promos.json")):
     results(view["out"], view["demo"])
 
-st.markdown(f'<div class="foot">Promo Finder · Built by {AUTHOR}<br>An independent assignment project, not a Kuku product. Colours only, no Kuku logos.</div>',
-            unsafe_allow_html=True)
+render_footer()

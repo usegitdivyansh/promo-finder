@@ -10,19 +10,24 @@ gatherUsageStats = false
 toolbarMode = "minimal"
 showErrorDetails = false
 
-# colours from kukufm.com (checked 2026-11-05): theme-color meta #E25506 (the one accent), dark surface #0A0A14,
-# logo red #EC1C24, badge gold #FFBB10, green #01860A (lifted to #3FCB5A for contrast on dark); font Figtree.
-# colours only: no kuku logo, wordmark or icons are used anywhere. dark theme only.
+# palette from the design brief: warm dark background, cream text, amber for actions and live status only,
+# deep red for warnings and errors only. mirror any change in ui/style.css (the --c-* variables).
+# fonts: Inter (body), Oswald (headings), JetBrains Mono (timestamps). no kuku logo, wordmark or icons anywhere.
 [theme]
 base = "dark"
-font = "Figtree:https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap"
+font = "Inter:https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+headingFont = "Oswald:https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&display=swap"
+codeFont = "JetBrains Mono:https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap"
+baseFontSize = 16
 baseRadius = "large"
-primaryColor = "#E25506"
-backgroundColor = "#0A0A14"
-secondaryBackgroundColor = "#14141F"
-textColor = "#ECEBE6"
-borderColor = "#26263A"
-redColor = "#EC1C24"
-orangeColor = "#E25506"
-yellowColor = "#FFBB10"
-greenColor = "#3FCB5A"
+primaryColor = "#D98E3A"
+backgroundColor = "#14110F"
+secondaryBackgroundColor = "#211D1A"
+textColor = "#F2E9DD"
+borderColor = "#3A332E"
+linkColor = "#D98E3A"
+redColor = "#A5362B"
+orangeColor = "#D98E3A"
+yellowColor = "#D98E3A"
+greenColor = "#7FA36B"
+blueColor = "#9C9389"
